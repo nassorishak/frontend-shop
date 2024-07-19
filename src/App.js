@@ -17,20 +17,19 @@ import VChangeInformation from './component/vendor/VChangeInformation';
 import CustChangeInformation from './component/customer/CustChangeInformation';
 import CustMakePayment from './component/customer/CustMakePayment';
 import Login from './component/Login';
-// import Login from './component/Login';
-// import Registerform from './component/Registerform';
+import Registerform from './component/Registerform';
 
 function App() {
   return (
     <div className="App">
       <Routes>
         {/* login */}
-      <Route path='/' element={<Login/>} />
-      {/* <Route path='/registerform' element={<Registerform/>} /> */}
+      <Route path='/login' element={<Login/>} />
+      <Route path='/registerform' element={<Registerform/>} />
 
         {/* Vendor */}
         
-           <Route path='/vendor-dashboard' element = {<VendorDashboard/>}/>
+           <Route path='/' element = {<VendorDashboard/>}/>
           <Route path='/addProduct' element={<AddProduct/>} />
           <Route path='/vewProduct' element={<ViewProduct/>}/>
           <Route path='/manage-Order' element={<ManageOrder/>}/>
