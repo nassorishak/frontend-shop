@@ -47,66 +47,75 @@ const Registerform = () => {
 
   return (
     <div className="register-container">
-      <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <br />
-        <input
-          type="email"
-          id="email"
-          name="email"
-          placeholder="Enter your email address"
-          value={formData.email}
-          onChange={handleChange}
-          required
-        />
-        <br />
-
-        <input
-          type="password"
-          id="password"
-          name="password"
-          placeholder="Enter your password"
-          value={formData.password}
-          onChange={handleChange}
-          required
-        />
-        <br />
-
-        <input
-          type="password"
-          id="confirm-password"
-          name="confirmPassword"
-          placeholder="Confirm your password"
-          value={formData.confirmPassword}
-          onChange={handleChange}
-          required
-        />
-        <br />
-
-        <input
-          type="text"
-          id="firstName"
-          name="firstName"
-          placeholder="Enter your first name"
-          value={formData.firstName}
-          onChange={handleChange}
-          required
-        />
-        <br />
-
-        <input
-          type="text"
-          id="lastName"
-          name="lastName"
-          placeholder="Enter your last name"
-          value={formData.lastName}
-          onChange={handleChange}
-          required
-        />
-        <br />
-
-        <input type="submit" value="Register" />
-      </form>
+      <div className="register-form">
+        <h2>Add User</h2>
+        <form onSubmit={handleSubmit}>
+          <div className="form-row">
+            <div className="form-group half-width">
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="Enter your email address"
+                value={formData.email}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-group half-width">
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="Enter your password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group half-width">
+              <input
+                type="password"
+                id="confirm-password"
+                name="confirmPassword"
+                placeholder="Confirm your password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-group half-width">
+              <input
+                type="text"
+                id="firstName"
+                name="firstName"
+                placeholder="Enter your first name"
+                value={formData.firstName}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="form-row">
+            <div className="form-group half-width">
+              <input
+                type="text"
+                id="lastName"
+                name="lastName"
+                placeholder="Enter your last name"
+                value={formData.lastName}
+                onChange={handleChange}
+                required
+              />
+            </div>
+            <div className="form-group half-width">
+              <input type="submit" value="submit" />
+            </div>
+          </div>
+        </form>
+      </div>
     </div>
   );
 };

@@ -24,12 +24,12 @@ function App() {
     <div className="App">
       <Routes>
         {/* login */}
-      <Route path='/login' element={<Login/>} />
+      <Route path='/' element={<Login/>} />
       <Route path='/registerform' element={<Registerform/>} />
 
         {/* Vendor */}
         
-           <Route path='/' element = {<VendorDashboard/>}/>
+           <Route path='/vendor-dashboard' element = {<VendorDashboard/>}/>
           <Route path='/addProduct' element={<AddProduct/>} />
           <Route path='/vewProduct' element={<ViewProduct/>}/>
           <Route path='/manage-Order' element={<ManageOrder/>}/>

@@ -272,14 +272,18 @@ hr{
   align-items: center;
   height: 100vh;
   margin: 0;
+
+}
+.new{
+  float: right;
 }
 
 .login-form {
-  width: 300px;
+  width: 400px;
   background-color: #f9f9f9;
   padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 10px;
+  border-radius: 40px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
@@ -323,68 +327,68 @@ hr{
 }
 
 /* registerform */
-
-
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-}
-
 .register-container {
-  background-color: #fff;
-  padding: 2rem;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  text-align: center;
-  margin-left: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
 }
 
-.register-container h2 {
-  margin-bottom: 1.5rem;
-  color: #333;
-}
-
-.register-container input[type="text"],
-.register-container input[type="email"],
-.register-container input[type="password"] {
-  width: calc(100% - 20px);
-  padding: 10px;
-  margin-bottom: 1rem;
+.register-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  width: 500px;
 }
 
-.register-container input[type="submit"] {
-  background-color: #28a745;
+.register-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.half-width {
+  width: 48%;
+  padding: 10px;
+}
+
+.full-width {
+  width: 100%;
+  padding: 10px;
+}
+
+input[type="submit"] {
+  width: 100px;
+  height: 30px;
+  background-color: #4CAF50;
   color: #fff;
   border: none;
-  padding: 10px 20px;
+  border-radius: 5px;
   cursor: pointer;
-  border-radius: 4px;
 }
 
-.register-container input[type="submit"]:hover {
-  background-color: #218838;
+input[type="submit"]:hover {
+  background-color: #3e8e41;
 }
 
-.register-container p {
-  margin-top: 1rem;
-}
 
-.register-container a {
-  color: #007bff;
-  text-decoration: none;
-}
 
-.register-container a:hover {
-  text-decoration: underline;
-}
 
 /* vendor addProduct */
 .horizontal-form {
@@ -438,7 +442,7 @@ body {
 
 
 /* customer view order */
-/* styles.css */
+
 
 body {
     font-family: Arial, sans-serif;
@@ -492,7 +496,6 @@ button:hover {
 
 
 /* Vendo addProduct form */
-/* styles.css */
 
 body {
   font-family: Arial, sans-serif;

@@ -1,55 +1,49 @@
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 const Login = () => {
-  const [email, setEmail] = useState('');
+  const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    const userEmail = 'example@example.com';
-    const userPassword = 'password123';
-
-    if (email === userEmail && password === userPassword) {
-      // No need to make API call if credentials are hardcoded
-      const data = { role: 'admin' }; // Replace with actual user data
-      setIsLoggedIn(true);
-      setError(null);
-
-      // Store user data in local storage
-      localStorage.setItem('userData', JSON.stringify(data));
-    } else {
-      axios.post('http://localhost:8080/api/users/get/users', {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios.post('http://localhost:8080/api/users/login', {
         email,
-        password
-      })
-     .then(response => {
-        const data = response.data;
-        setIsLoggedIn(true);
-        setError(null);
-
-        // Store user data in local storage
-        localStorage.setItem('userData', JSON.stringify(data));
-
-        if (data.role === 'admin') {
-          navigate('/admin-dashboard');
-        } else if (data.role === 'customer') {
-          navigate('/customer-dashboard');
-        } else if (data.role === 'endor') {
-          navigate('/vendor-dashboard');
-        } else {
-          // Handle unknown role or additional roles as needed
-          navigate('/');
+        password,
+      }, {
+        headers: {
+          'Content-Type': 'application/json',
         }
-      })
-     .catch(error => {
-        setError('Invalid email or password');
       });
+
+      const data = response.data;
+      localStorage.setItem('storedRole', response.data);
+      localStorage.setItem('storedRole', data.role);
+      localStorage.setItem('email', data.email);
+      
+      navigate('/vendor-dashboard'); // Navigate to dashboard on successful login
+    } catch (error) {
+      setError('Invalid email or password'); // Set error message
+      console.error('login error', error);
     }
+  };
+
+  useEffect(() => {
+    localStorage.removeItem('email');
+    localStorage.removeItem('storedRole');
+  }, []);
+
+  const handleSignup = () => {
+    navigate('/signup');
+  };
+
+  const handleForgotPassword = () => {
+    navigate('/forgot-password');
   };
 
   return (
@@ -58,15 +52,30 @@ const Login = () => {
         <h1>Login</h1>
         <form onSubmit={handleSubmit}>
           <label>Email:</label>
-          <input type="email" value={email} onChange={(event) => setEmail(event.target.value)} />
+          <input 
+            type="email" 
+            value={email}
+            onChange={(e) => setemail(e.target.value)}
+          />
           <br />
           <label>Password:</label>
-          <input type="password" value={password} onChange={(event) => setPassword(event.target.value)} />
+          <input 
+            type="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+          />
           <br />
-          <button type="submit">Login</button>
+          <input 
+            type="submit" 
+            value="Login" 
+            className='new' 
+          />
         </form>
         {error && <div className="error-message">{error}</div>}
-        {isLoggedIn && <div className="logged-in-message">You are now logged in!</div>}
+        <Link to="/registerform">
+                <input type="submit" value="Add customer" /><br></br><br></br>
+              </Link>
+        <button onClick={handleForgotPassword}>Forgot Password</button>
       </div>
     </div>
   );

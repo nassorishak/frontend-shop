@@ -3,8 +3,14 @@ import Header from './Header'
 import links from '../navigation/Links'
 import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+const role = localStorage.getItem('storedRole');
+const Navigation = ({useRole = role}) => {
 
-const Navigation = ({useRole = 'Customer'}) => {
+  if (!links[role]) {
+    console.error(`Role ${role} does not exist in links object`);
+    return <div>Error: Role not found</div>;
+  }
+
   return (
     <><Header />
     <div className="sidebar">
