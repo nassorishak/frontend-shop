@@ -7,44 +7,48 @@ const Login = () => {
   const [email, setemail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     try {
-      const response = await axios.post('http://localhost:8080/api/users/login', {
-        email,
-        password,
-      }, {
-        headers: {
-          'Content-Type': 'application/json',
+      const response = await axios.get(`http://localhost:8080/api/users/login/${email}`);
+      console.log(response.data.email);
+      // Handle successful login here
+
+      if(email === response.data.email && password === response.data.password){
+        // alert("Ubaya Ubwela")
+
+        if(response.data.role === "CUSTOMER"){
+          localStorage.setItem("role", response.data.role );
+
+          localStorage.setItem("customerId", response.data.userId);
+          alert("Hi Customer");
+          navigate('/customer-dashboard')
         }
-      });
 
-      const data = response.data;
-      localStorage.setItem('storedRole', response.data);
-      localStorage.setItem('storedRole', data.role);
-      localStorage.setItem('email', data.email);
-      
-      navigate('/vendor-dashboard'); // Navigate to dashboard on successful login
+        if(response.data.role === "VENDOR"){
+          localStorage.setItem("role", response.data.role );
+          alert("Hi VENDOR");
+          navigate('/vendor-dashboard')
+        }
+
+        if(response.data.role === "ADMIN"){
+          localStorage.setItem("role", response.data.role );
+          alert("Hi Admin");
+          navigate('/admin-dashboard')
+        }
+
+      }else{
+        alert("Umekosea")
+      }
+
     } catch (error) {
-      setError('Invalid email or password'); // Set error message
-      console.error('login error', error);
+      setError('Invalid email or password');
     }
-  };
-
-  useEffect(() => {
-    localStorage.removeItem('email');
-    localStorage.removeItem('storedRole');
-  }, []);
-
-  const handleSignup = () => {
-    navigate('/signup');
-  };
-
-  const handleForgotPassword = () => {
-    navigate('/forgot-password');
-  };
+  }
 
   return (
     <div className="login-container">
@@ -73,9 +77,9 @@ const Login = () => {
         </form>
         {error && <div className="error-message">{error}</div>}
         <Link to="/registerform">
-                <input type="submit" value="Add customer" /><br></br><br></br>
-              </Link>
-        <button onClick={handleForgotPassword}>Forgot Password</button>
+          <input type="submit" value="Add customer" /><br></br><br></br>
+        </Link>
+        {/* <button onClick={handleForgotPassword}>Forgot Password</button> */}
       </div>
     </div>
   );

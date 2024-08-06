@@ -9,7 +9,7 @@ const CustMakePayment = () => {
         <form action="/submit" method="post">
             <div class="form-row">
                 <div class="form-group">
-                    <label for="paymentId">Payment ID:</label>
+                    <label for="paymentId">Payment Id:</label>
                     <input type="number" id="paymentId" name="paymentId" required/>
                 </div>
                 <div class="form-group">

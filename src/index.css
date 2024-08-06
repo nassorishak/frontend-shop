@@ -63,7 +63,7 @@
 
 .list {
   list-style-type: none;
-  padding: 30px;
+  padding: 5px;
   margin-top: 10px;
 }
 
@@ -466,13 +466,13 @@ table {
 }
 
 table th, table td {
-    border: 1px solid #ccc;
+    /* border: 1px solid #ccc; */
     padding: 10px;
     text-align: center;
 }
 
 table th {
-    background-color: #f2f2f2;
+    /* background-color: #f2f2f2; */
 }
 
 .table-container h2 {
@@ -641,19 +641,22 @@ body {
 }
 
 table {
-  width: 100%;
+  width: 90%;
   border-collapse: collapse;
   margin-top: 20px;
+  margin-left: 30px;
+  overflow-y: scroll;
+  overflow-x: scroll;
 }
 
 table th, table td {
-  border: 1px solid #ccc;
+  /* border: 1px solid #ccc; */
   padding: 10px;
   text-align: center;
 }
 
 table th {
-  background-color: #f2f2f2;
+  /* background-color: #f2f2f2; */
 }
 
 .table-container h2 {
@@ -882,6 +885,14 @@ body {
 }
 
 
+
+
+/* View Product */
+
+.mytable{
+  width: 80%;
+  background-color: #2196f3;
+}
 
 
 

@@ -4,9 +4,7 @@ import AddProduct from './component/vendor/AddProduct';
 import ViewProduct from './component/vendor/ViewProduct';
 import ManageOrder from './component/vendor/ManageOrder';
 import PaymentRecord from './component/vendor/PaymentRecord';
-import VendorDashboard from './component/navigation/VendorDashboard';
 import CustomerDshboard from './component/customer/CustomerDshboard';
-import MakeOrder from './component/customer/MakeOrder';
 import ViewOrder from './component/customer/ViewOrder';
 import AdminDashboard from './component/Admin/AdminDashboard';
 import AManageOrder from './component/Admin/AManageOrder';
@@ -18,6 +16,9 @@ import CustChangeInformation from './component/customer/CustChangeInformation';
 import CustMakePayment from './component/customer/CustMakePayment';
 import Login from './component/Login';
 import Registerform from './component/Registerform';
+import ViewProducts from './component/customer/ViewProducts';
+import MakeOrder from './component/customer/MakeOrder';
+import VendorDashboard from './component/vendor/VendorDashboard';
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
         {/* login */}
       <Route path='/' element={<Login/>} />
       <Route path='/registerform' element={<Registerform/>} />
+      
+      
 
         {/* Vendor */}
         
@@ -41,10 +44,11 @@ function App() {
         {/* Customer */}
 
         <Route path='/customer-dashboard' element={<CustomerDshboard/>}/>
-        <Route path='/make-order' element={<MakeOrder/>}/>
+        <Route path='/view-product' element={<ViewProducts/>}/>
         <Route path='/vewOrder' element={<ViewOrder/>}/>
         <Route path='/cust-make-payment' element={<CustMakePayment/>}/>
         <Route path='/custchange-information' element={<CustChangeInformation/>}/>
+        <Route path='/makeorder/:productId' element={<MakeOrder/>}/>
         
 
          

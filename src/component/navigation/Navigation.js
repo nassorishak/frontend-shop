@@ -4,12 +4,12 @@ import links from '../navigation/Links'
 import { NavLink } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const role = localStorage.getItem('storedRole');
-const Navigation = ({useRole = role}) => {
+const Navigation = ({useRole = localStorage.getItem("role")}) => {
 
-  if (!links[role]) {
-    console.error(`Role ${role} does not exist in links object`);
-    return <div>Error: Role not found</div>;
-  }
+  // if (!links[role]) {
+  //   console.error(`Role ${role} does not exist in links object`);
+  //   return <div>Error: Role not found</div>;
+  // }
 
   return (
     <><Header />
@@ -18,7 +18,7 @@ const Navigation = ({useRole = role}) => {
             {links[useRole].map((link , index)=>(
               <li key={index} className="list-item">
                 <NavLink to={link.path}>
-                <FontAwesomeIcon icon={link.icon} />
+                {/* <FontAwesomeIcon icon={link.icon} /> */}
                 <span>{link.label}</span>
                 </NavLink>
               </li>
