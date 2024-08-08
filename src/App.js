@@ -20,13 +20,17 @@ import ViewProducts from './component/customer/ViewProducts';
 import MakeOrder from './component/customer/MakeOrder';
 import VendorDashboard from './component/vendor/VendorDashboard';
 
+
 function App() {
   return (
+    
     <div className="App">
       <Routes>
         {/* login */}
       <Route path='/' element={<Login/>} />
       <Route path='/registerform' element={<Registerform/>} />
+
+
       
       
 

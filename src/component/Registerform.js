@@ -1,24 +1,47 @@
 import React, { useState } from 'react';
 
-const Registerform = () => {
+const RegisterForm = () => {
   const [formData, setFormData] = useState({
     email: '',
     password: '',
     confirmPassword: '',
     firstName: '',
-    lastName: ''
+    lastName: '',
+    role: 'CUSTOMER' // Default role
   });
+
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
+    setError(''); // Clear error when user types in the form
+  };
+
+  const isFormValid = () => {
+    return (
+      formData.email &&
+      formData.password &&
+      formData.confirmPassword &&
+      formData.firstName &&
+      formData.lastName &&
+      formData.password === formData.confirmPassword
+    );
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!isFormValid()) {
+      setError('Please fill out all fields correctly and make sure passwords match.');
+      return;
+    }
+
+    setLoading(true); // Indicate loading state
+
     try {
-      const response = await fetch('/add/users', {
+      const response = await fetch('http://localhost:8080/api/users/add/users', { // Ensure correct API endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -26,30 +49,40 @@ const Registerform = () => {
         body: JSON.stringify({
           email: formData.email,
           password: formData.password,
-          confirmPassword: formData.confirmPassword,
           firstName: formData.firstName,
           lastName: formData.lastName,
-          role: 'USER' // Assuming default role for new users
+          role: formData.role // Include selected role
         })
       });
 
       if (response.ok) {
         alert('User registered successfully!');
-        // Optionally, redirect or do something else after successful registration
+        // Optionally, clear the form or redirect
+        setFormData({
+          email: '',
+          password: '',
+          confirmPassword: '',
+          firstName: '',
+          lastName: '',
+          role: 'CUSTOMER' // Reset role to default
+        });
       } else {
-        throw new Error('Registration failed');
+        throw new Error('Registration failed, please try again.');
       }
     } catch (error) {
       console.error('Error registering user:', error);
-      alert('Failed to register user');
+      alert('Failed to register user: ' + error.message);
+    } finally {
+      setLoading(false); // Stop loading indicator
     }
   };
 
   return (
     <div className="register-container">
       <div className="register-form">
-        <h2>Add User</h2>
+        <h2>Registration</h2>
         <form onSubmit={handleSubmit}>
+          {error && <div className="error">{error}</div>}
           <div className="form-row">
             <div className="form-group half-width">
               <input
@@ -111,7 +144,24 @@ const Registerform = () => {
               />
             </div>
             <div className="form-group half-width">
-              <input type="submit" value="submit" />
+              <label htmlFor="role">Select Role:</label>
+              <select
+                id="role"
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+                required
+              >
+                <option value="VENDOR">Vendor</option>
+                <option value="CUSTOMER">Customer</option>
+              </select>
+            </div>
+            <div className="form-group half-width">
+              <input 
+                type="submit"
+                value={loading ? 'Registering...' : 'Register'}
+                disabled={loading || !isFormValid()} // Disable if loading or invalid
+              />
             </div>
           </div>
         </form>
@@ -120,4 +170,4 @@ const Registerform = () => {
   );
 };
 
-export default Registerform;
+export default RegisterForm;
