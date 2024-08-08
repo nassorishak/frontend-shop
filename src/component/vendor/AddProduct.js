@@ -1,60 +1,119 @@
-import React from 'react'
-import Navigation from '../navigation/Navigation'
+import React, { useState } from 'react';
+import Navigation from '../navigation/Navigation';
 
 const AddProduct = () => {
+  const [productName, setProductName] = useState('');
+  const [productDescription, setProductDescription] = useState('');
+  const [price, setPrice] = useState(0.0);
+  const [category, setCategory] = useState('');
+  const [image, setImage] = useState(null);
+  const [error, setError] = useState(null);
+
+  const handleFormSubmit = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append('productName', productName);
+    formData.append('productDescription', productDescription);
+    formData.append('price', price);
+    formData.append('category', category);
+    formData.append('image', image);
+
+    fetch('http://localhost:8080/api/product/add/product', {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        setProductName('');
+        setProductDescription('');
+        setPrice(0.0);
+        setCategory('');
+        setImage(null);
+      })
+      .catch((error) => {
+        setError(error.message);
+        console.error('Error:', error);
+      });
+  };
+
   return (
-    <><Navigation />
-    <div className='main'>
-          <h1 className='heading'>Add AddProduct</h1>
-          <form action="/submit" method="post">
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="productId">Product ID:</label>
-                    <input type="number" id="productId" name="productId" required/>
-                </div>
-                <div class="form-group">
-                    <label for="vendorId">Vendor ID:</label>
-                    <input type="text" id="vendorId" name="vendorId" required/>
-                </div>
+    <>
+      <Navigation />
+      <div className="main">
+        <h1 className="heading" style={{marginTop:"0px",marginBottom:"40px",backgroundColor:"gray",width:"1027px"}}>Vendor Add Product</h1>
+        {error && <p style={{ color: 'red' }}>{error}</p>}
+        <form onSubmit={handleFormSubmit} encType="multipart/form-data">
+          <div className="form-row">
+            <div className="form-group"style={{marginLeft:"10px"}}>
+              <label htmlFor="productName">Product Name:</label>
+              <input
+                type="text"
+                id="productName"
+                name="productName"
+                value={productName}
+                onChange={(event) => setProductName(event.target.value)}
+                required
+              />
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="productName">Product Name:</label>
-                    <input type="text" id="productName" name="productName" required/>
-                </div>
-                <div class="form-group">
-                    <label for="productDescription">Product Description:</label>
-                    <input type="text" id="productDescription" name="productDescription"/>
-                </div>
+            <div className="form-group"style={{marginLeft:"10px"}}>
+              <label htmlFor="productDescription">Product Description:</label>
+              <input
+                type="text"
+                id="productDescription"
+                name="productDescription"
+                value={productDescription}
+                onChange={(event) => setProductDescription(event.target.value)}
+              />
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="price">Price:</label>
-                    <input type="number" id="price" name="price" step="0.01" required/>
-                </div>
-                <div class="form-group">
-                    <label for="image">Image URL:</label>
-                    <input type="url" id="image" name="image"/>
-                </div>
+          </div>
+          <div className="form-row" style={{marginLeft:"10px"}}>
+            <div className="form-group">
+              <label htmlFor="price">Price:</label>
+              <input
+                type="number"
+                id="price"
+                name="price"
+                step="0.01"
+                value={price}
+                onChange={(event) => setPrice(event.target.valueAsNumber)}
+                required
+              />
             </div>
-            <div class="form-row">
-                <div class="form-group">
-                    <label for="category">Category:</label>
-                    <input type="text" id="category" name="category"/>
-                </div>
-                <div class="form-group">
-                    <label for="orderId">Order ID:</label>
-                    <input type="text" id="orderId" name="orderId"/>
-                </div>
+            <div className="form-group"style={{marginLeft:"10px"}}>
+              <label htmlFor="image">Image:</label>
+              <input
+                type="file"
+                id="image"
+                name="image"
+                onChange={(event) => setImage(event.target.files[0])}
+              />
             </div>
-            <div class="form-group">
-                <input type="submit" value="Submit"/>
+          </div>
+          <div className="form-row"style={{marginLeft:"10px"}}>
+            <div className="form-group">
+              <label htmlFor="category">Category:</label>
+              <input
+                type="text"
+                id="category"
+                name="category"
+                value={category}
+                onChange={(event) => setCategory(event.target.value)}
+              />
             </div>
+          </div>
+          <div className="form-group"style={{marginLeft:"450px",width:"100px",marginTop:"40px"}}>
+            <input type="submit" value="Submit" />
+          </div>
         </form>
+      </div>
+    </>
+  );
+};
 
-
-      </div></>
-  )
-}
-
-export default AddProduct
+export default AddProduct;

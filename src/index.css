@@ -901,4 +901,50 @@ body {
 
 
 
+.manage-orders {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.manage-orders h1 {
+  margin-top: 0;
+}
+
+.manage-orders table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.manage-orders th, .manage-orders td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.manage-orders th {
+  background-color: #f0f0f0;
+}
+
+.manage-orders td button {
+  background-color: #4CAF50;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.manage-orders td button:hover {
+  background-color: #3e8e41;
+}
+
+.manage-orders p {
+  color: #666;
+  margin-bottom: 20px;
+}
+
 
