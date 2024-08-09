@@ -1,205 +1,190 @@
-import React, { useEffect, useState } from 'react';
-import Navigation from '../navigation/Navigation';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import Navigation from '../navigation/Navigation';
+
 
 const ViewOrder = () => {
-  const [data, setData] = useState([]);
+  const [orders, setOrders] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [showPopup, setShowPopup] = useState(false);
-  const [orderIdToUpdate, setOrderIdToUpdate] = useState(null);
-
-  const [formValues, setFormValues] = useState({
-    orderId: '',
-    status: '',
-    quantity: '',
-    totalAmount: '',
-    date: '',
-  });
-
-  const customerId = parseInt(localStorage.getItem("customerId")); // Set the customer ID to filter by
-
-  const navigate = useNavigate();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState(null);
+  const [totalAmount, setTotalAmount] = useState('');
+  const [date, setDate] = useState('');
+  const [status, setStatus] = useState('');
+  const [quantity, setQuantity] = useState('');
+  const [size, setSize] = useState('');
 
   useEffect(() => {
-    const fetchData = async () => {
-      setLoading(true);
+    const fetchOrders = async () => {
       try {
-        const response = await axios.get('http://localhost:8080/api/orders/get/orders', {
-          headers: {
-            'Content-Type': 'application/json',
-          },
-        });
-        const filteredData = response.data.filter((item) => item.customer.userId === customerId);
-        setData(filteredData);
-      } catch (error) {
-        setError(error.message);
+        const userId = localStorage.getItem('customerId');
+        if (userId) {
+          const response = await axios.get(`http://localhost:8080/api/orders/customer/${userId}`);
+          setOrders(response.data);
+        } else {
+          setError('User ID not found in local storage.');
+        }
+      } catch (err) {
+        setError('An error occurred while fetching orders: ' + err.message);
       } finally {
         setLoading(false);
       }
     };
-    fetchData();
-  }, [customerId]);
 
+    fetchOrders();
+  }, []);
+
+  const handleUpdate = (order) => {
+    setSelectedOrder(order);
+    setTotalAmount(order.totalAmount);
+    setDate(new Date(order.date).toISOString().substring(0, 10));
+    setStatus(order.status);
+    setQuantity(order.quantity);
+    setSize(order.size);
+    setIsModalOpen(true);
+  };
+  
   const handleCancel = async (orderId) => {
-    try {
-      await axios.delete(`http://localhost:8080/api/orders/delete/${orderId}`);
-      setData(data.filter((item) => item.orderId !== orderId));
-    } catch (error) {
-      setError(error.message);
-    }
-  };
-
-  const handleUpdate = (item) => {
-    setFormValues({
-      orderId: item.orderId,
-      status: item.status,
-      quantity: item.quantity,
-      totalAmount: item.totalAmount,
-      date: item.date,
-    });
-    setOrderIdToUpdate(item.orderId);
-    setShowPopup(true);
-  };
-
-  const handleUpdateOrder = async () => {
-    try {
-      const response = await axios.put(`http://localhost:8080/api/orders/update/${orderIdToUpdate}`, formValues);
-      if (response.status === 200) {
-        setData(data.map((item) => {
-          if (item.orderId === orderIdToUpdate) {
-            return { ...item, ...formValues };
-          }
-          return item;
-        }));
-        setShowPopup(false);
+    const confirmDelete = window.confirm("Are you sure you want to delete this order?");
+    if (confirmDelete) {
+      try {
+        await axios.delete(`http://localhost:8080/api/orders/delete/${orderId}`);
+        setOrders(orders.filter(order => order.orderId !== orderId));
+        alert('Order deleted successfully.');
+      } catch (err) {
+        alert('Failed to delete order: ' + err.message);
       }
-    } catch (error) {
-      setError(error.message);
     }
   };
 
-  const handleChange = (e) => {
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value,
-    });
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    setSelectedOrder(null);
   };
+
+  const handleOrderUpdate = async (e) => {
+    e.preventDefault();
+    
+    const updatedData = {
+      totalAmount,
+      date,
+      status,
+      quantity,
+      size,
+    };
+
+    try {
+      await axios.put(`http://localhost:8080/api/orders/update/${selectedOrder.orderId}`, updatedData);
+      setOrders(orders.map(order => (order.orderId === selectedOrder.orderId ? { ...order, ...updatedData } : order)));
+      alert('Order updated successfully.');
+      handleModalClose(); // Close modal after updating
+    } catch (err) {
+      alert('Failed to update order: ' + err.message);
+    }
+  };
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>{error}</p>;
 
   return (
     <>
       <Navigation />
-      <div className="main">
-        <h1 style={{textAlign:"center", marginTop:"0px", marginBottom:"40px", backgroundColor:"gray", width:"1029px"}}>Custmer ViewOrder Page</h1>
-        {loading ? (
-          <div>Loading...</div>
-        ) : error ? (
-          <div>Error: {error}</div>
-        ) : (
-          <table>
-            <thead>
-              <tr>
-                <th>OrderId</th>
-                <th>Total Amount</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Quantity</th>
-                <th>Update</th>
-                <th>Cancel</th>
+      <div className='main'>
+        <h1>Orders List</h1>
+        <table className='orders-table'>
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Total Amount</th>
+              <th>Date</th>
+              <th>Status</th>
+              <th>Quantity</th>
+              <th>Size</th>
+              <th>Email</th>
+              <th>Actions</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders.map((order) => (
+              <tr key={order.orderId}>
+                <td>{order.orderId}</td>
+                <td>{order.totalAmount}</td>
+                <td>{new Date(order.date).toLocaleDateString()}</td>
+                <td>{order.status}</td>
+                <td>{order.quantity}</td>
+                <td>{order.size}</td>
+                <td>{order.customer ? order.customer.email : 'N/A'}</td>
+                <td>
+                  <button type="button" onClick={() => handleUpdate(order)}>
+                    Update
+                  </button>
+                 
+                </td>
+                <td> <button 
+                    style={{ background: "red", marginLeft: "10px" }} 
+                    onClick={() => handleCancel(order.orderId)}
+                  >
+                    Delete
+                  </button></td>
               </tr>
-            </thead>
-            <tbody>
-              {data.map((item) => (
-                <tr key={item.orderId}>
-                  <td>{item.orderId}</td>
-                  <td>{item.totalAmount}</td>
-                  <td>{item.date}</td>
-                  <td>{item.status}</td>
-                  <td>{item.quantity}</td>
-                  <td>
-                    <button type="button" onClick={() => handleUpdate(item)}>
-                      Update
-                    </button>
-                  </td>
-                  <td>
-                    <button style={{ background: "red" }} onClick={() => handleCancel(item.orderId)}>
-                      delete
-                    </button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-        {showPopup && (
-          <div className="popup" style={{width:"400px", height:"auto", marginLeft:"200px", position:"fixed", top:"50%", left:"50%", transform:"translate(-50%, -50%)", backgroundColor:"white", boxShadow:"0 0 10px rgba(0,0,0,0.2)"}}>
-            <div className="popup-content" style={{padding:"20px"}}>
+            ))}
+          </tbody>
+        </table>
+
+        {isModalOpen && (
+          <div className="modal">
+            <div className="modal-content">
               <h2>Update Order</h2>
-              <form onSubmit={e => e.preventDefault()}>
-                <label>
-                  OrderId:
-                  <input 
-                    type="text" 
-                    name="orderId" 
-                    value={formValues.orderId}
-                    onChange={handleChange} 
-                    disabled // if you want this to be editable, remove this line
-                  />
-                </label>
-                <br />
-                
-                <label>
-                  Total Amount:
-                  <input 
-                    type="text" 
-                    name="totalAmount" 
-                    value={formValues.totalAmount} 
-                    onChange={handleChange} 
-                  />
-                </label>
-                <br />
-                
-                <label>
-                  Date:
-                  <input 
-                    type="text" 
-                    name="date" 
-                    value={formValues.date} 
-                    onChange={handleChange} 
-                  />
-                </label>
-                <br />
-                
-                <label>
-                  Status:
-                  <input 
-                    type="text" 
-                    name="status" 
-                    value={formValues.status} 
-                    onChange={handleChange} 
-                  />
-                </label>
-                <br />
-              
-                <label>
-                  Quantity:
-                  <input 
-                    type="text" 
-                    name="quantity" 
-                    value={formValues.quantity} 
-                    onChange={handleChange} 
-                  />
-                </label>
-                <br />
+              <form onSubmit={handleOrderUpdate}>
                 <div>
-                  <button type="button" onClick={handleUpdateOrder} style={{width:"100px",}}>
-                    Submit
-                  </button>
-                  <button type="button" onClick={() => setShowPopup(false)} style={{marginLeft:"130px", width:"100px", marginTop:"7px"}}>
-                    Close
-                  </button>
+                  <label>Total Amount:</label>
+                  <input 
+                    type="number" 
+                    value={totalAmount} 
+                    onChange={(e) => setTotalAmount(e.target.value)} 
+                    required 
+                  />
                 </div>
+                <div>
+                  <label>Date:</label>
+                  <input 
+                    type="date" 
+                    value={date} 
+                    onChange={(e) => setDate(e.target.value)} 
+                    required 
+                  />
+                </div>
+                <div>
+                  <label>Status:</label>
+                  <input 
+                    type="text" 
+                    value={status} 
+                    onChange={(e) => setStatus(e.target.value)} 
+                    required 
+                  />
+                </div>
+                <div>
+                  <label>Quantity:</label>
+                  <input 
+                    type="text" 
+                    value={quantity} 
+                    onChange={(e) => setQuantity(e.target.value)} 
+                    required 
+                  />
+                </div>
+                <div>
+                  <label>Size:</label>
+                  <input 
+                    type="text" 
+                    value={size} 
+                    onChange={(e) => setSize(e.target.value)} 
+                    required 
+                  />
+                </div>
+                <button type="submit">Update</button>
+                <button type="button" onClick={handleModalClose}>Close</button>
               </form>
             </div>
           </div>

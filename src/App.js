@@ -21,6 +21,7 @@ import MakeOrder from './component/customer/MakeOrder';
 import VendorDashboard from './component/vendor/VendorDashboard';
 
 
+
 function App() {
   return (
     
@@ -42,6 +43,7 @@ function App() {
           <Route path='/manage-Order' element={<ManageOrder/>}/>
           <Route path='/payment-Record' element = {<PaymentRecord/>}/>
           <Route path='/vchange-information' element = {<VChangeInformation/>}/>
+       
 
 
 
@@ -59,9 +61,9 @@ function App() {
 
         {/* Admin */}
         <Route path='/admin-dashboard' element = {<AdminDashboard/>}/>
-        <Route path='/amanage-orders' element = {<AManageOrder/>}/>
+        <Route path='/manage-orders' element = {<AManageOrder/>}/>
         <Route path='/amanage-customers' element = {<AManageCustomer/>}/>
-        <Route path='/avewOrder' element = {<AViewOrder/>}/>
+        <Route path='/aviewOrder' element = {<AViewOrder/>}/>
         <Route path='/achange-information' element = {<AChangeInformation/>}/>
         
         

@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import Navigation from '../navigation/Navigation';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const ViewProducts = () => {
   const [data, setData] = useState([]);
   const [error, setError] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     axios.get('http://localhost:8080/api/product/get/product')
@@ -17,32 +20,58 @@ const ViewProducts = () => {
       });
   }, []);
 
-  const handleUpdate = (item) => {
-    console.log('Updating item:', item);
-    axios.put(`http://localhost:8080/api/product/update/${item.productId}`, item)
+  const handleUpdateOpen = (item) => {
+    setSelectedProduct(item);
+    setIsModalOpen(true);
+  };
+
+  const handleUpdate = (updatedProduct) => {
+    updatedProduct.productId = selectedProduct.productId; 
+
+    axios.put(`http://localhost:8080/api/product/update/${updatedProduct.productId}`, updatedProduct)
       .then((response) => {
-        console.log('Update response:', response);
-        setData(data.map((product) => product.productId === item.productId ? item : product));
+        const updatedData = data.map(product =>
+          product.productId === updatedProduct.productId ? updatedProduct : product
+        );
+        setData(updatedData);
+        setIsModalOpen(false);
+        setSelectedProduct(null);
       })
       .catch((error) => {
         console.error('Update error:', error);
       });
   };
 
-const handleDelete = (item) => {
-  console.log('Deleting item:', item);
-  axios.delete(`http://localhost:8080/api/product/delete/${item.productId}`)
-    .then((response) => {
-      console.log('Delete response:', response);
-      setData(data.filter((product) => product.productId !== item.productId));
-    })
-    .catch((error) => {
-      console.error('Delete error:', error);
-      console.error(error.response.data); // Log the error response data
-      console.error(error.response.status); // Log the error response status
-      console.error(error.response.headers); // Log the error response headers
-    });
-};
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedProduct(null);
+  };
+
+  const handleDeleteConfirmation = (item) => {
+    if (window.confirm(`Are you sure you want to delete ${item.productName}?`)) {
+      axios.delete(`http://localhost:8080/api/product/delete/${item.productId}`)
+        .then(() => {
+          setData(data.filter((product) => product.productId !== item.productId));
+        })
+        .catch((error) => {
+          console.error('Delete error:', error);
+        });
+    }
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setSelectedProduct(prevState => ({
+          ...prevState,
+          image: reader.result.split(',')[1] // Store just the base64 string part
+        }));
+      };
+      reader.readAsDataURL(file);
+    }
+  };
 
   return (
     <>
@@ -56,31 +85,31 @@ const handleDelete = (item) => {
             <thead>
               <tr>
                 <th>ProductId</th>
-                <th>productImage</th>
-                <th>productName</th>
-                <th>productDescription</th>
-                <th>price</th>
+                <th>Product Image</th>
+                <th>Product Name</th>
+                <th>Product Description</th>
+                <th>Price</th>
                 <th>Category</th>
-                <th>action</th>
-                <th>action</th>
+                <th>Action</th>
+                <th>Action</th>
               </tr>
             </thead>
             <tbody>
-              {data.map((item, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
+              {data.map((item) => (
+                <tr key={item.productId}>
+                  <td>{item.productId}</td>
                   <td>
-                    <img src={`data:image/png;base64, ${item.image}`} alt="image2" style={{ width: '90px', height: 'auto' }} />
+                    <img src={`data:image/png;base64,${item.image}`} alt="product" style={{ width: '90px', height: 'auto' }} />
                   </td>
                   <td>{item.productName}</td>
                   <td>{item.productDescription}</td>
                   <td>{item.price}</td>
                   <td>{item.category}</td>
                   <td>
-                    <button className="edit-btn" onClick={() => handleUpdate(item)}>Update</button>
+                    <button className="edit-btn" onClick={() => handleUpdateOpen(item)}>Update</button>
                   </td>
                   <td>
-                    <button className="edit-btn" style={{ backgroundColor: "red" }} onClick={() => handleDelete(item)}>Delete</button>
+                    <button className="edit-btn" style={{ backgroundColor: "red" }} onClick={() => handleDeleteConfirmation(item)}>Delete</button>
                   </td>
                 </tr>
               ))}
@@ -91,6 +120,44 @@ const handleDelete = (item) => {
           <p>No products found</p>
         ) : null}
       </div>
+
+      {isModalOpen && (
+        <div className="modal-overlay">
+          <div className="modal-content">
+            <h2>Update Product</h2>
+            <form onSubmit={(e) => {
+              e.preventDefault();
+              handleUpdate(selectedProduct);
+            }}>
+              <div>
+                <label>Product Name</label>
+                <input type="text" value={selectedProduct?.productName || ''} onChange={(e) => setSelectedProduct({ ...selectedProduct, productName: e.target.value })} required />
+              </div>
+              <div>
+                <label>Product Description</label>
+                <textarea value={selectedProduct?.productDescription || ''} onChange={(e) => setSelectedProduct({ ...selectedProduct, productDescription: e.target.value })} required />
+              </div>
+              <div>
+                <label>Price</label>
+                <input type="number" value={selectedProduct?.price || ''} onChange={(e) => setSelectedProduct({ ...selectedProduct, price: Number(e.target.value) })} required />
+              </div>
+              <div>
+                <label>Category</label>
+                <input type="text" value={selectedProduct?.category || ''} onChange={(e) => setSelectedProduct({ ...selectedProduct, category: e.target.value })} required />
+              </div>
+              <div>
+                <label>Image</label>
+                <input type="file" accept="image/*" onChange={handleImageUpload} />
+                {selectedProduct?.image && (
+                  <img src={`data:image/png;base64,${selectedProduct.image}`} alt="product" style={{ width: '90px', height: 'auto', marginTop: '10px' }} />
+                )}
+              </div>
+              <button type="button" onClick={handleCloseModal}>Cancel</button>
+              <button type="submit">Update product</button>
+            </form>
+          </div>
+        </div>
+      )}
     </>
   );
 };

@@ -23,7 +23,7 @@ const links = {
         { label: 'Dashboard', path: '/admin-dashboard', icon: faChartBar },
         { label: 'Manage Orders', path: '/manage-orders', icon: faCog },
         { label: 'Manage Customers', path: '/manage-customers', icon: faCog },
-        { label: 'View Order', path: '/avewOrder', icon: faShoppingCart },
+        { label: 'View Order', path: '/aviewOrder', icon: faShoppingCart },
         { label: 'Change Information', path: '/achange-information', icon: faCog },
         { label: 'Logout', path: '/', icon: faSignOutAlt }
     ]
