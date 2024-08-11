@@ -41,7 +41,7 @@ const RegisterForm = () => {
     setLoading(true); // Indicate loading state
 
     try {
-      const response = await fetch('http://localhost:8080/api/users/add/users', { // Ensure correct API endpoint
+      const response = await fetch('http://localhost:8080/api/customer/add/customer', { // Ensure correct API endpoint
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -143,7 +143,7 @@ const RegisterForm = () => {
                 required
               />
             </div>
-            <div className="form-group half-width">
+            {/* <div className="form-group half-width">
               <label htmlFor="role">Select Role:</label>
               <select
                 id="role"
@@ -152,10 +152,9 @@ const RegisterForm = () => {
                 onChange={handleChange}
                 required
               >
-                <option value="VENDOR">Vendor</option>
-                <option value="CUSTOMER">Customer</option>
+              
               </select>
-            </div>
+            </div> */}
             <div className="form-group half-width">
               <input 
                 type="submit"

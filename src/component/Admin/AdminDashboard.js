@@ -1,84 +1,69 @@
-import React, { useEffect, useState } from 'react'
-import Navigation from '../navigation/Navigation'
+import React, { useEffect, useState } from 'react';
+import Navigation from '../navigation/Navigation';
 import axios from 'axios';
 
-const AdminDashboar = () => {
-  const [countOrder, setCountOrder] = useState(0);
+const AdminDashboard = () => {
+    const [countOrder, setCountOrder] = useState(0);
+    const [acceptedOrder, setAcceptedOrder] = useState(0);
+    const [canceledOrder, setCanceledOrder] = useState(0);
+    const [totalPayment, setTotalPayment] = useState(0);
 
-  useEffect(()=>{
-    axios.get('http://localhost:8080/api/orders/count')
-    .then((response)=>{
-        setCountOrder(response.data);
-    })
- } )
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const [orderCountResponse, acceptedOrderResponse, canceledOrderResponse, totalPaymentResponse] = await Promise.all([
+                    axios.get('http://localhost:8080/api/orders/count'),
+                    axios.get('http://localhost:8080/api/orders/accepted/count'),
+                    axios.get('http://localhost:8080/api/orders/canceled/count'),
+                    axios.get('http://localhost:8080/api/orders/payment/total')
+                ]);
 
-  const [acceptedOrder, setAcceptedOrder] = useState(0);
-   
-  useEffect(()=>{
-    axios.get("http://localhost:8080/api/orders/count")
-    .then((response)=>{
-      setAcceptedOrder(response.data);
-    })
-  
-  })
+                // Assuming responses contain the counts directly. Adjust if needed.
+                setCountOrder(orderCountResponse.data);
+                setAcceptedOrder(acceptedOrderResponse.data);
+                setCanceledOrder(canceledOrderResponse.data);
+                setTotalPayment(totalPaymentResponse.data);
+            } catch (error) {
+                console.error('Error fetching dashboard data:', error);
+            }
+        };
 
-   const [cenceledOrder, setCenceledOrder] = useState(0);
+        fetchData();
+    }, []);
 
-    useEffect(()=>{
-      axios.get('http://localhost:8080/api/orders/count')
-      .then((response)=>{
-        setCenceledOrder(response.data)
-      })
-    })
+    return (
+        <>
+            <Navigation />
+            <div className="main">
+                <h2 className="text-center mb-4">Admin Dashboard</h2>
+                <div className="card-container">
+                    <div className="card border-primary">
+                        <i className="fa fa-user"></i>
+                        <h3>{countOrder}</h3>
+                        <p>Orders</p>
+                    </div>
 
-     const [totalPayment, setTotalPayment] = useState(0);
-      
-     useEffect(()=>{
-      axios.get('http://localhost:8080/api/orders/count')
-      .then((response)=>{
-        setTotalPayment(response.data);
-      })
-     })
-  return (
-    <><Navigation />
-    <div className='main'>
-        <p>AdminDashboard</p>
-        
-        <div class="row" style={{marginLeft:"5px"}}>
-  <div class="column">
-    <div class="card">
-      <p><i class="fa fa-user"></i></p>
-      <h3>{countOrder}</h3>
-      <p>Order</p>
-    </div>
-  </div>
+                    <div className="card border-success">
+                        <i className="fa fa-check"></i>
+                        <h3>{acceptedOrder}</h3>
+                        <p>Accepted Orders</p>
+                    </div>
 
-  <div class="column">
-    <div class="card">
-      <p><i class="fa fa-check"></i></p>
-      <h3>{acceptedOrder}</h3>
-      <p>accepted order</p>
-    </div>
-  </div>
-  
-  <div class="column">
-    <div class="card">
-      <p><i class="fa fa-smile-o"></i></p>
-      <h3>{cenceledOrder}</h3>
-      <p>cenceled order</p>
-    </div>
-  </div>
-  
-  <div class="column">
-    <div class="card">
-      <p><i class="fa fa-coffee"></i></p>
-      <h3>{totalPayment}</h3>
-      <p>total payment</p>
-    </div>
-  </div>
-</div>
-      </div></>
-  )
-}
+                    <div className="card border-danger">
+                        <i className="fa fa-times"></i>
+                        <h3>{canceledOrder}</h3>
+                        <p>Canceled Orders</p>
+                    </div>
 
-export default AdminDashboar
+                    <div className="card border-warning">
+                        <i className="fa fa-dollar-sign"></i>
+                        <h3>{totalPayment}</h3>
+                        <p>Total Payment</p>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
+};
+
+export default AdminDashboard;

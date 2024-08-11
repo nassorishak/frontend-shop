@@ -9,8 +9,6 @@ import ViewOrder from './component/customer/ViewOrder';
 import AdminDashboard from './component/Admin/AdminDashboard';
 import AManageOrder from './component/Admin/AManageOrder';
 import AManageCustomer from './component/Admin/AManageCustomer';
-import AViewOrder from './component/Admin/AViewOrder';
-import AChangeInformation from './component/Admin/AChangeInformation';
 import VChangeInformation from './component/vendor/VChangeInformation';
 import CustChangeInformation from './component/customer/CustChangeInformation';
 import CustMakePayment from './component/customer/CustMakePayment';
@@ -19,6 +17,8 @@ import Registerform from './component/Registerform';
 import ViewProducts from './component/customer/ViewProducts';
 import MakeOrder from './component/customer/MakeOrder';
 import VendorDashboard from './component/vendor/VendorDashboard';
+import RegisterVendor from './component/Admin/RegisterVendor';
+import AManageProducts from './component/Admin/AManageProducts';
 
 
 
@@ -63,8 +63,8 @@ function App() {
         <Route path='/admin-dashboard' element = {<AdminDashboard/>}/>
         <Route path='/manage-orders' element = {<AManageOrder/>}/>
         <Route path='/amanage-customers' element = {<AManageCustomer/>}/>
-        <Route path='/aviewOrder' element = {<AViewOrder/>}/>
-        <Route path='/achange-information' element = {<AChangeInformation/>}/>
+        <Route path='/a-manage-products' element = {<AManageProducts/>}/>
+        <Route path='/register-vendor' element = {<RegisterVendor/>}/>
         
         
         

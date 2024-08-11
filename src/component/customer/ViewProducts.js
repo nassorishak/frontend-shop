@@ -44,7 +44,7 @@ const ViewProducts = () => {
                 {data.map((item, index)=>(
                 <tr key={index}>
                 <td>{item.productId}</td>
-                <td>  <img src={`data:image/png;base64, ${item.image}`} alt="image2" style={{ width: '90px', height: 'auto' }} /></td>
+                <td>  <img src={`data:image/png;base64, ${item.image}`} alt="image2" style={{ width: '100px', height: 'auto' }} /></td>
                 <td>{item.productName}</td>
                 <td>{item.productDescription}</td>
                 <td>{item.price}</td>

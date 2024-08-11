@@ -13,7 +13,8 @@
   color: white;
   /* display: flex; */
   float: left;
-  height: 475px;
+  position: fixed;
+  height: 530px;
   /* flex-direction: column; */
   /* margin-left: 1px; */
 }
@@ -41,8 +42,10 @@
   /* padding: 2px; */
   text-align: center;
   padding-top: 5px;
-  height: 60px;
+  height: 50px;
   width: 100%;
+  position: fixed;
+  margin-top: 0;
 }
 
 .main {
@@ -995,4 +998,317 @@ body {
   box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
   width: 90%; /* Set width of the modal */
   max-width: 500px; /* Max width of the modal */
+}
+
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+}
+
+.main {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 5px;  /* Further decrease padding */
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+  font-size: 1.8rem;  /* Further decrease font size */
+  text-align: center;
+  color: #333;
+  margin-bottom: 10px; /* Add margin to create some spacing */
+}
+
+h2 {
+  font-size: 1.2rem;  /* Further decrease font size */
+  color: #333;
+  margin-bottom: 5px; /* Decreased margin */
+}
+
+.edit-form {
+  margin-bottom: 5px;  /* Further reduce margin */
+  padding: 10px;  /* Decreased padding */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #f9f9f9;
+}
+
+.edit-form input,
+.edit-form textarea {
+  width: 100%;
+  padding: 6px;  /* Further reduce padding */
+  margin: 6px 0;  /* Further reduce margin */
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 0.95rem; /* Slightly decrease the font size */
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2px;  /* Reduce margin */
+  width: 500px;
+  margin-left: 230px;
+}
+
+button {
+  padding: 6px 10px;  /* Reduce button padding */
+  border: none;
+  border-radius: 5px;
+  background-color: #5cb85c;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 0.9rem; /* Decrease button text size */
+  width: 70px;
+}
+
+button:hover {
+  background-color: #4cae4c;
+}
+
+button[style*="background: red"] {
+  background-color: #d9534f;
+}
+
+button[style*="background: red"]:hover {
+  background-color: #c9302c;
+}
+
+table {
+  width: 95%;
+  border-collapse: collapse;
+  margin-top: 70px;
+  margin-top: 10px;  /* Reduce margin */
+}
+
+th, td {
+  padding: 8px;  /* Reduce cell padding */
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+  font-size: 0.9rem; /* Decrease font size in table */
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+tr:hover {
+  background-color: #f5f5f5;
+}
+
+img {
+  border-radius: 4px;
+}
+
+textarea {
+  resize: vertical; /* Allows user to resize textarea vertically */
+}
+
+/* admin dashboard */
+/* AdminDashboard.css */
+
+.main {
+  padding: 20px;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  gap: 20px; /* Space between cards */
+}
+
+.card {
+  flex: 1 1 calc(25% - 20px); /* Adjust the width of each card */
+  max-width: calc(25% - 20px); /* Ensure cards don’t exceed the width */
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  padding: 20px;
+  text-align: center;
+}
+
+.card i {
+  font-size: 3rem;
+  color: #007bff; /* Adjust color as needed */
+}
+
+.card h3 {
+  margin: 10px 0;
+}
+
+.card p {
+  color: #6c757d;
+}
+
+.card.border-primary {
+  border: 2px solid #007bff;
+}
+
+.card.border-success {
+  border: 2px solid #28a745;
+}
+
+.card.border-danger {
+  border: 2px solid #dc3545;
+}
+
+.card.border-warning {
+  border: 2px solid #ffc107;
+}
+
+
+
+/* AdminDashboard.css */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.card {
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+}
+
+.card-title {
+  margin-bottom: 0;
+}
+
+.list-group-item {
+  border: 1px solid #dee2e6;
+  border-radius: 8px;
+  margin-bottom: 8px;
+}
+
+
+/* Container Styles */
+.container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+}
+
+/* Card Styles */
+.card {
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Card Header Styles */
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  padding: 15px;
+}
+
+/* Card Title Styles */
+.card-title {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 500;
+}
+
+/* List Group Item Styles */
+.list-group-item {
+  border: 1px solid #dee2e6;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  padding: 15px;
+  background-color: #ffffff;
+}
+
+/* Button Styles */
+.btn {
+  border-radius: 5px;
+  font-size: 0.875rem;
+}
+
+/* Modal Styles */
+.modal-content {
+  border-radius: 10px;
+}
+
+.modal-header {
+  border-bottom: 1px solid #dee2e6;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+/* Custom Modal Styles */
+.custom-modal .modal-dialog {
+  max-width: 80%; /* Adjust width as needed */
+  margin: 1.75rem auto; /* Center vertically with margin */
+}
+
+.custom-modal .modal-content {
+  height: 60vh; /* Adjust height as needed */
+  display: flex;
+  flex-direction: column;
+}
+
+.custom-modal .modal-body {
+  overflow-y: auto; /* Enable scrolling if content exceeds height */
+}
+
+
+
+.main {
+  padding: 20px;
+  font-family: Arial, sans-serif;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.card-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  flex: 1;
+  min-width: 200px;
+}
+
+.card p {
+  font-size: 24px;
+  margin: 0;
+}
+
+.card h3 {
+  margin: 10px 0;
+  font-size: 28px;
+}
+
+.card p:last-child {
+  font-size: 16px;
+  color: #555;
 }

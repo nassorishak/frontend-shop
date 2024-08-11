@@ -45,8 +45,8 @@ const AddProduct = () => {
   return (
     <>
       <Navigation />
-      <div className="main">
-        <h1 className="heading" style={{marginTop:"0px",marginBottom:"40px",backgroundColor:"gray",width:"1027px"}}>Vendor Add Product</h1>
+      <div className="main" style={{backgroundColor:"grey"}}>
+        <h1 className="heading" style={{marginTop:"9px",marginBottom:"40px",backgroundColor:"gray",width:"1039px"}}>Vendor Add Product</h1>
         {error && <p style={{ color: 'red' }}>{error}</p>}
         <form onSubmit={handleFormSubmit} encType="multipart/form-data">
           <div className="form-row">
@@ -108,7 +108,7 @@ const AddProduct = () => {
             </div>
           </div>
           <div className="form-group"style={{marginLeft:"450px",width:"100px",marginTop:"40px"}}>
-            <input type="submit" value="Submit" />
+            <input type="submit" value="Submit" style={{paddingBottom:"33px"}} />
           </div>
         </form>
       </div>

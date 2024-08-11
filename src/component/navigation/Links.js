@@ -22,9 +22,9 @@ const links = {
     ADMIN: [
         { label: 'Dashboard', path: '/admin-dashboard', icon: faChartBar },
         { label: 'Manage Orders', path: '/manage-orders', icon: faCog },
-        { label: 'Manage Customers', path: '/manage-customers', icon: faCog },
-        { label: 'View Order', path: '/aviewOrder', icon: faShoppingCart },
-        { label: 'Change Information', path: '/achange-information', icon: faCog },
+        { label: 'Manage Customers', path: '/amanage-customers', icon: faCog },
+        { label: 'AManage products', path: '/a-manage-products', icon: faShoppingCart },
+        { label: 'RegisterVendor', path: '/register-vendor', icon: faCog },
         { label: 'Logout', path: '/', icon: faSignOutAlt }
     ]
 };

@@ -51,7 +51,7 @@ const Login = () => {
   }
 
   return (
-    <div className="login-container">
+    <div className="login-container" style={{backgroundColor:"white"}}>
       <div className="login-form">
         <h1 style={{textAlign:"center",backgroundColor:"lightgrey",borderRadius:"100px",width:"120px",marginLeft:"130px"}}>Login</h1>
         <form onSubmit={handleSubmit}>
@@ -69,11 +69,11 @@ const Login = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <br />
-          <input  type="submit" value="Login" className='new' style={{width:"360px",backgroundColor:"lightgrey"}}/><br></br><br></br>
+          <input  type="submit" value="Login" className='new' style={{width:"360px",backgroundColor:"lightgrey",color:"black",borderBlockColor:"black"}}/><br></br><br></br>
         </form>
         {error && <div className="error-message">{error}</div>}
         <Link to="/registerform">
-          <input type="button" value="register"style={{width:"360px",backgroundColor:"lightgrey"}} /><br /><br />
+          <input type="button" value="register"style={{width:"360px",backgroundColor:"dackblack",borderRadius:"5px"}} /><br /><br />
         </Link>
       
       
