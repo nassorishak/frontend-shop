@@ -21,7 +21,7 @@ const ViewProducts = () => {
   return (
     <><Navigation />
     <div className='main'>
-     <h1>Customer View Product</h1>
+     <h1 style={{marginTop:"14px"}}>Customer View Product</h1>
      {error ? (
        <p>Error: {error}</p>
      ) : (

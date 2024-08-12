@@ -77,7 +77,7 @@ const ViewProducts = () => {
     <>
       <Navigation />
       <div className="main">
-        <h1 style={{ textAlign: "center", backgroundColor: "GrayText" }}>Vendor View Product</h1>
+        <h1 style={{ textAlign: "center", backgroundColor: "GrayText",width:"1042px" }}>Vendor View Product</h1>
         {error ? (
           <p>Error: {error}</p>
         ) : (

@@ -10,13 +10,15 @@ const links = {
         { label: 'Payment Record', path: '/payment-Record', icon: faMoneyBill },
         { label: 'Change Information', path: '/change-information', icon: faCog },
         { label: 'Logout', path: '/', icon: faSignOutAlt }
+
     ],
     CUSTOMER: [
+        
         { label: 'Dashboard', path: '/customer-dashboard', icon: faChartBar },
         { label: 'View Product', path: '/view-product', icon: faShoppingCart },
         { label: 'View Order', path: '/vewOrder', icon: faShoppingCart },
-        { label: 'Make Payment', path: '/cust-make-payment', icon: faMoneyBill },
-        { label: 'Change Information', path: '/custchange-information', icon: faCog },
+        { label: 'Make-Payment', path: '/make-payment', icon: faMoneyBill },
+        { label: 'Control-number', path: '/control-number', icon: faCog },
         { label: 'Logout', path: '/', icon: faSignOutAlt }
     ],
     ADMIN: [

@@ -11,7 +11,6 @@ import AManageOrder from './component/Admin/AManageOrder';
 import AManageCustomer from './component/Admin/AManageCustomer';
 import VChangeInformation from './component/vendor/VChangeInformation';
 import CustChangeInformation from './component/customer/CustChangeInformation';
-import CustMakePayment from './component/customer/CustMakePayment';
 import Login from './component/Login';
 import Registerform from './component/Registerform';
 import ViewProducts from './component/customer/ViewProducts';
@@ -19,6 +18,9 @@ import MakeOrder from './component/customer/MakeOrder';
 import VendorDashboard from './component/vendor/VendorDashboard';
 import RegisterVendor from './component/Admin/RegisterVendor';
 import AManageProducts from './component/Admin/AManageProducts';
+import ControlNumber from './component/customer/ControlNumber';
+import MakePayment from './component/customer/MakePayment';
+
 
 
 
@@ -52,9 +54,13 @@ function App() {
         <Route path='/customer-dashboard' element={<CustomerDshboard/>}/>
         <Route path='/view-product' element={<ViewProducts/>}/>
         <Route path='/vewOrder' element={<ViewOrder/>}/>
-        <Route path='/cust-make-payment' element={<CustMakePayment/>}/>
+        <Route path='/make-payment' element={<MakePayment/>}/>
         <Route path='/custchange-information' element={<CustChangeInformation/>}/>
         <Route path='/makeorder/:productId' element={<MakeOrder/>}/>
+        <Route path='/control-number' element={<ControlNumber/>}/>
+        
+       
+
         
 
          

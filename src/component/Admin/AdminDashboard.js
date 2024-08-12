@@ -35,7 +35,7 @@ const AdminDashboard = () => {
         <>
             <Navigation />
             <div className="main">
-                <h2 className="text-center mb-4">Admin Dashboard</h2>
+                <h2 className="text-center mb-4" style={{marginTop:"15px"}}>Admin Dashboard</h2>
                 <div className="card-container">
                     <div className="card border-primary">
                         <i className="fa fa-user"></i>

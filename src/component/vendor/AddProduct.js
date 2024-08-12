@@ -108,7 +108,7 @@ const AddProduct = () => {
             </div>
           </div>
           <div className="form-group"style={{marginLeft:"450px",width:"100px",marginTop:"40px"}}>
-            <input type="submit" value="Submit" style={{paddingBottom:"33px"}} />
+            <input type="submit" value="Submit" style={{paddingBottom:"33px",backgroundColor:"white",color:"black"}} />
           </div>
         </form>
       </div>

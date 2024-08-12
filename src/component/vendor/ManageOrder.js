@@ -91,7 +91,7 @@ const ViewOrder = () => {
     <>
       <Navigation />
       <div className="main">
-        <h1 style={{textAlign:"center", marginTop:"0px", marginBottom:"40px", backgroundColor:"gray", width:"1029px"}}>Vendor Manage Order Page</h1>
+        <h1 style={{textAlign:"center", marginTop:"0px", marginBottom:"40px", backgroundColor:"gray", width:"1042px"}}>Vendor Manage Order Page</h1>
         {loading ? (
           <div>Loading...</div>
         ) : error ? (
