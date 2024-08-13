@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import Navigation from '../navigation/Navigation';
+import { Navigate, useNavigate } from 'react-router-dom';
+
 
 const MakePayment = () => {
   const [controlNumber, setControlNumber] = useState('');
   const [amount, setAmount] = useState(0);
   const [paymentResponse, setPaymentResponse] = useState(null);
   const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
   const handleControlNumberChange = (event) => {
     setControlNumber(event.target.value);
@@ -19,6 +22,7 @@ const MakePayment = () => {
   const handleSubmit = (event) => {
     event.preventDefault();
     makePayment();
+    // navigate("/payment-Record")
   };
 
   const makePayment = async () => {

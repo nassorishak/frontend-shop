@@ -22,7 +22,7 @@ const VendorDashboard = () => {
         <>
             <Navigation />
             <div className='main'>
-                <h1 style={{ textAlign: "center", backgroundColor: "grey", width: "100%", margin: "0 auto", padding: "10px" }}>Vendor Dashboard</h1>
+                <h1 style={{ textAlign: "center", backgroundColor: "grey", width: "102%", margin: "0 auto", padding: "10px" }}>Vendor Dashboard</h1>
                 <div className="card-row">
                     <div className="card">
                         <p><i className="fa fa-user"></i></p>

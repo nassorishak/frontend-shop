@@ -53,7 +53,9 @@ const Login = () => {
   return (
     <div className="login-container" style={{backgroundColor:"white"}}>
       <div className="login-form">
-        <h1 style={{textAlign:"center",backgroundColor:"lightgrey",borderRadius:"100px",width:"120px",marginLeft:"130px"}}>Login</h1>
+               <h1 style={{textAlign:"center",width:"120px",marginLeft:"125px",color:"tan"}}>LOGIN</h1>
+      <img src='images11.jpg' style={{width:"90px",height:"90px",borderRadius:"20px",marginTop:"0px",borderRadius:"50px",marginLeft:"140px"}}/>
+        {/* <h1 style={{textAlign:"center",backgroundColor:"lightgrey",borderRadius:"100px",width:"120px",marginLeft:"130px"}}>Login</h1> */}
         <form onSubmit={handleSubmit}>
           <label>Email:</label>
           <input 

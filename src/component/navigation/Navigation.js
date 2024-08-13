@@ -14,12 +14,12 @@ const Navigation = ({useRole = localStorage.getItem("role")}) => {
   return (
     <><Header />
     <div className="sidebar">
-    <img src='image7.jpg' style={{width:"240px",height:"120px",borderRadius:"1%",float:"left"}}/>
+
           <ul className="list">
             {links[useRole].map((link , index)=>(
-              <li key={index} className="list-item">
+              <li key={index} className="list-item" style={{marginLeft:"5px"}}>
                 <NavLink to={link.path}>
-                {/* <FontAwesomeIcon icon={link.icon} /> */}
+                <FontAwesomeIcon icon={link.icon} />
                 <span>{link.label}</span>
                 </NavLink>
               </li>

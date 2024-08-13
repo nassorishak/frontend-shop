@@ -5,35 +5,32 @@ import axios from 'axios';
 
 const CustomerDshboard = () => {
   const [countOrder, setCountOrder] = useState(0);
+  const userId  = parseInt(localStorage.getItem('customerId'))
   useEffect(() => {
-    axios.get('http://localhost:8080/api/orders/count')
-      .then((response) => {
-        setCountOrder(response.data);
-      });
-  }, []);
+      axios.get('http://localhost:8080/api/orders/get/orders')
+        .then((response) => {
+          const orders = response.data;
+          const filteredOrders = orders.filter((order) => order.customer.userId === userId);
+          const total_order = filteredOrders.length;
+          setCountOrder(total_order);
+        })
+    }, [userId])
+
   const [acceptedOrder, setAcceptedOrder] = useState(0);
   useEffect(() => {
-    axios.get('http://localhost:8080/api/orders/count')
+    axios.get('http://localhost:8080/api/orders/get/orders')
       .then((response) => {
-        setAcceptedOrder(response.data);
-  
-      });
-  }, []);
+        const orders = response.data;
+        const filteredOrders = orders.filter((order) => order.customer.userId === userId && order.status === "complete");
+        const total_order = filteredOrders.length;
+        setAcceptedOrder(total_order);
+      })
+  }, [userId])
+
   const [canceledOrder, setCanceledOrder] = useState(0);
-  useEffect(() => {
-    axios.get('http://localhost:8080/api/orders/count')
-      .then((response) => {
-        setCanceledOrder(response.data);
-        
-      });
-  }, []);
+
   const [totalPayment, setTotalPayment] = useState(0);
-  useEffect(() => {
-    axios.get('http://localhost:8080/api/orders/count')
-      .then((response) => {
-        setTotalPayment(response.data);
-      });
-  }, []);
+
 
   return (
     <>

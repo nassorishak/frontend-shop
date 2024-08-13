@@ -84,10 +84,12 @@ const RegisterVendor = () => {
   return (
     <>
       <Navigation />
-      <div className='main' style={{backgroundColor:"floralwhite"}}>
-        <div className="register-container">
-          <div className="register-form">
+      <div className='main' style={{backgroundColor:"floralwhite",}}>
+        <div className="register-container"style={{position:"fixed",marginRight:"50000px"}}>
+          <div className="register-form" style={{position:"fixed",marginRight:"190px",height:"430px"}}>
+          <img src='image1a.jpg' style={{width:"100px",height:"100px",borderRadius:"20px",marginTop:"0px",borderRadius:"50px",marginLeft:"10px"}}/>
             <h2>Vendor Registration</h2>
+            
             <form onSubmit={handleSubmit}>
               {error && <div className="error">{error}</div>}
               <div className="form-row">

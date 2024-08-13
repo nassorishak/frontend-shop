@@ -91,12 +91,12 @@ const ViewOrder = () => {
     <>
       <Navigation />
       <div className='main'>
-        <h1 style={{marginTop:"20px"}}>Orders List</h1>
+        <h1 style={{marginTop:"20px"}}>Customer View Orders</h1>
         <table className='orders-table'>
           <thead>
             <tr>
               <th>Order ID</th>
-              <th>Total Amount</th>
+              <th>OrderName</th>
               <th>Date</th>
               <th>Status</th>
               <th>Quantity</th>
@@ -109,12 +109,13 @@ const ViewOrder = () => {
           <tbody>
             {orders.map((order) => (
               <tr key={order.orderId}>
-                <td>{order.orderId}</td>
-                <td>{order.totalAmount}</td>
+                 <td>{order.orderId}</td>
+                <td>{order.orderName}</td>
                 <td>{new Date(order.date).toLocaleDateString()}</td>
                 <td>{order.status}</td>
                 <td>{order.quantity}</td>
                 <td>{order.size}</td>
+                {/* <td>{order.totalAmount}</td> */}
                 <td>{order.customer ? order.customer.email : 'N/A'}</td>
                 <td>
                   <button type="button" onClick={() => handleUpdate(order)}>
