@@ -75,7 +75,7 @@ const UserManagement = () => {
         <>
             <Navigation />
             <div className='main'style={{backgroundColor:"grey",height:"455px",overflowY:"scroll" }}>
-                <h2 style={{textAlign:"center"}}>User Management</h2>
+                <h2 style={{textAlign:"center",marginTop:"15px"}}>User Management</h2>
                 <ul style={{border:"10px",width:"1000px",backgroundColor:"grey",display:"flex",flexDirection:"column"}}>
                     {users.map(user => (
                         <li key={user.userId}>

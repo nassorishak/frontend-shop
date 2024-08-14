@@ -18,10 +18,6 @@ const AManageOrder = () => {
     date: '',
   });
 
-  const customerId = parseInt(localStorage.getItem("customerId")); // Set the customer ID to filter by
-
-  const navigate = useNavigate();
-
   useEffect(() => {
     const fetchData = async () => {
       setLoading(true);
@@ -31,8 +27,8 @@ const AManageOrder = () => {
             'Content-Type': 'application/json',
           },
         });
-        const filteredData = response.data.filter((item) => item.customer.userId === customerId);
-        setData(filteredData);
+        // No filtering based on customerId
+        setData(response.data);
       } catch (error) {
         setError(error.message);
       } finally {
@@ -40,7 +36,11 @@ const AManageOrder = () => {
       }
     };
     fetchData();
-  }, [customerId]);
+  }, []); // Empty dependency array to fetch data only once on component mount
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error: {error}</p>;
+
 
   const handleCancel = async (orderId) => {
     try {

@@ -199,7 +199,7 @@ const RegisterVendor = () => {
                     type="submit"
                     value={loading ? 'Registering...' : 'Register'}
                     disabled={loading || !isFormValid()}
-                    style={{width:"200px",paddingBottom:"30px",marginLeft:"140px"}}
+                    style={{width:"100px",paddingBottom:"30px",marginLeft:"170px",backgroundColor:"palegreen",borderRadius:"5px",color:"black"}}
                   />
                 </div>
               </div>

@@ -71,7 +71,7 @@ const AManageProducts = () => {
         <>
             <Navigation />
             <div className='main'>
-                <h1>Manage Products</h1>
+                <h1 style={{marginTop:"15px"}}>Manage Products</h1>
                 {error ? (
                     <p>Error: {error}</p>
                 ) : (
@@ -113,8 +113,8 @@ const AManageProducts = () => {
                                 />
                                 {image && <p>Selected Image: {image.name}</p>}
                                 <div className='button-group'>
-                                    <button type="submit">Update Product</button>
-                                    <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+                                    <button type="submit"  style={{backgroundColor:"green",borderRadius:"5px"}}>Update</button>
+                                    <button type="button" onClick={() => setIsEditing(false)}  style={{backgroundColor:"red",borderRadius:"5px"}}>Cancel</button>
                                 </div>
                             </form>
                         ) : (
@@ -148,12 +148,12 @@ const AManageProducts = () => {
                                                 <td>{item.price}</td>
                                                 <td>{item.category}</td>
                                                 <td>
-                                                    <button type="button" onClick={() => handleUpdateStart(item)}>
+                                                    <button type="button" onClick={() => handleUpdateStart(item)} style={{backgroundColor:"green",borderRadius:"5px"}}>
                                                         Update
                                                     </button>
                                                     
                                                 </td>
-                                                <td><button style={{ background: "red" }} onClick={() => handleCancel(item.productId)}>
+                                                <td><button style={{ background: "red" ,borderRadius:"5px"}} onClick={() => handleCancel(item.productId)}>
                                                         Delete
                                                     </button></td>
                                             </tr>

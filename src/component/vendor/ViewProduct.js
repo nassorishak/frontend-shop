@@ -77,7 +77,7 @@ const ViewProducts = () => {
     <>
       <Navigation />
       <div className="main">
-        <h1 style={{ textAlign: "center", backgroundColor: "GrayText",width:"1042px" }}>Vendor View Product</h1>
+        <h1 style={{ textAlign: "center", backgroundColor: "GrayText",width:"1042px",marginTop:"10px" }}>Vendor View Product</h1>
         {error ? (
           <p>Error: {error}</p>
         ) : (
@@ -106,10 +106,10 @@ const ViewProducts = () => {
                   <td>{item.price}</td>
                   <td>{item.category}</td>
                   <td>
-                    <button className="edit-btn" onClick={() => handleUpdateOpen(item)}>Update</button>
+                    <button className="edit-btn" onClick={() => handleUpdateOpen(item)} style={{borderRadius:"5px"}}>Update</button>
                   </td>
                   <td>
-                    <button className="edit-btn" style={{ backgroundColor: "red" }} onClick={() => handleDeleteConfirmation(item)}>Delete</button>
+                    <button className="edit-btn" style={{ backgroundColor: "red",borderRadius:"5px" }} onClick={() => handleDeleteConfirmation(item)}>Delete</button>
                   </td>
                 </tr>
               ))}
@@ -123,12 +123,12 @@ const ViewProducts = () => {
 
       {isModalOpen && (
         <div className="modal-overlay">
-          <div className="modal-content">
-            <h2>Update Product</h2>
+          <div className="modal-content"style={{backgroundColor:"white"}}>
+            <h2 style={{backgroundColor:"white"}}>Update Product</h2>
             <form onSubmit={(e) => {
               e.preventDefault();
               handleUpdate(selectedProduct);
-            }}>
+            }} style={{backgroundColor:"white"}}>
               <div>
                 <label>Product Name</label>
                 <input type="text" value={selectedProduct?.productName || ''} onChange={(e) => setSelectedProduct({ ...selectedProduct, productName: e.target.value })} required />
@@ -152,8 +152,12 @@ const ViewProducts = () => {
                   <img src={`data:image/png;base64,${selectedProduct.image}`} alt="product" style={{ width: '90px', height: 'auto', marginTop: '10px' }} />
                 )}
               </div>
-              <button type="button" onClick={handleCloseModal}>Cancel</button>
-              <button type="submit">Update product</button>
+                <div>
+                <div style={{color:"green",marginLeft:"140px"}}> 
+               <button type="button" onClick={handleCloseModal} style={{backgroundColor:"green",borderRadius:"5px"}}>Cancel</button>
+              <button type="submit" style={{backgroundColor:"red",marginLeft:"30px",borderRadius:"5px"}}>Update</button>
+              </div>
+                </div>
             </form>
           </div>
         </div>

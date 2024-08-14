@@ -3,55 +3,86 @@ import Navigation from '../navigation/Navigation';
 import axios from 'axios';
 
 const AdminDashboard = () => {
-    const [countOrder, setCountOrder] = useState(0);
-    const [acceptedOrder, setAcceptedOrder] = useState(0);
-    const [canceledOrder, setCanceledOrder] = useState(0);
-    const [totalPayment, setTotalPayment] = useState(0);
+  const [orders, setOrders] = useState([]);
+  const [countOrder, setCountOrder] = useState(0);
+  const [acceptedOrder, setAcceptedOrder] = useState(0);
+  const [canceledOrder, setCanceledOrder] = useState(0);
+  const [totalPayment, setTotalPayment] = useState(0);
 
-    const userId  = parseInt(localStorage.getItem('customerId'))
-    useEffect(() => {
-        axios.get('http://localhost:8080/api/orders/get/orders')
-          .then((response) => {
-            const orders = response.data;
-            const filteredOrders = orders.filter((order) => order.customer.userId === userId);
-            const total_order = filteredOrders.length;
-            setCountOrder(total_order);
-          })
-      }, [userId])
+  // Get userId from localStorage
+  const userId = parseInt(localStorage.getItem('customerId'), 10);
 
-    return (
-        <>
-            <Navigation />
-            <div className="main">
-                <h2 className="text-center mb-4" style={{marginTop:"15px"}}>Admin Dashboard</h2>
-                <div className="card-container">
-                    <div className="card border-primary">
-                        <i className="fa fa-user"></i>
-                        <h3>{countOrder}</h3>
-                        <p>Orders</p>
-                    </div>
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/orders/get/orders')
+      .then((response) => {
+        const orders = response.data;
+        setOrders(orders);
 
-                    <div className="card border-success">
-                        <i className="fa fa-check"></i>
-                        <h3>{}</h3>
-                        <p>Accepted Orders</p>
-                    </div>
+        // Filter orders based on userId
+        const userOrders = orders.filter(order => order.customer.userId === userId);
 
-                    <div className="card border-danger">
-                        <i className="fa fa-times"></i>
-                        <h3>{}</h3>
-                        <p>Canceled Orders</p>
-                    </div>
+        // Calculate total orders count
+        setCountOrder(userOrders.length);
 
-                    <div className="card border-warning">
-                        <i className="fa fa-dollar-sign"></i>
-                        <h3>{}</h3>
-                        <p>Total Payment</p>
-                    </div>
-                </div>
-            </div>
-        </>
-    );
-};
+        // Calculate accepted orders count
+        const acceptedOrders = userOrders.filter(order => order.status === "complete");
+        setAcceptedOrder(acceptedOrders.length);
+
+        // Calculate canceled orders count
+        const canceledOrders = userOrders.filter(order => order.status === "canceled");
+        setCanceledOrder(canceledOrders.length);
+
+        // Calculate total payment amount
+        const totalPaymentAmount = userOrders.reduce((total, order) => total + (order.totalAmount || 0), 0);
+        setTotalPayment(totalPaymentAmount);
+      })
+      .catch((error) => {
+        console.error('Error fetching orders:', error);
+      });
+  }, [userId]);
+
+  return (
+    <>
+      <Navigation />
+      <div className='main'>
+        <h1 style={{ marginTop: "20px" }}>Admin Dashboard</h1>
+        <div className='card-container'>
+          <div
+            className='card'
+            style={{ backgroundColor: '#fce4ec' }} // Light pink background color
+          >
+            <p><i className='fa fa-user'></i></p>
+            <h3>{countOrder}</h3>
+            <p>Order</p>
+          </div>
+          <div
+            className='card'
+            style={{ backgroundColor: '#e8f5e9' }} // Light green background color
+          >
+            <p><i className='fa fa-check'></i></p>
+            <h3>{acceptedOrder}</h3>
+            <p>Accepted Orders</p>
+          </div>
+          <div
+            className='card'
+            style={{ backgroundColor: '#fff3e0' }} // Light orange background color
+          >
+            <p><i className='fa fa-smile-o'></i></p>
+            <h3>{canceledOrder}</h3>
+            <p>Canceled Orders</p>
+          </div>
+          <div
+            className='card'
+            style={{ backgroundColor: '#e3f2fd' }} // Light blue background color
+          >
+            <p><i className='fa fa-coffee'></i></p>
+            <h3>{totalPayment}</h3>
+            <p>Total Payment</p>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+}
 
 export default AdminDashboard;

@@ -20,6 +20,7 @@ import RegisterVendor from './component/Admin/RegisterVendor';
 import AManageProducts from './component/Admin/AManageProducts';
 import ControlNumber from './component/customer/ControlNumber';
 import MakePayment from './component/customer/MakePayment';
+import CustPaymentRecord from './component/customer/CustPaymentRecord';
 
 
 
@@ -53,11 +54,12 @@ function App() {
 
         <Route path='/customer-dashboard' element={<CustomerDshboard/>}/>
         <Route path='/view-product' element={<ViewProducts/>}/>
-        <Route path='/vewOrder' element={<ViewOrder/>}/>
+        <Route path='/viewOrder' element={<ViewOrder/>}/>
         <Route path='/make-payment' element={<MakePayment/>}/>
         <Route path='/custchange-information' element={<CustChangeInformation/>}/>
         <Route path='/makeorder/:productId' element={<MakeOrder/>}/>
         <Route path='/control-number' element={<ControlNumber/>}/>
+        <Route path='/cust-paymenet-record' element={<CustPaymentRecord/>}/>
         
        
 

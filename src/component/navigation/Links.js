@@ -16,10 +16,12 @@ const links = {
         
         { label: 'Dashboard', path: '/customer-dashboard', icon: faChartBar },
         { label: 'View Product', path: '/view-product', icon: faShoppingCart },
-        { label: 'View Order', path: '/vewOrder', icon: faChartBar },
+        { label: 'View Order', path: '/viewOrder', icon: faChartBar },
         { label: 'Make-Payment', path: '/make-payment', icon: faMoneyBill },
         { label: 'Control-number', path: '/control-number', icon: faCog },
+        { label: 'Paymenet-record', path: '/cust-paymenet-record',icon: faMoneyBill  },
         { label: 'Logout', path: '/', icon: faSignOutAlt }
+      
     ],
     ADMIN: [
         { label: 'Dashboard', path: '/admin-dashboard', icon: faChartBar },

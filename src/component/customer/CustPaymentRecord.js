@@ -4,24 +4,27 @@ import React, { useState, useEffect } from 'react';
 import Navigation from '../navigation/Navigation';
 import axios from 'axios';
 
-const PaymentRecord = () => {
+const CustPaymentRecord = () => {
 
 
-  const [payment, setPayment] = useState([]);
+  const [payment, setFilteredPayment] = useState([]);
 
-useEffect(() => {
-  axios.get('http://localhost:8080/api/payments/get/payments')
-    .then((response) => {
-      setPayment(response.data);
-    })
-}, []);
+  const custId = parseInt(localStorage.getItem('customerId'));
+
+  useEffect(() => {
+    axios.get('http://localhost:8080/api/payments/get/payments')
+      .then((response) => {
+        // setPayment(response.data);
+        setFilteredPayment(response.data.filter((payment) => payment.order.customer.userId === custId));
+      })
+  }, []);
 
   return (
     <>
     <Navigation/>
     <div className='main'>
     <div>
-      <h3 style={{marginTop:"15px",textAlign:"center"}}>Vendor View Customer Payment Records</h3>
+      <h3 style={{marginTop:"15px",textAlign:"center"}}>Customer Payment Records</h3>
       <table>
         <thead>
           <tr>
@@ -57,4 +60,4 @@ useEffect(() => {
   );
 };
 
-export default PaymentRecord;
+export default CustPaymentRecord;
