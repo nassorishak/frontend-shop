@@ -160,6 +160,7 @@ const RegisterForm = () => {
                 type="submit"
                 value={loading ? 'Registering...' : 'Register'}
                 disabled={loading || !isFormValid()} // Disable if loading or invalid
+                style={{paddingBottom:"35px"}}
               />
             </div>
           </div>

@@ -75,7 +75,7 @@ const Login = () => {
         </form>
         {error && <div className="error-message">{error}</div>}
         <Link to="/registerform">
-          <input type="button" value="register"style={{width:"360px",backgroundColor:"dackblack",borderRadius:"5px"}} /><br /><br />
+          <input type="button" value="create account"style={{width:"360px",backgroundColor:"dackblack",borderRadius:"5px"}} /><br /><br />
         </Link>
       
       

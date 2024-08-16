@@ -21,6 +21,9 @@ import AManageProducts from './component/Admin/AManageProducts';
 import ControlNumber from './component/customer/ControlNumber';
 import MakePayment from './component/customer/MakePayment';
 import CustPaymentRecord from './component/customer/CustPaymentRecord';
+import CustAdvertise from './CustAdvertise';
+
+
 
 
 
@@ -31,7 +34,7 @@ function App() {
     <div className="App">
       <Routes>
         {/* login */}
-      <Route path='/' element={<Login/>} />
+      <Route path='/login' element={<Login/>} />
       <Route path='/registerform' element={<Registerform/>} />
 
 
@@ -60,6 +63,7 @@ function App() {
         <Route path='/makeorder/:productId' element={<MakeOrder/>}/>
         <Route path='/control-number' element={<ControlNumber/>}/>
         <Route path='/cust-paymenet-record' element={<CustPaymentRecord/>}/>
+        <Route path='/' element={<CustAdvertise/>}/>
         
        
 
