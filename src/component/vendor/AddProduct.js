@@ -24,7 +24,9 @@ const AddProduct = () => {
     })
       .then((response) => {
         if (!response.ok) {
+          alert('Vendor registered successfully!');
           throw new Error(`HTTP error! status: ${response.status}`);
+          
         }
         return response.json();
       })

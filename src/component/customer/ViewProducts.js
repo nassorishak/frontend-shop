@@ -49,7 +49,7 @@ const ViewProducts = () => {
                 <td>{item.productDescription}</td>
                 <td>{item.price}</td>
                 <td>{item.category}</td>
-                <td> <Link to={`/makeorder/${item.productId}`}> <button class="edit-btn">order</button></Link></td>
+                <td> <Link to={`/makeorder/${item.productId}`} > <button class="edit-btn" style={{backgroundColor:"green",borderRadius:"5px"}}>order</button></Link></td>
             </tr>
                 ))}
 

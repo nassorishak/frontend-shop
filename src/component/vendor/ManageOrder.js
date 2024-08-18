@@ -599,8 +599,8 @@ const ViewOrder = () => {
                 <th>Quantity</th>
                 <th>Update</th>
                 <th>Approve</th>
-                <th>Cancel</th>
                 <th>Delete</th>
+               
               </tr>
             </thead>
             <tbody>
@@ -613,7 +613,7 @@ const ViewOrder = () => {
                   <td>{item.status}</td>
                   <td>{item.quantity}</td>
                   <td>
-                    <button type="button" onClick={() => handleUpdate(item)} style={{ borderRadius: "5px" }}>
+                    <button type="button" onClick={() => handleUpdate(item)} style={{ borderRadius: "5px",backgroundColor:"black" }}>
                       Update
                     </button>
                   </td>
@@ -623,12 +623,7 @@ const ViewOrder = () => {
                     </button>
                   </td>
                   <td>
-                    <button className="button" style={{ backgroundColor: "red", width: "80px", borderRadius: "5px" }} onClick={() => handleCancel(item.orderId)}>
-                      Cancel
-                    </button>
-                  </td>
-                  <td>
-                    <button className="button" style={{ backgroundColor: "black", color: "white", width: "80px", borderRadius: "5px" }} onClick={() => handleDelete(item.orderId)}>
+                    <button className="button" style={{ backgroundColor: "red", color: "white", width: "80px", borderRadius: "5px" }} onClick={() => handleDelete(item.orderId)}>
                       Delete
                     </button>
                   </td>
@@ -706,10 +701,10 @@ const ViewOrder = () => {
                 </label>
                 <br />
                 <div>
-                  <button type="button" onClick={handleUpdateOrder} style={{ width: '90px' }}>
+                  <button type="button" onClick={handleUpdateOrder} style={{ width: '90px' ,backgroundColor:"red",borderRadius:"5px"}}>
                     Submit
                   </button>
-                  <button type="button" onClick={() => setShowPopup(false)} style={{ marginLeft: '130px', width: '90px', marginTop: '7px' }}>
+                  <button type="button" onClick={() => setShowPopup(false)} style={{ marginLeft: '130px', width: '90px', marginTop: '7px',backgroundColor:"green",borderRadius:"5px" }}>
                     Close
                   </button>
                 </div>

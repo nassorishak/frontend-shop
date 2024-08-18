@@ -2,14 +2,12 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Navigation from '../navigation/Navigation';
 
-
 const ViewOrder = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const [totalAmount, setTotalAmount] = useState('');
   const [date, setDate] = useState('');
   const [status, setStatus] = useState('');
   const [quantity, setQuantity] = useState('');
@@ -35,17 +33,7 @@ const ViewOrder = () => {
     fetchOrders();
   }, []);
 
-  const handleUpdate = (order) => {
-    setSelectedOrder(order);
-    setTotalAmount(order.totalAmount);
-    setDate(new Date(order.date).toISOString().substring(0, 10));
-    setStatus(order.status);
-    setQuantity(order.quantity);
-    setSize(order.size);
-    setIsModalOpen(true);
-  };
-  
-  const handleCancel = async (orderId) => {
+  const handleDelete = async (orderId) => {
     const confirmDelete = window.confirm("Are you sure you want to delete this order?");
     if (confirmDelete) {
       try {
@@ -58,30 +46,21 @@ const ViewOrder = () => {
     }
   };
 
+  const handleCancel = async (orderId) => {
+    try {
+      const response = await axios.patch(`http://localhost:8080/api/orders/cancel/${orderId}`);
+      setOrders(orders.map(order => 
+        order.orderId === orderId ? { ...order, status: 'canceled' } : order
+      ));
+      alert(response.data);
+    } catch (err) {
+      alert('Failed to cancel order: ' + err.message);
+    }
+  };
+
   const handleModalClose = () => {
     setIsModalOpen(false);
     setSelectedOrder(null);
-  };
-
-  const handleOrderUpdate = async (e) => {
-    e.preventDefault();
-    
-    const updatedData = {
-      totalAmount,
-      date,
-      status,
-      quantity,
-      size,
-    };
-
-    try {
-      await axios.put(`http://localhost:8080/api/orders/update/${selectedOrder.orderId}`, updatedData);
-      setOrders(orders.map(order => (order.orderId === selectedOrder.orderId ? { ...order, ...updatedData } : order)));
-      alert('Order updated successfully.');
-      handleModalClose(); // Close modal after updating
-    } catch (err) {
-      alert('Failed to update order: ' + err.message);
-    }
   };
 
   if (loading) return <p>Loading...</p>;
@@ -90,103 +69,95 @@ const ViewOrder = () => {
   return (
     <>
       <Navigation />
-      <div className='main'>
-        <h1 style={{marginTop:"20px"}}>Customer View Orders</h1>
-        <table className='orders-table'>
+      <div className='main' style={{ padding: '20px' }}>
+        <h1 style={{ marginTop: "20px", textAlign: 'center' }}>Customer View Orders</h1>
+        <table className='orders-table' style={{ width: '100%', borderCollapse: 'collapse', margin: '20px 0' }}>
           <thead>
-            <tr>
-              <th>Order ID</th>
-              <th>OrderName</th>
-              <th>Date</th>
-              <th>Status</th>
-              <th>Quantity</th>
-              <th>Size</th>
-              <th>Email</th>
-              <th>Actions</th>
-              <th>Actions</th>
+            <tr style={{ backgroundColor: '#f2f2f2' }}>
+              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Order ID</th>
+              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Order Name</th>
+              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Date</th>
+              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Status</th>
+              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Quantity</th>
+              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Size</th>
+              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Email</th>
+              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {orders.map((order) => (
               <tr key={order.orderId}>
-                 <td>{order.orderId}</td>
-                <td>{order.orderName}</td>
-                <td>{new Date(order.date).toLocaleDateString()}</td>
-                <td>{order.status}</td>
-                <td>{order.quantity}</td>
-                <td>{order.size}</td>
-                {/* <td>{order.totalAmount}</td> */}
-                <td>{order.customer ? order.customer.email : 'N/A'}</td>
-                <td>
-                  <button type="button" onClick={() => handleUpdate(order)}>
-                    Update
-                  </button>
-                 
+                <td style={{ padding: '10px', border: '1px solid #ddd' }}>{order.orderId}</td>
+                <td style={{ padding: '10px', border: '1px solid #ddd' }}>{order.orderName}</td>
+                <td style={{ padding: '10px', border: '1px solid #ddd' }}>{new Date(order.date).toLocaleDateString()}</td>
+                <td style={{ padding: '10px', border: '1px solid #ddd' }}>{order.status}</td>
+                <td style={{ padding: '10px', border: '1px solid #ddd' }}>{order.quantity}</td>
+                <td style={{ padding: '10px', border: '1px solid #ddd' }}>{order.size}</td>
+                <td style={{ padding: '10px', border: '1px solid #ddd' }}>{order.customer ? order.customer.email : 'N/A'}</td>
+                <td style={{ padding: '10px', border: '1px solid #ddd' }}>
+                  <div style={{ display: 'flex', gap: '10px', justifyContent: 'center' }}>
+                    <button 
+                      style={{ background: "red", color: 'white', padding: '5px 10px', borderRadius: "5px", border: 'none', cursor: 'pointer' }} 
+                      onClick={() => handleDelete(order.orderId)}
+                    >
+                      Delete
+                    </button>
+                    <button 
+                      style={{ background: "brown", color: 'white', padding: '5px 10px', borderRadius: "5px", border: 'none', cursor: 'pointer' }} 
+                      onClick={() => handleCancel(order.orderId)}
+                    >
+                      Cancel
+                    </button>
+                  </div>
                 </td>
-                <td> <button 
-                    style={{ background: "red", marginLeft: "10px" }} 
-                    onClick={() => handleCancel(order.orderId)}
-                  >
-                    Delete
-                  </button></td>
               </tr>
             ))}
           </tbody>
         </table>
 
         {isModalOpen && (
-          <div className="modal">
-            <div className="modal-content">
-              <h2>Update Order</h2>
-              <form onSubmit={handleOrderUpdate}>
-                <div>
-                  <label>Total Amount:</label>
-                  <input 
-                    type="number" 
-                    value={totalAmount} 
-                    onChange={(e) => setTotalAmount(e.target.value)} 
-                    required 
-                  />
-                </div>
-                <div>
-                  <label>Date:</label>
-                  <input 
-                    type="date" 
-                    value={date} 
-                    onChange={(e) => setDate(e.target.value)} 
-                    required 
-                  />
-                </div>
-                <div>
-                  <label>Status:</label>
-                  <input 
-                    type="text" 
-                    value={status} 
-                    onChange={(e) => setStatus(e.target.value)} 
-                    required 
-                  />
-                </div>
-                <div>
-                  <label>Quantity:</label>
-                  <input 
-                    type="text" 
-                    value={quantity} 
-                    onChange={(e) => setQuantity(e.target.value)} 
-                    required 
-                  />
-                </div>
-                <div>
-                  <label>Size:</label>
-                  <input 
-                    type="text" 
-                    value={size} 
-                    onChange={(e) => setSize(e.target.value)} 
-                    required 
-                  />
-                </div>
-                <button type="submit">Update</button>
-                <button type="button" onClick={handleModalClose}>Close</button>
-              </form>
+          <div className="modal" style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 1000,
+          }}>
+            <div className="modal-content" style={{
+              backgroundColor: 'white',
+              padding: '20px',
+              borderRadius: '8px',
+              boxShadow: '0 2px 10px rgba(0, 0, 0, 0.1)',
+              width: '400px',
+              maxWidth: '90%',
+            }}>
+              <h2 style={{ marginBottom: '20px', textAlign: 'center' }}>Order Details</h2>
+              <div style={{ marginBottom: '10px' }}>
+                <strong>Date:</strong> {date}
+              </div>
+              <div style={{ marginBottom: '10px' }}>
+                <strong>Status:</strong> {status}
+              </div>
+              <div style={{ marginBottom: '10px' }}>
+                <strong>Quantity:</strong> {quantity}
+              </div>
+              <div style={{ marginBottom: '10px' }}>
+                <strong>Size:</strong> {size}
+              </div>
+              <div style={{ display: 'flex', gap: '10px', justifyContent: 'center', marginTop: '20px' }}>
+                <button 
+                  type="button" 
+                  onClick={handleModalClose} 
+                  style={{ backgroundColor: "red", color: 'white', padding: '10px 20px', borderRadius: "5px", border: 'none', cursor: 'pointer' }}
+                >
+                  Close
+                </button>
+              </div>
             </div>
           </div>
         )}

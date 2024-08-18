@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 
-const RegisterForm = () => {
+const RegistrationForm = () => {
   const [formData, setFormData] = useState({
     email: '',
-    password: '',
-    confirmPassword: '',
+    password: '', // Add password field
+    confirmPassword: '', // Add confirm password field
     firstName: '',
     lastName: '',
+    phoneNo: '', // Add phone number field
+    custAddress: '', // Add customer address field
     role: 'CUSTOMER' // Default role
   });
 
@@ -26,7 +28,9 @@ const RegisterForm = () => {
       formData.confirmPassword &&
       formData.firstName &&
       formData.lastName &&
-      formData.password === formData.confirmPassword
+      formData.phoneNo && // Include phone number in validation
+      formData.custAddress && // Include address in validation
+      formData.password === formData.confirmPassword // Ensure passwords match
     );
   };
 
@@ -41,16 +45,18 @@ const RegisterForm = () => {
     setLoading(true); // Indicate loading state
 
     try {
-      const response = await fetch('http://localhost:8080/api/customer/add/customer', { // Ensure correct API endpoint
+      const response = await fetch('http://localhost:8080/api/customer/add/customer', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           email: formData.email,
-          password: formData.password,
+          password: formData.password, // Include password with user data
           firstName: formData.firstName,
           lastName: formData.lastName,
+          phoneNo: formData.phoneNo, // Include phone number with user data
+          custAddress: formData.custAddress, // Include address with user data
           role: formData.role // Include selected role
         })
       });
@@ -64,7 +70,9 @@ const RegisterForm = () => {
           confirmPassword: '',
           firstName: '',
           lastName: '',
-          role: 'CUSTOMER' // Reset role to default
+          phoneNo: '',
+          custAddress: '',
+          role: 'CUSTOMER'
         });
       } else {
         throw new Error('Registration failed, please try again.');
@@ -80,7 +88,7 @@ const RegisterForm = () => {
   return (
     <div className="register-container">
       <div className="register-form">
-        <h2>Registration</h2>
+        <h2>ADD NEW CUSTOMER</h2>
         <form onSubmit={handleSubmit}>
           {error && <div className="error">{error}</div>}
           <div className="form-row">
@@ -95,6 +103,8 @@ const RegisterForm = () => {
                 required
               />
             </div>
+          </div>
+          <div className="form-row">
             <div className="form-group half-width">
               <input
                 type="password"
@@ -106,12 +116,10 @@ const RegisterForm = () => {
                 required
               />
             </div>
-          </div>
-          <div className="form-row">
             <div className="form-group half-width">
               <input
                 type="password"
-                id="confirm-password"
+                id="confirmPassword"
                 name="confirmPassword"
                 placeholder="Confirm your password"
                 value={formData.confirmPassword}
@@ -119,6 +127,8 @@ const RegisterForm = () => {
                 required
               />
             </div>
+          </div>
+          <div className="form-row">
             <div className="form-group half-width">
               <input
                 type="text"
@@ -130,8 +140,6 @@ const RegisterForm = () => {
                 required
               />
             </div>
-          </div>
-          <div className="form-row">
             <div className="form-group half-width">
               <input
                 type="text"
@@ -143,24 +151,38 @@ const RegisterForm = () => {
                 required
               />
             </div>
-            {/* <div className="form-group half-width">
-              <label htmlFor="role">Select Role:</label>
-              <select
-                id="role"
-                name="role"
-                value={formData.role}
+          </div>
+          <div className="form-row">
+            <div className="form-group half-width">
+              <input
+                type="text"
+                id="phoneNo"
+                name="phoneNo"
+                placeholder="Enter your phone number"
+                value={formData.phoneNo}
                 onChange={handleChange}
                 required
-              >
-              
-              </select>
-            </div> */}
+              />
+            </div>
+            <div className="form-group half-width">
+              <input
+                type="text"
+                id="custAddress"
+                name="custAddress"
+                placeholder="Enter your address"
+                value={formData.custAddress}
+                onChange={handleChange}
+                required
+              />
+            </div>
+          </div>
+          <div className="form-row">
             <div className="form-group half-width">
               <input 
                 type="submit"
                 value={loading ? 'Registering...' : 'Register'}
                 disabled={loading || !isFormValid()} // Disable if loading or invalid
-                style={{paddingBottom:"35px"}}
+                style={{ paddingBottom: "35px" }}
               />
             </div>
           </div>
@@ -170,4 +192,4 @@ const RegisterForm = () => {
   );
 };
 
-export default RegisterForm;
+export default RegistrationForm;

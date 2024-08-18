@@ -302,7 +302,8 @@ const CustAdvertise = () => {
       </nav>
       
 
-      <div className="content py-3 py-md-5 bg-light">
+      <div className="content py-3 py-md-5 bg-light"><marquee behavior="scroll" direction="left">Scrolling text!</marquee>
+
       <h4 className="mb-4" style={{textAlign:"center"}}>ZANZIBAR CHLOTHING HUB AND DECORATION CENTER</h4>
       <h4 className="mb-4" style={{textAlign:"center"}}>Our Products</h4>
         <div className="container">

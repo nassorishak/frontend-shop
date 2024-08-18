@@ -40,7 +40,7 @@ const ControlNumber = () => {
           <input type="text" value={orderId} onChange={handleOrderIdChange} 
          style={{width:"1022px",marginLeft:"4px"}}  placeholder='enter orderId to generate control number'/>
         </label>
-        <button type="submit" style={{width:"200px",marginLeft:"400px",marginTop:"7px",backgroundColor:"white",color:"black"}}>Generate control number</button>
+        <button type="submit" style={{width:"200px",marginLeft:"400px",marginTop:"7px",backgroundColor:"white",color:"black",borderRadius:"5px"}}>Generate control number</button>
       </form>
       {controlNumber && <p>Dear Customer take this control number to make payment for your order: {controlNumber}</p>}
       {error && <p style={{ color: 'red' }}>{error}</p>}

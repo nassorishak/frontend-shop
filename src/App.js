@@ -16,12 +16,18 @@ import Registerform from './component/Registerform';
 import ViewProducts from './component/customer/ViewProducts';
 import MakeOrder from './component/customer/MakeOrder';
 import VendorDashboard from './component/vendor/VendorDashboard';
-import RegisterVendor from './component/Admin/RegisterVendor';
 import AManageProducts from './component/Admin/AManageProducts';
 import ControlNumber from './component/customer/ControlNumber';
 import MakePayment from './component/customer/MakePayment';
 import CustPaymentRecord from './component/customer/CustPaymentRecord';
 import CustAdvertise from './CustAdvertise';
+import ManageVendors from './component/Admin/ManageVendors';
+import RegisterForm from './component/Registerform';
+import AddVendors from './component/Admin/AddVendors';
+import AddCustomers from './component/Admin/AManageProducts';
+import SubscriptionForm from './component/vendor/SubscriptionForm';
+import VendorSubscription from './component/vendor/VendorSubscription';
+import AdminManageSubscription from './component/Admin/AdminManageSubscription';
 
 
 
@@ -34,7 +40,7 @@ function App() {
     <div className="App">
       <Routes>
         {/* login */}
-      <Route path='/login' element={<Login/>} />
+      <Route path='/Login' element={<Login/>} />
       <Route path='/registerform' element={<Registerform/>} />
 
 
@@ -49,6 +55,9 @@ function App() {
           <Route path='/manage-Order' element={<ManageOrder/>}/>
           <Route path='/payment-Record' element = {<PaymentRecord/>}/>
           <Route path='/vchange-information' element = {<VChangeInformation/>}/>
+          <Route path='/vendor-subscription' element = {<VendorSubscription/>}/>
+
+          VendorSubscription
        
 
 
@@ -76,7 +85,13 @@ function App() {
         <Route path='/manage-orders' element = {<AManageOrder/>}/>
         <Route path='/amanage-customers' element = {<AManageCustomer/>}/>
         <Route path='/a-manage-products' element = {<AManageProducts/>}/>
-        <Route path='/register-vendor' element = {<RegisterVendor/>}/>
+        <Route path='/manage-vendors' element = {<ManageVendors/>}/>
+        <Route path='/register-vendors' element = {<RegisterForm/>}/>
+        <Route path='/add-vendors' element = {<AddVendors/>}/>
+        <Route path='/add-customers' element = {<AddCustomers/>}/>
+        <Route path='/manage-subscription' element = {<AdminManageSubscription/>}/>
+
+        
         
         
         

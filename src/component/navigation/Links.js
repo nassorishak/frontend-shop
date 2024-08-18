@@ -8,7 +8,8 @@ const links = {
         { label: 'View Product', path: '/vewProduct', icon: faShoppingCart },
         { label: 'Manage Order', path: '/manage-Order', icon: faChartBar },
         { label: 'Payment Record', path: '/payment-Record', icon: faMoneyBill },
-        { label: 'Change Information', path: '/change-information', icon: faCog },
+        { label: 'Vendor Subscription', path: '/vendor-subscription', icon: faMoneyBill },
+        // { label: 'Change Information', path: '/change-information', icon: faCog },
         { label: 'Logout', path: '/', icon: faSignOutAlt }
 
     ],
@@ -25,10 +26,10 @@ const links = {
     ],
     ADMIN: [
         { label: 'Dashboard', path: '/admin-dashboard', icon: faChartBar },
-        { label: 'Manage Orders', path: '/manage-orders', icon: faChartBar },
+        // { label: 'Manage Orders', path: '/manage-orders', icon: faChartBar },
         { label: 'Manage Customers', path: '/amanage-customers', icon: faCog },
-        { label: 'AManage products', path: '/a-manage-products', icon: faShoppingCart },
-        { label: 'RegisterVendor', path: '/register-vendor', icon: faCog },
+        { label: 'ManageSubscription', path: '/manage-subscription', icon: faShoppingCart },
+        { label: 'Manage Vendors', path: '/manage-vendors', icon: faCog },
         { label: 'Logout', path: '/', icon: faSignOutAlt }
     ]
 };

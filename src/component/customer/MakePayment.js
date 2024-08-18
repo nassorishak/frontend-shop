@@ -54,7 +54,7 @@ const MakePayment = () => {
           <input type="number" value={amount} onChange={handleAmountChange} placeholder='enter payment amount' />
         </label>
         <br />
-        <button type="submit" style={{marginLeft:"220px",width:"150px",marginTop:"15px",backgroundColor:"gray",color:"black"}} >Make Payment</button>
+        <button type="submit" style={{marginLeft:"220px",width:"150px",marginTop:"15px",backgroundColor:"gray",color:"black",borderRadius:"5px"}} >Make Payment</button>
       </form>
       {paymentResponse && (
         <p style={{marginLeft:"205px"}}>
