@@ -25,9 +25,9 @@ import ManageVendors from './component/Admin/ManageVendors';
 import RegisterForm from './component/Registerform';
 import AddVendors from './component/Admin/AddVendors';
 import AddCustomers from './component/Admin/AManageProducts';
-import SubscriptionForm from './component/vendor/SubscriptionForm';
 import VendorSubscription from './component/vendor/VendorSubscription';
 import AdminManageSubscription from './component/Admin/AdminManageSubscription';
+import VendorBlocker from './component/Admin/VendorBlocker';
 
 
 
@@ -89,7 +89,10 @@ function App() {
         <Route path='/register-vendors' element = {<RegisterForm/>}/>
         <Route path='/add-vendors' element = {<AddVendors/>}/>
         <Route path='/add-customers' element = {<AddCustomers/>}/>
+        <Route path='/vendor-blocker' element = {<VendorBlocker/>}/>
         <Route path='/manage-subscription' element = {<AdminManageSubscription/>}/>
+
+
 
         
         

@@ -126,9 +126,9 @@ const ManageVendors = () => {
             <Navigation />
             <div className='main' style={{ backgroundColor: "grey", height: "455px", overflowY: "scroll" }}>
                 <div style={{ display: "flex", flexDirection: "row" }}>
-                    <h2 style={{ textAlign: "center", marginTop: "15px", marginLeft: "200px" }}>MANAGE VENDORS </h2>
+                    <h2 style={{ textAlign: "center", marginTop: "15px", marginLeft: "200px" }}>MANAGE VENDORS</h2>
                     <Link to={'/add-vendors'}>
-                        <button type='submit' name='submit' style={{ backgroundColor: "white", borderRadius: "6px", marginLeft: "300px", width: "100px", marginTop: "15px", color: "black" }}>Add Vendors</button>
+                        <button type='submit' name='submit' style={{ backgroundColor: "white", borderRadius: "6px", marginLeft: "300px", width: "120px", marginTop: "15px", color: "black" }}>Add Vendors</button>
                     </Link>
                 </div>
                 <table className="table table-bordered" style={{ width: "1000px", margin: "auto", backgroundColor: "white" }}>

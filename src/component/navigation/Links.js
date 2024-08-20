@@ -30,6 +30,7 @@ const links = {
         { label: 'Manage Customers', path: '/amanage-customers', icon: faCog },
         { label: 'ManageSubscription', path: '/manage-subscription', icon: faShoppingCart },
         { label: 'Manage Vendors', path: '/manage-vendors', icon: faCog },
+        { label: 'Vendor-blocker', path: '/vendor-blocker', icon: faCog },
         { label: 'Logout', path: '/', icon: faSignOutAlt }
     ]
 };

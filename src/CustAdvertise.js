@@ -241,40 +241,35 @@ const CustAdvertise = () => {
   const [searchInput, setSearchInput] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
 
-  const fetchProducts = async () => {
+  const fetchProducts = async (query = '') => {
     try {
-      const response = await axios.get('http://localhost:8080/api/product/get/product');
+      const response = await axios.get(`http://localhost:8080/api/product/search?query=${query}`);
+      console.log('Fetched products:', response.data); // Log data to inspect structure
       setProducts(response.data);
       setFilteredProducts(response.data);
     } catch (error) {
       console.error("Error fetching products", error);
     }
   };
-
+  
   useEffect(() => {
     fetchProducts();
     const interval = setInterval(() => {
-      fetchProducts();
+      fetchProducts(searchInput);
     }, 5000);
     return () => clearInterval(interval);
-  }, []);
-
+  }, [searchInput]);
+  
   const handleSearch = (e) => {
-    const value = e.target.value;
+    const value = e.target.value.toLowerCase();
     setSearchInput(value);
-    if (value) {
-      const filtered = products.filter(product =>
-        product.productName.toLowerCase().includes(value.toLowerCase())
-      );
-      setFilteredProducts(filtered);
-    } else {
-      setFilteredProducts(products);
-    }
+    fetchProducts(value); // Fetch products based on the search input
   };
+  
 
   return (
     <>
-      <nav className="navbar navbar-expand-sm navbar-dark bg-dark">
+      <nav className="navbar navbar-expand-sm navbar-dark bg-dark" style={{position:"fixed"}}>
         <div className="container-fluid">
           <img src='image1a.jpg' style={{height:"50px",width:"60px",borderRadius:"25px"}}/>
           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
@@ -295,7 +290,7 @@ const CustAdvertise = () => {
                 onChange={handleSearch}
                 style={{width:"250px",marginLeft:"350px"}}
               />
-              <Link to={'/login'}><button type='submit'name='submit' style={{backgroundColor:"green",borderRadius:"6px",marginLeft:"20px"}}>Login</button></Link>
+              <Link to={'/login'}><button type='submit'name='submit' style={{backgroundColor:"white",borderRadius:"6px",marginLeft:"20px",color:"black"}}>Login</button></Link>
             </form>
           </div>
         </div>
@@ -304,8 +299,8 @@ const CustAdvertise = () => {
 
       <div className="content py-3 py-md-5 bg-light"><marquee behavior="scroll" direction="left">Scrolling text!</marquee>
 
-      <h4 className="mb-4" style={{textAlign:"center"}}>ZANZIBAR CHLOTHING HUB AND DECORATION CENTER</h4>
-      <h4 className="mb-4" style={{textAlign:"center"}}>Our Products</h4>
+      <h4 className="mb-4" style={{textAlign:"center",marginTop:"30px",position:"fixed"}}>ZANZIBAR CHLOTHING HUB AND DECORATION CENTER</h4>
+      <h4 className="mb-4" style={{marginLeft:"40px",marginTop:"30px",position:"fixed"}}>Our Products</h4>
         <div className="container">
           <div className="row">
             <div className="col-md-12">
@@ -327,8 +322,13 @@ const CustAdvertise = () => {
                         <a href="#">{product.productName}</a>
                       </h5>
                       <div>
-                        <span className="selling-price">{product.price}</span>
+                        <span className="selling-price">Tsh {product.price.toLocaleString()}</span>
                         <span className="original-price">{product.originalPrice}</span>
+                      </div>
+                      <div>
+                        <span className="prduct-company">{product.vendorCompany}</span>
+                        <a href="#">{product.productCompany}</a>
+                        
                       </div>
                       <div className="mt-2">
                         <a href="#" className="btn btn1"><i className="fa fa-heart"></i></a>

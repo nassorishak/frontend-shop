@@ -34,6 +34,7 @@ const MakePayment = () => {
       setPaymentResponse(response.data);
     } catch (error) {
       setError(error.message);
+      alert('the are successful make payment')
     }
   };
 

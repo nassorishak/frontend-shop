@@ -12,6 +12,7 @@ const VendorSubscription = () => {
     const [vendorId, setVendorId] = useState(0);
     const [blocked, setBlocked] = useState(false);
     const [userId, setUserId] = useState(0);
+    const [company, setCompany] = useState(''); // New state for company
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -41,6 +42,7 @@ const VendorSubscription = () => {
             serviceName,
             vendorId,
             blocked,
+            company, // Include company in the subscription object
             vendor: {
                 userId
             }
@@ -61,91 +63,99 @@ const VendorSubscription = () => {
 
     return (
         <>
-
             <Navigation />
-            <div  className='main'>
-            <div style={{ maxWidth: '600px', margin: 'auto', padding: '20px', border: '1px solid #ccc', borderRadius: '10px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', height: "1100px" }}>
-                <div style={{ marginTop: "0px", fontWeight: 'bold',position:"fixed " }}>VENDOR SUBSCRIPTION</div>
-                <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', marginTop: "20px" }}>
-                    <label style={{ marginBottom: '5px' }}>Subscription Type:</label>
-                    <input
-                        type="text"
-                        value={subscriptionType}
-                        onChange={(e) => setSubscriptionType(e.target.value)}
-                        required
-                        style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
-                    />
+            <div className='main'>
+                <div style={{ maxWidth: '600px', margin: 'auto', padding: '20px', border: '1px solid #ccc', borderRadius: '10px', boxShadow: '0 2px 10px rgba(0,0,0,0.1)', height: "1100px" }}>
+                    <div style={{ marginTop: "0px", fontWeight: 'bold', position: "fixed" }}>VENDOR SUBSCRIPTION</div>
+                    <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', marginTop: "20px" }}>
+                        <label style={{ marginBottom: '5px' }}>Subscription Type:</label>
+                        <input
+                            type="text"
+                            value={subscriptionType}
+                            onChange={(e) => setSubscriptionType(e.target.value)}
+                            required
+                            style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
+                        />
 
-                    <label style={{ marginBottom: '5px' }}>Start Date:</label>
-                    <input
-                        type="datetime-local"
-                        value={startDate}
-                        onChange={(e) => setStartDate(e.target.value)}
-                        required
-                        style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
-                    />
+                        <label style={{ marginBottom: '5px' }}>Start Date:</label>
+                        <input
+                            type="datetime-local"
+                            value={startDate}
+                            onChange={(e) => setStartDate(e.target.value)}
+                            required
+                            style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
+                        />
 
-                    <label style={{ marginBottom: '5px' }}>End Date:</label>
-                    <input
-                        type="datetime-local"
-                        value={endDate}
-                        onChange={(e) => setEndDate(e.target.value)}
-                        required
-                        style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
-                    />
+                        <label style={{ marginBottom: '5px' }}>End Date:</label>
+                        <input
+                            type="datetime-local"
+                            value={endDate}
+                            onChange={(e) => setEndDate(e.target.value)}
+                            required
+                            style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
+                        />
 
-                    <label style={{ marginBottom: '5px' }}>Service Type:</label>
-                    <input
-                        type="text"
-                        value={serviceType}
-                        onChange={(e) => setServiceType(e.target.value)}
-                        required
-                        style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
-                    />
+                        <label style={{ marginBottom: '5px' }}>Service Type:</label>
+                        <input
+                            type="text"
+                            value={serviceType}
+                            onChange={(e) => setServiceType(e.target.value)}
+                            required
+                            style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
+                        />
 
-                    <label style={{ marginBottom: '5px' }}>Service Name:</label>
-                    <input
-                        type="text"
-                        value={serviceName}
-                        onChange={(e) => setServiceName(e.target.value)}
-                        required
-                        style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
-                    />
+                        <label style={{ marginBottom: '5px' }}>Service Name:</label>
+                        <input
+                            type="text"
+                            value={serviceName}
+                            onChange={(e) => setServiceName(e.target.value)}
+                            required
+                            style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
+                        />
 
-                    <label style={{ marginBottom: '5px' }}>Vendor ID:</label>
-                    <input
-                        type="number"
-                        value={vendorId}
-                        onChange={(e) => setVendorId(Number(e.target.value))}
-                        required
-                        style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
-                    />
+                        <label style={{ marginBottom: '5px' }}>Vendor ID:</label>
+                        <input
+                            type="number"
+                            value={vendorId}
+                            onChange={(e) => setVendorId(Number(e.target.value))}
+                            required
+                            style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
+                        />
 
-                    <label style={{ marginBottom: '5px' }}>Blocked:</label>
-                    <input
-                        type="checkbox"
-                        checked={blocked}
-                        onChange={(e) => setBlocked(e.target.checked)}
-                        style={{ marginBottom: '10px' }}
-                    />
+                        <label style={{ marginBottom: '5px' }}>Company:</label> {/* New field for company */}
+                        <input
+                            type="text"
+                            value={company}
+                            onChange={(e) => setCompany(e.target.value)}
+                            required
+                            style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
+                        />
 
-                    <label style={{ marginBottom: '5px' }}>User ID:</label>
-                    <input
-                        type="number"
-                        value={userId}
-                        onChange={(e) => setUserId(Number(e.target.value))}
-                        required
-                        style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
-                    />
+                        <label style={{ marginBottom: '5px' }}>Blocked:</label>
+                        <input
+                            type="checkbox"
+                            checked={blocked}
+                            onChange={(e) => setBlocked(e.target.checked)}
+                            style={{ marginBottom: '10px' }}
+                        />
 
-                    <button type="submit" style={{ padding: '10px', backgroundColor: '#007BFF', color: '#fff', borderRadius: '5px', border: 'none', cursor: 'pointer', width: "170px", marginTop: '10px' }}>
-                        Submit Subscription
-                    </button>
-                </form>
+                        <label style={{ marginBottom: '5px' }}>User ID:</label>
+                        <input
+                            type="number"
+                            value={userId}
+                            onChange={(e) => setUserId(Number(e.target.value))}
+                            required
+                            style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
+                        />
 
-                {successMessage && <p style={{ color: 'green', marginTop: '10px' }}>{successMessage}</p>}
-                {errorMessage && <p style={{ color: 'red', marginTop: '10px' }}>{errorMessage}</p>}
-            </div>
+                        <button type="submit" style={{ padding: '10px', backgroundColor: '#007BFF', color: '#fff', borderRadius: '5px', border: 'none', cursor: 'pointer', width: "170px", marginTop: '10px' }}>
+                            Submit Subscription
+                        </button>
+                    </form>
+
+                    {successMessage && <p style={{ color: 'green', marginTop: '10px' }}>{successMessage}</p>}
+                    {errorMessage && <p style={{ color: 'red', marginTop: '10px' }}>{errorMessage}</p>}
+                </div>
             </div>
         </>
     );

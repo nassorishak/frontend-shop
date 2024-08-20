@@ -75,7 +75,6 @@ const ViewOrder = () => {
           <thead>
             <tr style={{ backgroundColor: '#f2f2f2' }}>
               <th style={{ padding: '10px', border: '1px solid #ddd' }}>Order ID</th>
-              <th style={{ padding: '10px', border: '1px solid #ddd' }}>Order Name</th>
               <th style={{ padding: '10px', border: '1px solid #ddd' }}>Date</th>
               <th style={{ padding: '10px', border: '1px solid #ddd' }}>Status</th>
               <th style={{ padding: '10px', border: '1px solid #ddd' }}>Quantity</th>
@@ -88,7 +87,6 @@ const ViewOrder = () => {
             {orders.map((order) => (
               <tr key={order.orderId}>
                 <td style={{ padding: '10px', border: '1px solid #ddd' }}>{order.orderId}</td>
-                <td style={{ padding: '10px', border: '1px solid #ddd' }}>{order.orderName}</td>
                 <td style={{ padding: '10px', border: '1px solid #ddd' }}>{new Date(order.date).toLocaleDateString()}</td>
                 <td style={{ padding: '10px', border: '1px solid #ddd' }}>{order.status}</td>
                 <td style={{ padding: '10px', border: '1px solid #ddd' }}>{order.quantity}</td>

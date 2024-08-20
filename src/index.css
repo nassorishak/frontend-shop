@@ -1426,7 +1426,7 @@ h1 {
 .py-3 {
   padding-top: 1rem !important;
   padding-bottom: 1rem !important;
-  height: 50px;
+  height: 30px;
   margin-bottom: 400px;
   
 }
@@ -1496,12 +1496,14 @@ body {
   margin: 0;
   font-family: Arial, sans-serif;
   
+  
 }
 
 .product-card {
   border: 1px solid #ddd;
   border-radius: 5px;
   overflow: hidden;
+  width: 100px;
   transition: transform 0.3s, box-shadow 0.3s;
 }
 
