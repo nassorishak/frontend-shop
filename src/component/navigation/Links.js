@@ -9,8 +9,8 @@ const links = {
         { label: 'Manage Order', path: '/manage-Order', icon: faChartBar },
         { label: 'Payment Record', path: '/payment-Record', icon: faMoneyBill },
         { label: 'Vendor Subscription', path: '/vendor-subscription', icon: faMoneyBill },
-        // { label: 'Change Information', path: '/change-information', icon: faCog },
-        { label: 'Logout', path: '/', icon: faSignOutAlt }
+        { label: 'ViewSubscription', path: '/view-subscription', icon: faCog },
+        { label: 'Logout', path: '/', icon: faSignOutAlt  }
 
     ],
     CUSTOMER: [

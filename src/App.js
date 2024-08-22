@@ -28,6 +28,8 @@ import AddCustomers from './component/Admin/AManageProducts';
 import VendorSubscription from './component/vendor/VendorSubscription';
 import AdminManageSubscription from './component/Admin/AdminManageSubscription';
 import VendorBlocker from './component/Admin/VendorBlocker';
+import ProtectComponent from './component/ProtectComponent';
+import ViewSubscription from './component/vendor/ViewSubscription';
 
 
 
@@ -42,10 +44,11 @@ function App() {
         {/* login */}
       <Route path='/Login' element={<Login/>} />
       <Route path='/registerform' element={<Registerform/>} />
+      <Route path='/' element={<CustAdvertise/>}/>
 
 
       
-      
+      <Route element = {<ProtectComponent role1="VENDOR"/>}>
 
         {/* Vendor */}
         
@@ -56,11 +59,11 @@ function App() {
           <Route path='/payment-Record' element = {<PaymentRecord/>}/>
           <Route path='/vchange-information' element = {<VChangeInformation/>}/>
           <Route path='/vendor-subscription' element = {<VendorSubscription/>}/>
+          <Route path='/view-subscription' element = {<ViewSubscription/>}/>
+        </Route>
 
-          VendorSubscription
-       
 
-
+          <Route element = {<ProtectComponent role1="CUSTOMER"/>}>
 
         {/* Customer */}
 
@@ -72,13 +75,12 @@ function App() {
         <Route path='/makeorder/:productId' element={<MakeOrder/>}/>
         <Route path='/control-number' element={<ControlNumber/>}/>
         <Route path='/cust-paymenet-record' element={<CustPaymentRecord/>}/>
-        <Route path='/' element={<CustAdvertise/>}/>
         
-       
+       </Route>
 
         
 
-         
+         <Route element = {<ProtectComponent role1="ADMIN"/>}>
 
         {/* Admin */}
         <Route path='/admin-dashboard' element = {<AdminDashboard/>}/>
@@ -93,7 +95,7 @@ function App() {
         <Route path='/manage-subscription' element = {<AdminManageSubscription/>}/>
 
 
-
+          </Route>
         
         
         

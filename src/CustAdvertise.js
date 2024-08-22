@@ -299,7 +299,7 @@ const CustAdvertise = () => {
 
       <div className="content py-3 py-md-5 bg-light"><marquee behavior="scroll" direction="left">Scrolling text!</marquee>
 
-      <h4 className="mb-4" style={{textAlign:"center",marginTop:"30px",position:"fixed"}}>ZANZIBAR CHLOTHING HUB AND DECORATION CENTER</h4>
+      <h4 className="mb-4" style={{textAlign:"center",marginTop:"30px",position:"fixed"}}>ZANZIBAR WEDDING CLOTHING HUB AND DECORATION CENTER</h4>
       <h4 className="mb-4" style={{marginLeft:"40px",marginTop:"30px",position:"fixed"}}>Our Products</h4>
         <div className="container">
           <div className="row">

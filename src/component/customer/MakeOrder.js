@@ -7,6 +7,7 @@ const MakeOrder = () => {
   const { productId } = useParams();
   const navigate = useNavigate();
   const customerId = localStorage.getItem("customerId"); // Customer ID from local storage
+  const [ControlNumber , setControlNumber] = useState(0);
 
   const [order, setOrder] = useState({
     date: "",
@@ -72,6 +73,11 @@ const MakeOrder = () => {
       alert("Error adding order: " + (error.response ? error.response.data : error.message));
     }
   };
+   
+  const controlNumber = (orderId)=>{
+    const controlNumber = `IS-HAK${orderId}${Date.now()}`;
+    setControlNumber(controlNumber);
+   }
 
   return (
     <div>

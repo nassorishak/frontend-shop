@@ -20,6 +20,23 @@ const ManageVendors = () => {
         address: '', // New field
         vendorCompany: '' // New field
     });
+    const handleBlock = async (userId) => {
+        try {
+            const response = await axios.put(`http://localhost:8080/api/vendor/block/${userId}`);
+            fetchUsers(); // Refresh the list
+        } catch (error) {
+            console.error('Error blocking user:', error);
+        }
+    };
+    
+    const handleUnblock = async (userId) => {
+        try {
+            const response = await axios.put(`http://localhost:8080/api/vendor/unblock/${userId}`);
+            fetchUsers(); // Refresh the list
+        } catch (error) {
+            console.error('Error unblocking user:', error);
+        }
+    };
 
     useEffect(() => {
         fetchUsers();
@@ -131,7 +148,7 @@ const ManageVendors = () => {
                         <button type='submit' name='submit' style={{ backgroundColor: "white", borderRadius: "6px", marginLeft: "300px", width: "120px", marginTop: "15px", color: "black" }}>Add Vendors</button>
                     </Link>
                 </div>
-                <table className="table table-bordered" style={{ width: "1000px", margin: "auto", backgroundColor: "white" }}>
+                <table className="table table-bordered" style={{ width: "1000px",marginLeft:"12px", margin: "auto", backgroundColor: "white" }}>
                     <thead>
                         <tr>
                             <th>First Name</th>
@@ -139,7 +156,7 @@ const ManageVendors = () => {
                             <th>Email</th>
                             <th>Vendor Type</th>
                             <th>Address</th>
-                            <th>Company</th>
+                            <th style={{width:"300px"}}>Company</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
@@ -152,10 +169,14 @@ const ManageVendors = () => {
                                 <td>{user.vendorType || 'N/A'}</td> {/* Display Vendor Type */}
                                 <td>{user.address || 'N/A'}</td> {/* Display Address */}
                                 <td>{user.vendorCompany || 'N/A'}</td> {/* Display Company */}
-                                <td style={{ display: "flex", justifyContent: "space-around" }}>
-                                    <Button variant="primary" onClick={() => handleEdit(user)}>Edit</Button>
-                                    <Button variant="danger" onClick={() => handleDelete(user.userId)}>Delete</Button>
+                                <td style={{ display: "flex", justifyContent: "space-around",marginRight:"85px" }}>
+                                    <Button variant="primary" onClick={() => handleEdit(user)} style={{height:"35px",marginRight:"20px",width:"150px",paddingRight:"20px",paddingLeft:"20px"}}>Edit</Button>
+                                    <Button variant="danger" onClick={() => handleDelete(user.userId)} style={{height:"35px",width:"15ox",marginRight:"30px"}}>Delete</Button>
+                                    <Button variant="danger" onClick={() => handleUnblock(user.userId)} style={{height:"35px",marginRight:"50px",width:"80px"}}>UnBlock</Button>
                                 </td>
+                                
+                                
+                                
                             </tr>
                         ))}
                     </tbody>

@@ -30,11 +30,11 @@ const MakePayment = () => {
       const paymentRequest = {
         amount: amount,
       };
-      const response = await axios.post(`http://localhost:8080/api/payments/payment/${controlNumber}`, paymentRequest);
+      const response = await axios.post(`http://localhost:8080/api/payments/payment/${controlNumber}`,paymentRequest);
       setPaymentResponse(response.data);
     } catch (error) {
       setError(error.message);
-      alert('the are successful make payment')
+      // alert('the are successful make payment')
     }
   };
 
