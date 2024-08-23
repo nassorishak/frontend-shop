@@ -70,7 +70,7 @@ function App() {
         <Route path='/customer-dashboard' element={<CustomerDshboard/>}/>
         <Route path='/view-product' element={<ViewProducts/>}/>
         <Route path='/viewOrder' element={<ViewOrder/>}/>
-        <Route path='/make-payment' element={<MakePayment/>}/>
+        <Route path='/make-payment/:orderId' element={<MakePayment/>}/>
         <Route path='/custchange-information' element={<CustChangeInformation/>}/>
         <Route path='/makeorder/:productId' element={<MakeOrder/>}/>
         <Route path='/control-number' element={<ControlNumber/>}/>
