@@ -157,10 +157,14 @@ const AddProduct = () => {
       body: formData,
     })
       .then((response) => {
+        alert('product added successfully')
         if (!response.ok) {
+        
           throw new Error(`HTTP error! status: ${response.status}`);
+          
         }
         return response.json();
+        
       })
       .then((data) => {
         console.log(data);

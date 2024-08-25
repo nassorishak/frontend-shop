@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
@@ -9,6 +9,8 @@ const Login = () => {
   const [error, setError] = useState('');
 
   const navigate = useNavigate();
+
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -25,12 +27,14 @@ const Login = () => {
           localStorage.setItem("role", response.data.role );
 
           localStorage.setItem("customerId", response.data.userId);
-          alert("Hi Customer");
+          alert("Customer login successsfully");
           navigate('/customer-dashboard')
         }
 
         if(response.data.role === "VENDOR"){
           localStorage.setItem("role", response.data.role );
+          localStorage.setItem("customerId", response.data.userId);
+
           alert("Hi VENDOR");
           navigate('/vendor-dashboard')
         }

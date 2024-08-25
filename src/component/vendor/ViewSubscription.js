@@ -77,8 +77,7 @@ const ViewSubscription = () => {
             <Navigation />
             <div className='main' style={{ backgroundColor: "grey", height: "455px", overflowY: "scroll" }}>
                 <div style={{ display: "flex", flexDirection: "row" }}>
-                <Button style={{width:"140px",height:"40px",borderRadius:"8px",marginTop:"15px",backgroundColor:"white",color:"black"}}>block vendor</Button>
-                    <h2 style={{ textAlign: "center", marginTop: "15px", marginLeft: "20px" }}>MANAGE SUBSCRIPTIONS</h2>
+                    <h2 style={{ textAlign: "center", marginTop: "15px", marginLeft: "20px" }}>VENDOR VIEW SUBSCRIPTIONS</h2>
                 </div>
                 
                 <table className="table table-bordered" style={{ width: "1005px", margin: "auto", backgroundColor: "white", marginLeft: "3px" }}>

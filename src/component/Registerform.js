@@ -3,12 +3,11 @@ import React, { useState } from 'react';
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
     email: '',
-    password: '', // Add password field
-    confirmPassword: '', // Add confirm password field
+    password: '', // Password field
     firstName: '',
     lastName: '',
-    phoneNo: '', // Add phone number field
-    custAddress: '', // Add customer address field
+    phoneNo: '', // Phone number field
+    custAddress: '', // Customer address field
     role: 'CUSTOMER' // Default role
   });
 
@@ -25,12 +24,10 @@ const RegistrationForm = () => {
     return (
       formData.email &&
       formData.password &&
-      formData.confirmPassword &&
       formData.firstName &&
       formData.lastName &&
       formData.phoneNo && // Include phone number in validation
-      formData.custAddress && // Include address in validation
-      formData.password === formData.confirmPassword // Ensure passwords match
+      formData.custAddress // Include address in validation
     );
   };
 
@@ -38,7 +35,7 @@ const RegistrationForm = () => {
     e.preventDefault();
 
     if (!isFormValid()) {
-      setError('Please fill out all fields correctly and make sure passwords match.');
+      setError('Please fill out all fields correctly.');
       return;
     }
 
@@ -67,7 +64,6 @@ const RegistrationForm = () => {
         setFormData({
           email: '',
           password: '',
-          confirmPassword: '',
           firstName: '',
           lastName: '',
           phoneNo: '',
@@ -88,7 +84,7 @@ const RegistrationForm = () => {
   return (
     <div className="register-container">
       <div className="register-form">
-        <h2>ADD NEW CUSTOMER</h2>
+        <h2 style={{color:"green"}}>CUSTOMER REGISTRATION</h2>
         <form onSubmit={handleSubmit}>
           {error && <div className="error">{error}</div>}
           <div className="form-row">
@@ -112,17 +108,6 @@ const RegistrationForm = () => {
                 name="password"
                 placeholder="Enter your password"
                 value={formData.password}
-                onChange={handleChange}
-                required
-              />
-            </div>
-            <div className="form-group half-width">
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                placeholder="Confirm your password"
-                value={formData.confirmPassword}
                 onChange={handleChange}
                 required
               />

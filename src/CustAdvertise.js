@@ -234,7 +234,7 @@
 
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 const CustAdvertise = () => {
   const [products, setProducts] = useState([]);
@@ -266,6 +266,14 @@ const CustAdvertise = () => {
     fetchProducts(value); // Fetch products based on the search input
   };
   
+  const location = useLocation();
+  useEffect(()=>{
+    if(location.pathname === '/'){
+      localStorage.removeItem('role');
+      localStorage.removeItem('customerId');
+      localStorage.removeItem('vendorId');
+    }
+  },[location]);
 
   return (
     <>

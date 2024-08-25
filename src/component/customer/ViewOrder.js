@@ -461,7 +461,7 @@ const ViewOrder = () => {
                       <button 
                         style={{ background: "green", color: 'white', padding: '5px 10px', borderRadius: "5px", border: 'none', cursor: 'pointer' }} 
                       >
-                        Make Payment
+                        Payment
                       </button>
                     </Link>
                   </div>

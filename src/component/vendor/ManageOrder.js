@@ -9,6 +9,9 @@ const ViewOrder = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [orderIdToUpdate, setOrderIdToUpdate] = useState(null);
 
+  const storedUserId = localStorage.getItem('customerId');
+
+
   const [formValues, setFormValues] = useState({
     orderId: '',
     status: '',

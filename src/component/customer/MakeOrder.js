@@ -235,7 +235,7 @@ const MakeOrder = () => {
       <Navigation />
       <div className='main' style={{ backgroundColor: "whitesmoke" }}>
         <h3 style={{ textAlign: "center", marginTop: "15px" }}>CUSTOMER MAKE ORDER {productId}</h3>
-        <p>Product Id: {productId}, Customer Id: {customerId}</p>
+        {/* <p>Product Id: {productId}, Customer Id: {customerId}</p> */}
         <form onSubmit={handleSubmit} style={{ width: "400px", margin: "0 auto" }}>
           {/* Input fields for order details */}
           <div>

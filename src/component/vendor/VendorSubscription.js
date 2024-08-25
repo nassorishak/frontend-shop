@@ -113,9 +113,10 @@ const VendorSubscription = () => {
                             style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
                         />
 
-                        <label style={{ marginBottom: '5px' }}>Vendor ID:</label>
+                        {/* <label style={{ marginBottom: '5px' }}>Vendor ID:</label> */}
                         <input
                             type="number"
+                            hidden
                             value={vendorId}
                             onChange={(e) => setVendorId(Number(e.target.value))}
                             required
@@ -139,9 +140,10 @@ const VendorSubscription = () => {
                             style={{ marginBottom: '10px' }}
                         />
 
-                        <label style={{ marginBottom: '5px' }}>User ID:</label>
+                        {/* <label style={{ marginBottom: '5px' }}>User ID:</label> */}
                         <input
                             type="number"
+                            // hidden
                             value={userId}
                             onChange={(e) => setUserId(Number(e.target.value))}
                             required

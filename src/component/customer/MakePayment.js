@@ -140,7 +140,7 @@ const MakePayment = () => {
     };
 
     return (
-        <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: '#f9f9f9', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)' }}>
+        <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: 'grey', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',height:"500px" }}>
             <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Make Payment</h2>
             {paymentStatus && <div style={{ color: 'green', margin: '10px 0', textAlign: 'center', fontWeight: 'bold' }}>{paymentStatus}</div>}
             {errorMessage && <div style={{ color: 'red', margin: '10px 0', textAlign: 'center', fontWeight: 'bold' }}>{errorMessage}</div>}
