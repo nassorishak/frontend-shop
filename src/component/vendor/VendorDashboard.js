@@ -63,8 +63,8 @@ const VendorDashboard = () => {
             style={{ backgroundColor: '#d4edda' }}
           >
             <p><i className='fa fa-check'></i></p>
-            <h3>{approvedOrder}</h3>
-            <p>Approved Orders</p>
+            <h3>{canceledOrder}</h3>
+            <p>canceledOrder</p>
           </div>
           <div
             className='card'
@@ -81,17 +81,6 @@ const VendorDashboard = () => {
             <p><i className='fa fa-coffee'></i></p>
             <h3>{totalPayment}</h3>
             <p>Total Payment</p>
-          </div>
-          <div>
-            <h1 style={{ 
-              backgroundColor: '#cce5ff',
-              color: "black",
-              width: "1005px",
-              marginLeft: "9px",
-              marginRight: "100px",
-              height: "260px",
-              borderRadius: "5px" 
-            }}></h1>
           </div>
         </div>
       </div>

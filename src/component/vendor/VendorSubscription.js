@@ -41,7 +41,7 @@ const VendorSubscription = () => {
             serviceType,
             serviceName,
             vendorId,
-            blocked,
+            // blocked,
             company, // Include company in the subscription object
             vendor: {
                 userId
@@ -132,13 +132,13 @@ const VendorSubscription = () => {
                             style={{ padding: '10px', marginBottom: '10px', borderRadius: '5px', border: '1px solid #ccc' }}
                         />
 
-                        <label style={{ marginBottom: '5px' }}>Blocked:</label>
+                        {/* <label style={{ marginBottom: '5px' }}>Blocked:</label>
                         <input
                             type="checkbox"
                             checked={blocked}
                             onChange={(e) => setBlocked(e.target.checked)}
                             style={{ marginBottom: '10px' }}
-                        />
+                        /> */}
 
                         {/* <label style={{ marginBottom: '5px' }}>User ID:</label> */}
                         <input

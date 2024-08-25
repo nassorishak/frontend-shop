@@ -19,7 +19,7 @@ const links = {
         { label: 'View Product', path: '/view-product', icon: faShoppingCart },
         { label: 'View Order', path: '/viewOrder', icon: faChartBar },
         // { label: 'Make-Payment', path: '/make-payment', icon: faMoneyBill },
-        { label: 'Control-number', path: '/control-number', icon: faCog },
+        // { label: 'Control-number', path: '/control-number', icon: faCog },
         { label: 'Paymenet-record', path: '/cust-paymenet-record',icon: faMoneyBill  },
         { label: 'Logout', path: '/', icon: faSignOutAlt }
       
@@ -30,7 +30,7 @@ const links = {
         { label: 'Manage Customers', path: '/amanage-customers', icon: faCog },
         { label: 'ManageSubscription', path: '/manage-subscription', icon: faShoppingCart },
         { label: 'Manage Vendors', path: '/manage-vendors', icon: faCog },
-        { label: 'Vendor-blocker', path: '/vendor-blocker', icon: faCog },
+        // { label: 'Vendor-blocker', path: '/vendor-blocker', icon: faCog },
         { label: 'Logout', path: '/', icon: faSignOutAlt }
     ]
 };

@@ -30,6 +30,7 @@ import AdminManageSubscription from './component/Admin/AdminManageSubscription';
 import VendorBlocker from './component/Admin/VendorBlocker';
 import ProtectComponent from './component/ProtectComponent';
 import ViewSubscription from './component/vendor/ViewSubscription';
+import MonthlyReport from './component/MonthlReport';
 
 
 
@@ -45,6 +46,7 @@ function App() {
       <Route path='/Login' element={<Login/>} />
       <Route path='/registerform' element={<Registerform/>} />
       <Route path='/' element={<CustAdvertise/>}/>
+      <Route path='/monthly-report' element = {<MonthlyReport/>}/>
 
 
       
@@ -60,6 +62,7 @@ function App() {
           <Route path='/vchange-information' element = {<VChangeInformation/>}/>
           <Route path='/vendor-subscription' element = {<VendorSubscription/>}/>
           <Route path='/view-subscription' element = {<ViewSubscription/>}/>
+          {/* <Route path='/monthly-report' element = {<MonthlyReport/>}/> */}
         </Route>
 
 

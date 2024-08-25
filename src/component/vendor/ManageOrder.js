@@ -115,7 +115,7 @@ const ViewOrder = () => {
                 <th>Update</th>
                 <th>Delete</th>
                 <th>Approve</th>
-                <th>Cancel</th>
+                {/* <th>Cancel</th> */}
               </tr>
             </thead>
             <tbody>
@@ -141,11 +141,11 @@ const ViewOrder = () => {
                       Approve
                     </button>
                   </td>
-                  <td>
+                  {/* <td>
                     <button className="button" style={{ backgroundColor: "red", width: "80px", borderRadius: "5px" }} onClick={() => handleCancel(item.orderId)}>
                       Cancel
                     </button>
-                  </td>
+                  </td> */}
                 </tr>
               ))}
             </tbody>

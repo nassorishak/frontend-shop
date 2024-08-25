@@ -1,96 +1,68 @@
-// import React, { useState } from 'react';
-// import axios from 'axios';
-// import Navigation from '../navigation/Navigation';
-
-// const MakePayment = () => {
-//   const [controlNumber, setControlNumber] = useState('');
-//   const [amount, setAmount] = useState(0);
-//   const [paymentResponse, setPaymentResponse] = useState(null);
-//   const [error, setError] = useState(null);
-
-//   const handleControlNumberChange = (event) => {
-//     setControlNumber(event.target.value);
-//   };
-
-//   const handleAmountChange = (event) => {
-//     setAmount(event.target.value);
-//   };
-
-//   const handleSubmit = (event) => {
-//     event.preventDefault();
-//     makePayment();
-//   };
-
-//   const makePayment = async () => {
-//     try {
-//       const paymentRequest = {
-//         amount: amount,
-//       };
-//       const response = await axios.post(`http://localhost:8080/api/payments/payment/${controlNumber}`, paymentRequest);
-//       setPaymentResponse(response.data);
-//     } catch (error) {
-//       if (error.response) {
-//         // The request was made and the server responded with a status code
-//         // that falls out of the range of 2xx
-//         console.error(error.response.data);
-//         console.error(error.response.status);
-//         console.error(error.response.headers);
-//       } else if (error.request) {
-//         // The request was made but no response was received
-//         console.error(error.request);
-//       } else {
-//         // Something happened in setting up the request that triggered an Error
-//         console.error('Error', error.message);
-//       }
-//       setError(error.message);
-//     }
-//   };
-
-//   return (
-//     <>
-//       <Navigation />
-//       <div className='main'>
-//         <div>
-//           <h1 style={{ marginTop: "15px" }}>Make Payment</h1>
-//           <form onSubmit={handleSubmit} style={{ marginLeft: "120px", width: "700px" }}>
-//             <label>
-//               Control Number
-//               <input type="text" value={controlNumber} onChange={handleControlNumberChange} placeholder='enter the control number' />
-//             </label>
-//             <br /> <br />
-//             <label>
-//               Amount:
-//               <input type="number" value={amount} onChange={handleAmountChange} placeholder='enter payment amount' />
-//             </label>
-//             <br />
-//             <button type="submit" style={{ marginLeft: "220px", width: "150px", marginTop: "15px", backgroundColor: "gray", color: "black", borderRadius: "5px" }}>Make Payment</button>
-//           </form>
-//           {paymentResponse && (
-//             <p style={{ marginLeft: "205px" }}>
-//               Dear customer Customer you are successful make Payment<br />If you need resete click the button bellow<br /><br /><br/>{paymentResponse.transactionId}
-//               <button type="submit" style={{ marginLeft: "135px", width: "150px", marginTop: "15px", backgroundColor: "gray", color: "black" }}>Generate reccete</button>
-//             </p>
-//           )}
-//           {error && <p style={{ color: 'red' }}>{error}</p>}
-//         </div>
-//       </div>
-//     </>
-//   );
-// };
-
-// export default MakePayment;
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 
+// Modal Component
+const Modal = ({ isOpen, onClose, paymentDetails }) => {
+    if (!isOpen) return null;
+
+    const { amount, date } = paymentDetails;
+
+    return (
+        <div style={modalStyles.overlay}>
+            <div style={modalStyles.modal}>
+                <h2>Payment Details</h2>
+                <p><strong>Date:</strong> {date}</p>
+                <p><strong>Day:</strong> {new Date(date).toLocaleString('en-us', { weekday: 'long' })}</p>
+                <p><strong>Amount Paid:</strong> Tsh{amount}</p>
+                <p>Your payment has been successfully completed.</p>
+                <button onClick={onClose} style={modalStyles.closeButton}>Close</button>
+            </div>
+        </div>
+    );
+};
+
+const modalStyles = {
+    overlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.7)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    modal: {
+        backgroundColor: 'white',
+        padding: '20px',
+        borderRadius: '8px',
+        boxShadow: '0 2px 10px rgba(0, 0, 0, 0.2)',
+        width: '300px',
+        textAlign: 'center',
+    },
+    closeButton: {
+        marginTop: '20px',
+        padding: '10px 20px',
+        backgroundColor: '#28a745',
+        color: 'white',
+        border: 'none',
+        borderRadius: '4px',
+        cursor: 'pointer',
+    }
+};
+
+// Main Component
 const MakePayment = () => {
     const [amount, setAmount] = useState('');
     const [controlNumber, setControlNumber] = useState('');
     const [paymentStatus, setPaymentStatus] = useState(null);
     const [errorMessage, setErrorMessage] = useState(null);
-
-    const {orderId} = useParams();
+    const [isModalOpen, setModalOpen] = useState(false);
+    const [paymentDetails, setPaymentDetails] = useState({});
+    const { orderId } = useParams();
 
     useEffect(() => {
         console.log("Order ID:", orderId); // Debugging line
@@ -108,7 +80,7 @@ const MakePayment = () => {
             }
 
             const paymentRequest = {
-                amount: parseFloat(amount)
+                amount: parseFloat(amount),
             };
 
             const url = `http://localhost:8080/api/payments/orders/${orderId}/payment/${controlNumber}`;
@@ -117,6 +89,14 @@ const MakePayment = () => {
             if (response.status === 200) {
                 setPaymentStatus("Payment completed successfully.");
                 setErrorMessage(null);
+
+                // Set payment details for modal
+                const paymentDate = new Date().toISOString(); // Current date and time
+                setPaymentDetails({
+                    amount: amount,
+                    date: paymentDate,
+                });
+                setModalOpen(true); // Open modal
             }
         } catch (error) {
             if (error.response) {
@@ -131,7 +111,7 @@ const MakePayment = () => {
                         setErrorMessage("Payment already completed.");
                         break;
                     default:
-                        setErrorMessage("An error occurred while processing the payment.");
+                        setErrorMessage("Your payment is not valid processing the payment fail.");
                 }
             } else {
                 setErrorMessage("An error occurred. Please try again.");
@@ -140,7 +120,7 @@ const MakePayment = () => {
     };
 
     return (
-        <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: 'grey', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',height:"500px" }}>
+        <div style={{ maxWidth: '400px', margin: '0 auto', padding: '20px', border: '1px solid #ccc', borderRadius: '8px', backgroundColor: 'grey', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)', height: "500px" }}>
             <h2 style={{ textAlign: 'center', marginBottom: '20px' }}>Make Payment</h2>
             {paymentStatus && <div style={{ color: 'green', margin: '10px 0', textAlign: 'center', fontWeight: 'bold' }}>{paymentStatus}</div>}
             {errorMessage && <div style={{ color: 'red', margin: '10px 0', textAlign: 'center', fontWeight: 'bold' }}>{errorMessage}</div>}
@@ -168,6 +148,12 @@ const MakePayment = () => {
             </div>
 
             <button onClick={handlePayment} style={{ width: '100%', padding: '10px', backgroundColor: '#28a745', color: 'white', border: 'none', borderRadius: '4px', cursor: 'pointer', fontSize: '16px', fontWeight: 'bold' }}>Submit Payment</button>
+
+            <Modal 
+                isOpen={isModalOpen} 
+                onClose={() => setModalOpen(false)} 
+                paymentDetails={paymentDetails}
+            />
         </div>
     );
 };

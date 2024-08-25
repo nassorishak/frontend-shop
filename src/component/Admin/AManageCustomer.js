@@ -202,6 +202,7 @@ const ManageCustomer = () => {
                                     onChange={handleInputChange}
                                     placeholder="Phone Number"
                                     required
+                                    maxLength={"10"}
                                 />
                             </Form.Group>
                             <Button variant="success" type="submit" style={{ width: "130px", marginLeft: "130px", backgroundColor: "green" }}>Update</Button>
