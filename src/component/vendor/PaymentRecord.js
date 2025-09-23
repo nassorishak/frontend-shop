@@ -15,7 +15,7 @@ const PaymentRecord = () => {
   return (
     <>
       <Navigation />
-      <div className='main'>
+      <div className='main'style={{marginBottom: "150px"}}>
         <div>
           <h3 style={{ marginTop: "15px", textAlign: "center" }}>Vendor View Customer Payment Records</h3>
           <table>

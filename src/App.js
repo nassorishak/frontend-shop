@@ -31,6 +31,13 @@ import VendorBlocker from './component/Admin/VendorBlocker';
 import ProtectComponent from './component/ProtectComponent';
 import ViewSubscription from './component/vendor/ViewSubscription';
 import MonthlyReport from './component/MonthlReport';
+import SalesList from './component/vendor/SaleList';
+import AddSale from './component/vendor/AddSale';
+import AddPurchase from './component/vendor/AddPurchase';
+import PurchaseList from './component/vendor/Purchase';
+import Purchase from './component/vendor/Purchase';
+import AddStock from './component/vendor/AddStock';
+import Stock from './component/vendor/Stock';
 
 
 
@@ -56,13 +63,18 @@ function App() {
         
            <Route path='/vendor-dashboard' element = {<VendorDashboard/>}/>
           <Route path='/addProduct' element={<AddProduct/>} />
-          <Route path='/vewProduct' element={<ViewProduct/>}/>
+          <Route path='/viewProduct' element={<ViewProduct/>}/>
           <Route path='/manage-Order' element={<ManageOrder/>}/>
           <Route path='/payment-Record' element = {<PaymentRecord/>}/>
           <Route path='/vchange-information' element = {<VChangeInformation/>}/>
           <Route path='/vendor-subscription' element = {<VendorSubscription/>}/>
           <Route path='/view-subscription' element = {<ViewSubscription/>}/>
-          {/* <Route path='/monthly-report' element = {<MonthlyReport/>}/> */}
+          <Route path='/sale' element = {<SalesList/>}/>
+          <Route path='/add-stock' element = {<AddStock/>}/>
+          <Route path='/stock' element = {<Stock/>}/>
+           <Route path='/purchase' element = {<Purchase/>}/>
+          <Route path='/add-puchase' element = {<AddPurchase/>}/>
+          <Route path='/add-sale' element = {<AddSale/>}/>
         </Route>
 
 

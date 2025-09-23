@@ -44,7 +44,7 @@ const CustomerDashboard = () => {
   return (
     <>
       <Navigation />
-      <div className='main'>
+      <div className='main' style={{marginBottom:"250px"}}>
         <h1 style={{ marginTop: "20px" }}>Customer Dashboard</h1>
         <div className='card-container'>
           <div

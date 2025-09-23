@@ -5,11 +5,13 @@ const links = {
     VENDOR: [
         { label: 'Dashboard', path: '/vendor-dashboard', icon: faChartBar },
         { label: 'Add Product', path: '/addProduct', icon: faShoppingCart },
-        { label: 'View Product', path: '/vewProduct', icon: faShoppingCart },
+        { label: 'View Product', path: '/viewProduct', icon: faShoppingCart },
         { label: 'Manage Order', path: '/manage-Order', icon: faChartBar },
-        { label: 'Payment Record', path: '/payment-Record', icon: faMoneyBill },
-        { label: 'Vendor Subscription', path: '/vendor-subscription', icon: faMoneyBill },
-        { label: 'ViewSubscription', path: '/view-subscription', icon: faCog },
+        { label: 'Payment Record', path: '/payment-Record', icon: faMoneyBill }, 
+         { label: 'Purchase', path: '/purchase', icon: faMoneyBill },
+         { label: 'Stock', path: '/stock', icon: faMoneyBill },   
+        { label: 'AddPurchase', path: '/add-puchase', icon: faMoneyBill },
+        { label: 'Sales', path: '/sale', icon: faCog },       
         { label: 'Logout', path: '/', icon: faSignOutAlt  }
 
     ],
