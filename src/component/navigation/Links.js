@@ -4,13 +4,10 @@ import { faChartBar, faShoppingCart, faMoneyBill, faCog, faSignOutAlt } from '@f
 const links = {
     VENDOR: [
         { label: 'Dashboard', path: '/vendor-dashboard', icon: faChartBar },
-        { label: 'Add Product', path: '/addProduct', icon: faShoppingCart },
         { label: 'View Product', path: '/viewProduct', icon: faShoppingCart },
         { label: 'Manage Order', path: '/manage-Order', icon: faChartBar },
         { label: 'Payment Record', path: '/payment-Record', icon: faMoneyBill }, 
-         { label: 'Purchase', path: '/purchase', icon: faMoneyBill },
          { label: 'Stock', path: '/stock', icon: faMoneyBill },   
-        { label: 'AddPurchase', path: '/add-puchase', icon: faMoneyBill },
         { label: 'Sales', path: '/sale', icon: faCog },       
         { label: 'Logout', path: '/', icon: faSignOutAlt  }
 
@@ -28,9 +25,12 @@ const links = {
     ],
     ADMIN: [
         { label: 'Dashboard', path: '/admin-dashboard', icon: faChartBar },
-        // { label: 'Manage Orders', path: '/manage-orders', icon: faChartBar },
+        { label: 'Manage Orders', path: '/manage-orders', icon: faChartBar },
+        { label: 'AddPurchase', path: '/add-puchase', icon: faMoneyBill },
+         { label: 'Add Product', path: '/addProduct', icon: faShoppingCart },
+        { label: 'Purchase', path: '/purchase', icon: faMoneyBill },
         { label: 'Manage Customers', path: '/amanage-customers', icon: faCog },
-        { label: 'ManageSubscription', path: '/manage-subscription', icon: faShoppingCart },
+        // { label: 'ManageSubscription', path: '/manage-subscription', icon: faShoppingCart },
         { label: 'Manage Vendors', path: '/manage-vendors', icon: faCog },
         // { label: 'Vendor-blocker', path: '/vendor-blocker', icon: faCog },
         { label: 'Logout', path: '/', icon: faSignOutAlt }

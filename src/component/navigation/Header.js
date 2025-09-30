@@ -9,6 +9,8 @@ const Header = () => {
       <h2 style={{marginTop:"1px",height:"60px",marginLeft:"7%",position:"fixed"}}>ZANZIBAR PLUMBING MAKETING SHOP CENTER</h2>
 
     </div>
+
+    
     // </div>
   )
 }

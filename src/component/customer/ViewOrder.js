@@ -968,8 +968,8 @@ const ViewOrders = () => {
                     <td style={tdStyle}>{order.product?.productDescription?.substring(0, 30) || "N/A"}{order.product?.productDescription?.length > 30 ? "..." : ""}</td>
                     <td style={tdStyle}>{order.quantity}</td>
                     <td style={tdStyle}>{order.size}</td>
-                    <td style={priceStyle}>${order.product?.price?.toFixed(2) || "0.00"}</td>
-                    <td style={totalStyle}>${((order.product?.price || 0) * order.quantity).toFixed(2)}</td>
+                    <td style={priceStyle}>{order.product?.price?.toFixed(2) || "0.00"}Tsh</td>
+                    <td style={totalStyle}>{((order.product?.price || 0) * order.quantity).toFixed(2)}Tsh</td>
                     <td style={{ ...tdStyle, textAlign: "center" }}>
                       <div style={{ display: "flex", gap: "8px", justifyContent: "center", flexWrap: "wrap" }}>
                         <button onClick={() => handleDelete(order.orderId)} style={deleteBtnStyle} disabled={order.status === "completed"}>Delete</button>

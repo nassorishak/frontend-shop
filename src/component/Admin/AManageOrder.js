@@ -90,7 +90,7 @@ const AManageOrder = () => {
   return (
     <>
       <Navigation />
-      <div className="main" style={{backgroundColor:"wheat"}}>
+      <div className="main" style={{backgroundColor:"wheat",marginBottom:"250px"}}>
         <h1 style={{textAlign:"center", marginTop:"10px", marginBottom:"40px", backgroundColor:"gray", width:"1041px",marginRight:"40px"}}>ADMIN MANAGE ORDER</h1>
         {loading ? (
           <div>Loading...</div>

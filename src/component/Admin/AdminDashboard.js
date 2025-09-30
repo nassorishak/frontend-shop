@@ -44,7 +44,7 @@ const AdminDashboard = () => {
   return (
     <>
       <Navigation />
-      <div className='main'>
+      <div className='main' style={{marginBottom:"250px"}}>
         <h1 style={{ marginTop: "20px" }}>Admin Dashboard</h1>
         <div className='card-container'>
           <div

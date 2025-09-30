@@ -131,7 +131,7 @@ const ManageCustomer = () => {
     return (
         <>
             <Navigation />
-            <div className='main' style={{ backgroundColor: "grey", minHeight: "100vh", padding: '20px' }}>
+            <div className='main' style={{ backgroundColor: "grey", minHeight: "90vh", padding: '20px' }}>
                 {/* Fixed Header Container */}
                 <div style={{
                     position: 'fixed', 

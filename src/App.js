@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import AddProduct from './component/vendor/AddProduct';
+import AddProduct from './component/Admin/AddProduct';
 import ViewProduct from './component/vendor/ViewProduct';
 import ManageOrder from './component/vendor/ManageOrder';
 import PaymentRecord from './component/vendor/PaymentRecord';
@@ -34,8 +34,7 @@ import MonthlyReport from './component/MonthlReport';
 import SalesList from './component/vendor/SaleList';
 import AddSale from './component/vendor/AddSale';
 import AddPurchase from './component/vendor/AddPurchase';
-import PurchaseList from './component/vendor/Purchase';
-import Purchase from './component/vendor/Purchase';
+import Purchase from './component/Admin/Purchase';
 import AddStock from './component/vendor/AddStock';
 import Stock from './component/vendor/Stock';
 
@@ -62,7 +61,6 @@ function App() {
         {/* Vendor */}
         
            <Route path='/vendor-dashboard' element = {<VendorDashboard/>}/>
-          <Route path='/addProduct' element={<AddProduct/>} />
           <Route path='/viewProduct' element={<ViewProduct/>}/>
           <Route path='/manage-Order' element={<ManageOrder/>}/>
           <Route path='/payment-Record' element = {<PaymentRecord/>}/>
@@ -72,8 +70,6 @@ function App() {
           <Route path='/sale' element = {<SalesList/>}/>
           <Route path='/add-stock' element = {<AddStock/>}/>
           <Route path='/stock' element = {<Stock/>}/>
-           <Route path='/purchase' element = {<Purchase/>}/>
-          <Route path='/add-puchase' element = {<AddPurchase/>}/>
           <Route path='/add-sale' element = {<AddSale/>}/>
         </Route>
 
@@ -99,6 +95,9 @@ function App() {
 
         {/* Admin */}
         <Route path='/admin-dashboard' element = {<AdminDashboard/>}/>
+        <Route path='/addProduct' element={<AddProduct/>} />
+        <Route path='/add-puchase' element = {<AddPurchase/>}/>
+        <Route path='/purchase' element = {<Purchase/>}/>
         <Route path='/manage-orders' element = {<AManageOrder/>}/>
         <Route path='/amanage-customers' element = {<AManageCustomer/>}/>
         <Route path='/a-manage-products' element = {<AManageProducts/>}/>

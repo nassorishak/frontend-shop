@@ -154,6 +154,143 @@
 
 // export default AddProduct;
 
+// import React, { useState } from 'react';
+// import Navigation from '../navigation/Navigation';
+
+// const AddProduct = () => {
+//   const [productCode, setProductCode] = useState('');
+//   const [productName, setProductName] = useState('');
+//   const [productDescription, setProductDescription] = useState('');
+//   const [price, setPrice] = useState('');
+//   const [category, setCategory] = useState('');
+//   const [productCompany, setProductCompany] = useState('');
+//   const [productUnit, setProductUnit] = useState('');
+//   const [stockQuantity, setStockQuantity] = useState('');
+//   const [image, setImage] = useState(null);
+//   const [error, setError] = useState(null);
+
+//   // Retrieve vendorId from local storage
+//   const vendorId = localStorage.getItem('customerId'); // Ensure this is correct
+
+//   const handleFormSubmit = async (event) => {
+//     event.preventDefault();
+
+//     if (!vendorId) {
+//       setError('Vendor ID not found in local storage.');
+//       return;
+//     }
+
+//     const formData = new FormData();
+//     formData.append('userId', vendorId); // Link to User entity
+//     formData.append('productCode', productCode);
+//     formData.append('productName', productName);
+//     formData.append('productDescription', productDescription);
+//     formData.append('price', price);
+//     formData.append('category', category);
+//     formData.append('productCompany', productCompany);
+//     formData.append('productUnit', productUnit);
+//     formData.append('stockQuantity', stockQuantity);
+//     formData.append('image', image);
+
+//     try {
+//       const response = await fetch('http://localhost:8080/api/product/add/product', {
+//         method: 'POST',
+//         body: formData,
+//       });
+
+//       if (!response.ok) {
+//         const errorData = await response.json();
+//         throw new Error(errorData.message || 'Unknown error.');
+//       }
+
+//       alert('Product added successfully!');
+//       setProductCode('');
+//       setProductName('');
+//       setProductDescription('');
+//       setPrice('');
+//       setCategory('');
+//       setProductCompany('');
+//       setProductUnit('');
+//       setStockQuantity('');
+//       setImage(null);
+//       setError(null);
+//     } catch (err) {
+//       setError(`Error: ${err.message}`);
+//       console.error(err);
+//     }
+//   };
+
+//   return (
+//     <>
+//       <Navigation />
+//       <div className="main" style={{ backgroundColor: "white", padding: "0px", marginBottom: "240px", marginLeft: "10px", marginRight: "50px" }}>
+//         <h1 className="heading" style={{ marginBottom: "40px", marginTop: "50px", backgroundColor: "whitesmoke", padding: "10px",color:"green"}}>
+//           ADD PRODUCTS
+//         </h1>
+//         {error && <p style={{ color: 'red' }}>{error}</p>}
+//         <form onSubmit={handleFormSubmit} encType="multipart/form-data">
+//           <div className="form-row" style={{ marginBottom: '20px' }}>
+//             <div className="form-group">
+//               <label htmlFor="productCode">Product Code:</label>
+//               <input type="text" id="productCode" value={productCode} onChange={(e) => setProductCode(e.target.value)} required />
+//             </div>
+//             <div className="form-group" style={{ marginLeft: "20px" }}>
+//               <label htmlFor="productName">Product Name:</label>
+//               <input type="text" id="productName" value={productName} onChange={(e) => setProductName(e.target.value)} required />
+//             </div>
+//           </div>
+
+//           <div className="form-row" style={{ marginBottom: '20px' }}>
+//             <div className="form-group">
+//               <label htmlFor="productDescription">Product Description:</label>
+//               <input type="text" id="productDescription" value={productDescription} onChange={(e) => setProductDescription(e.target.value)} />
+//             </div>
+//             <div className="form-group" style={{ marginLeft: "20px" }}>
+//               <label htmlFor="price">Price:</label>
+//               <input type="number" id="price" step="0.01" min="0" value={price} onChange={(e) => setPrice(Number(e.target.value) || 0)} required />
+//             </div>
+//           </div>
+
+//           <div className="form-row" style={{ marginBottom: '20px' }}>
+//             <div className="form-group">
+//               <label htmlFor="category">Category:</label>
+//               <input type="text" id="category" value={category} onChange={(e) => setCategory(e.target.value)} />
+//             </div>
+//             <div className="form-group" style={{ marginLeft: "20px" }}>
+//               <label htmlFor="productCompany">Product Company:</label>
+//               <input type="text" id="productCompany" value={productCompany} onChange={(e) => setProductCompany(e.target.value)} required />
+//             </div>
+//           </div>
+
+//           <div className="form-row" style={{ marginBottom: '20px' }}>
+//             <div className="form-group">
+//               <label htmlFor="productUnit">Product Unit:</label>
+//               <input type="text" id="productUnit" value={productUnit} onChange={(e) => setProductUnit(e.target.value)} />
+//             </div>
+//             <div className="form-group" style={{ marginLeft: "20px" }}>
+//               <label htmlFor="stockQuantity">Stock Quantity:</label>
+//               <input type="number" id="stockQuantity" min="0" value={stockQuantity} onChange={(e) => setStockQuantity(Number(e.target.value) || 0)} />
+//             </div>
+//           </div>
+
+//           <div className="form-row" style={{ marginBottom: '20px' }}>
+//             <div className="form-group">
+//               <label htmlFor="image">Image:</label>
+//               <input type="file" id="image" onChange={(e) => setImage(e.target.files[0])} />
+//             </div>
+//           </div>
+
+//           <div className="form-group">
+//             <input type="submit" value="Submit" style={{ padding: "10px",marginBottom:"50px", backgroundColor: "grey", color: "black", width: "100px", marginLeft: "510px", marginTop: "20px", height: "50px" }} />
+//           </div>
+//         </form>
+//       </div>
+//     </>
+//   );
+// };
+
+// export default AddProduct;
+
 import React, { useState } from 'react';
 import Navigation from '../navigation/Navigation';
 
@@ -169,19 +306,25 @@ const AddProduct = () => {
   const [image, setImage] = useState(null);
   const [error, setError] = useState(null);
 
-  // Retrieve vendorId from local storage
-  const vendorId = localStorage.getItem('customerId'); // Ensure this is correct
+  // Retrieve role and IDs from local storage
+  const role = localStorage.getItem('role'); 
+  const vendorId = localStorage.getItem('vendorId'); // stored only for vendors
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
 
-    if (!vendorId) {
-      setError('Vendor ID not found in local storage.');
+    if (role === 'vendor' && !vendorId) {
+      setError('Vendor ID not found. Please log in again.');
       return;
     }
 
     const formData = new FormData();
-    formData.append('userId', vendorId); // Link to User entity
+
+    // Only add vendorId if user is a vendor
+    if (role === 'vendor') {
+      formData.append('userId', vendorId);
+    }
+
     formData.append('productCode', productCode);
     formData.append('productName', productName);
     formData.append('productDescription', productDescription);
@@ -223,8 +366,26 @@ const AddProduct = () => {
   return (
     <>
       <Navigation />
-      <div className="main" style={{ backgroundColor: "white", padding: "0px", marginBottom: "240px", marginLeft: "10px", marginRight: "50px" }}>
-        <h1 className="heading" style={{ marginBottom: "40px", marginTop: "50px", backgroundColor: "whitesmoke", padding: "10px",color:"green"}}>
+      <div
+        className="main"
+        style={{
+          backgroundColor: 'white',
+          padding: '0px',
+          marginBottom: '240px',
+          marginLeft: '10px',
+          marginRight: '50px',
+        }}
+      >
+        <h1
+          className="heading"
+          style={{
+            marginBottom: '40px',
+            marginTop: '50px',
+            backgroundColor: 'whitesmoke',
+            padding: '10px',
+            color: 'green',
+          }}
+        >
           ADD PRODUCTS
         </h1>
         {error && <p style={{ color: 'red' }}>{error}</p>}
@@ -232,56 +393,122 @@ const AddProduct = () => {
           <div className="form-row" style={{ marginBottom: '20px' }}>
             <div className="form-group">
               <label htmlFor="productCode">Product Code:</label>
-              <input type="text" id="productCode" value={productCode} onChange={(e) => setProductCode(e.target.value)} required />
+              <input
+                type="text"
+                id="productCode"
+                value={productCode}
+                onChange={(e) => setProductCode(e.target.value)}
+                required
+              />
             </div>
-            <div className="form-group" style={{ marginLeft: "20px" }}>
+            <div className="form-group" style={{ marginLeft: '20px' }}>
               <label htmlFor="productName">Product Name:</label>
-              <input type="text" id="productName" value={productName} onChange={(e) => setProductName(e.target.value)} required />
+              <input
+                type="text"
+                id="productName"
+                value={productName}
+                onChange={(e) => setProductName(e.target.value)}
+                required
+              />
             </div>
           </div>
 
           <div className="form-row" style={{ marginBottom: '20px' }}>
             <div className="form-group">
               <label htmlFor="productDescription">Product Description:</label>
-              <input type="text" id="productDescription" value={productDescription} onChange={(e) => setProductDescription(e.target.value)} />
+              <input
+                type="text"
+                id="productDescription"
+                value={productDescription}
+                onChange={(e) => setProductDescription(e.target.value)}
+              />
             </div>
-            <div className="form-group" style={{ marginLeft: "20px" }}>
+            <div className="form-group" style={{ marginLeft: '20px' }}>
               <label htmlFor="price">Price:</label>
-              <input type="number" id="price" step="0.01" min="0" value={price} onChange={(e) => setPrice(Number(e.target.value) || 0)} required />
+              <input
+                type="number"
+                id="price"
+                step="0.01"
+                min="0"
+                value={price}
+                onChange={(e) => setPrice(Number(e.target.value) || 0)}
+                required
+              />
             </div>
           </div>
 
           <div className="form-row" style={{ marginBottom: '20px' }}>
             <div className="form-group">
               <label htmlFor="category">Category:</label>
-              <input type="text" id="category" value={category} onChange={(e) => setCategory(e.target.value)} />
+              <input
+                type="text"
+                id="category"
+                value={category}
+                onChange={(e) => setCategory(e.target.value)}
+              />
             </div>
-            <div className="form-group" style={{ marginLeft: "20px" }}>
+            <div className="form-group" style={{ marginLeft: '20px' }}>
               <label htmlFor="productCompany">Product Company:</label>
-              <input type="text" id="productCompany" value={productCompany} onChange={(e) => setProductCompany(e.target.value)} required />
+              <input
+                type="text"
+                id="productCompany"
+                value={productCompany}
+                onChange={(e) => setProductCompany(e.target.value)}
+                required
+              />
             </div>
           </div>
 
           <div className="form-row" style={{ marginBottom: '20px' }}>
             <div className="form-group">
               <label htmlFor="productUnit">Product Unit:</label>
-              <input type="text" id="productUnit" value={productUnit} onChange={(e) => setProductUnit(e.target.value)} />
+              <input
+                type="text"
+                id="productUnit"
+                value={productUnit}
+                onChange={(e) => setProductUnit(e.target.value)}
+              />
             </div>
-            <div className="form-group" style={{ marginLeft: "20px" }}>
+            <div className="form-group" style={{ marginLeft: '20px' }}>
               <label htmlFor="stockQuantity">Stock Quantity:</label>
-              <input type="number" id="stockQuantity" min="0" value={stockQuantity} onChange={(e) => setStockQuantity(Number(e.target.value) || 0)} />
+              <input
+                type="number"
+                id="stockQuantity"
+                min="0"
+                value={stockQuantity}
+                onChange={(e) =>
+                  setStockQuantity(Number(e.target.value) || 0)
+                }
+              />
             </div>
           </div>
 
           <div className="form-row" style={{ marginBottom: '20px' }}>
             <div className="form-group">
               <label htmlFor="image">Image:</label>
-              <input type="file" id="image" onChange={(e) => setImage(e.target.files[0])} />
+              <input
+                type="file"
+                id="image"
+                onChange={(e) => setImage(e.target.files[0])}
+              />
             </div>
           </div>
 
           <div className="form-group">
-            <input type="submit" value="Submit" style={{ padding: "10px",marginBottom:"50px", backgroundColor: "grey", color: "black", width: "100px", marginLeft: "510px", marginTop: "20px", height: "50px" }} />
+            <input
+              type="submit"
+              value="Submit"
+              style={{
+                padding: '10px',
+                marginBottom: '50px',
+                backgroundColor: 'grey',
+                color: 'black',
+                width: '100px',
+                marginLeft: '510px',
+                marginTop: '20px',
+                height: '50px',
+              }}
+            />
           </div>
         </form>
       </div>
@@ -290,3 +517,4 @@ const AddProduct = () => {
 };
 
 export default AddProduct;
+

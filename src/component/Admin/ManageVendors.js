@@ -758,7 +758,7 @@ const ManageVendors = () => {
     return (
         <>
             <Navigation />
-            <div className='main' style={{ backgroundColor: "grey", height: "455px", overflowY: "scroll",marginLeft:"10px" }}>
+            <div className='main' style={{ backgroundColor: "grey", height: "455px", overflowY: "scroll",marginLeft:"10px",marginBottom:"250px" }}>
                 <div style={{ display: "flex", flexDirection: "row" }}>
                     <h2 style={{ textAlign: "center", marginTop: "15px", marginLeft: "200px" }}>MANAGE VENDORS</h2>
                     <Link to={'/add-vendors'}>
