@@ -37,6 +37,8 @@ import AddPurchase from './component/vendor/AddPurchase';
 import Purchase from './component/Admin/Purchase';
 import AddStock from './component/vendor/AddStock';
 import Stock from './component/vendor/Stock';
+import AddShelf from './component/Admin/AddShelf';
+import Shelf from './component/Admin/Shelf';
 
 
 
@@ -98,6 +100,7 @@ function App() {
         <Route path='/addProduct' element={<AddProduct/>} />
         <Route path='/add-puchase' element = {<AddPurchase/>}/>
         <Route path='/purchase' element = {<Purchase/>}/>
+        <Route path='/add-shelf' element = {<AddShelf/>}/>
         <Route path='/manage-orders' element = {<AManageOrder/>}/>
         <Route path='/amanage-customers' element = {<AManageCustomer/>}/>
         <Route path='/a-manage-products' element = {<AManageProducts/>}/>
@@ -105,6 +108,7 @@ function App() {
         <Route path='/register-vendors' element = {<RegisterForm/>}/>
         <Route path='/add-vendors' element = {<AddVendors/>}/>
         <Route path='/add-customers' element = {<AddCustomers/>}/>
+        <Route path='/shelf' element = {<Shelf/>}/>
         <Route path='/vendor-blocker' element = {<VendorBlocker/>}/>
         <Route path='/manage-subscription' element = {<AdminManageSubscription/>}/>
 

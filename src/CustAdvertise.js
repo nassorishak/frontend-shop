@@ -1822,6 +1822,597 @@
 // };
 
 // export default CustAdvertise;
+// import React, { useEffect, useState } from 'react'; 
+// import axios from 'axios';
+// import { Link, useLocation } from 'react-router-dom';
+
+// const CustAdvertise = () => {
+//   const [products, setProducts] = useState([]);
+//   const [searchInput, setSearchInput] = useState('');
+//   const [filteredProducts, setFilteredProducts] = useState([]);
+
+//   // Fetch products
+//   const fetchProducts = async (query = '') => {
+//     try {
+//       const response = await axios.get(`http://localhost:8080/api/product/search?query=${query}`);
+//       setProducts(response.data);
+//       setFilteredProducts(response.data);
+//     } catch (error) {
+//       console.error("Error fetching products", error);
+//     }
+//   };
+
+//   useEffect(() => {
+//     fetchProducts();
+//     const interval = setInterval(() => {
+//       fetchProducts(searchInput);
+//     }, 5000);
+//     return () => clearInterval(interval);
+//   }, [searchInput]);
+
+//   const handleSearch = (e) => {
+//     const value = e.target.value.toLowerCase();
+//     setSearchInput(value);
+//     fetchProducts(value);
+//   };
+
+//   // Clear session storage on home route
+//   const location = useLocation();
+//   useEffect(() => {
+//     if (location.pathname === '/') {
+//       localStorage.removeItem('role');
+//       localStorage.removeItem('customerId');
+//       localStorage.removeItem('vendorId');
+//     }
+//   }, [location]);
+
+//   return (
+//     <div style={{ backgroundColor: "#f5f7fa", height: "100vh", overflow: "hidden" }}>
+//       {/* Navbar */}
+//       <nav className="navbar navbar-expand-sm navbar-dark"
+//         style={{
+//           background: "linear-gradient(135deg, #6a11cb, #2575fc)",
+//           position: "fixed",
+//           top: 0,
+//           width: "100%",
+//           zIndex: 1000,
+//           boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
+//         }}>
+//         <div className="container-fluid">
+//           <img src='water.jpg' alt="Logo" style={{ height: "50px", width: "60px", borderRadius: "25px" }} />
+//           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+//             <span className="navbar-toggler-icon"></span>
+//           </button>
+
+//           <div className="collapse navbar-collapse" id="mynavbar">
+//             <form className="d-flex ms-auto">
+//               <input
+//                 className="form-control me-2"
+//                 type="text"
+//                 placeholder="🔍 Search products..."
+//                 value={searchInput}
+//                 onChange={handleSearch}
+//                 style={{
+//                   borderRadius: "25px",
+//                   width: "280px",
+//                   border: "1px solid #ddd",
+//                   padding: "8px 15px",
+//                   marginLeft:"1290px"
+//                 }}
+//               />
+//               <Link to={'/login'}>
+//                 <button type="button" className="btn"
+//                   style={{
+//                     background: "#fff",
+//                     color: "#6a11cb",
+//                     borderRadius: "25px",
+//                     fontWeight: "600",
+//                     padding: "6px 20px"
+//                   }}>
+//                   Login
+//                 </button>
+//               </Link>
+//             </form>
+//           </div>
+//         </div>
+//       </nav>
+
+//       {/* Announcement Bar (scrolls) */}
+//       <div style={{
+//         position: "fixed",
+//         top: "70px", // right below navbar
+//         left: 0,
+//         right: 0,
+//         background: "linear-gradient(to right, #ff7e5f, #feb47b)",
+//         color: "white",
+//         padding: "10px 0",
+//         overflow: "hidden",
+//         whiteSpace: "nowrap",
+//         textAlign: "center",
+//         fontWeight: "600",
+//         zIndex: 999,
+//         boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
+//       }}>
+//         <div style={{
+//           display: "inline-block",
+//           paddingLeft: "100%",
+//           color:"green",
+//           animation: "scroll-left 15s linear infinite"
+//         }}>
+//           🎉  ZANZIBAR PLUMBING MARKETING SHOP CENTER. 🎉
+//         </div>
+//       </div>
+
+//       {/* Keyframes for announcement scroll */}
+//       <style>
+//         {`
+//           @keyframes scroll-left {
+//             0% { transform: translateX(0); }
+//             100% { transform: translateX(-100%); }
+//           }
+//         `}
+//       </style>
+
+//       {/* Scrollable Product Section */}
+//       <div style={{
+//         position: "absolute",
+//         top: "120px", // navbar (70px) + announcement (50px)
+//         left: 0,
+//         right: 0,
+//         bottom: 0,
+//         overflowY: "auto",
+//         padding: "20px 50px"
+//       }}>
+//         {/* Static Page Title */}
+//        {/* Fixed Page Title */}
+// {/* <h2 style={{
+//   position: "fixed",
+//   top: "115px",   // navbar (70px) + announcement (50px)
+//   left: "50%",
+//   marginTop:"15px",
+//   transform: "translateX(-50%)",
+//   zIndex: 998,
+//   fontSize: "28px",
+//   fontWeight: "700",
+//   background: "linear-gradient(to right, #f2f1f3ff, #2575fc)",
+//   WebkitBackgroundClip: "text",
+//   WebkitTextFillColor: "transparent",
+//   margin: 0,
+//   padding: "10px 0",
+//   textAlign: "center"
+// }}>
+ 
+// </h2> */}
+
+// {/* Fixed Subtitle */}
+// <h4 style={{
+//   position: "fixed",
+//   top: "120px",   // right under the main heading
+//   left: "50%",
+//   transform: "translateX(-50%)",
+//   zIndex: 998,
+//   margin: 0,
+//   padding: "5px 0",
+//   color: "#2c3e50",
+//   backgroundColor: "#f5f7fa"
+// }}>
+//   Our Products
+// </h4>
+
+
+//         <div style={{
+//           display: "grid",
+//           gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+//           gap: "25px"
+//         }}>
+//           {filteredProducts.map((product) => (
+//             <div key={product.productId}
+//               style={{
+//                 background: "white",
+//                 borderRadius: "16px",
+//                 boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+//                 overflow: "hidden",
+//                 transition: "transform 0.3s ease, box-shadow 0.3s ease"
+//               }}
+//               onMouseEnter={(e) => {
+//                 e.currentTarget.style.transform = "translateY(-6px)";
+//                 e.currentTarget.style.boxShadow = "0 12px 25px rgba(0,0,0,0.15)";
+//               }}
+//               onMouseLeave={(e) => {
+//                 e.currentTarget.style.transform = "translateY(0)";
+//                 e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.08)";
+//               }}
+//             >
+//               {/* Product Image */}
+//               <div style={{ position: "relative", height: "180px", overflow: "hidden" }}>
+//                 <span style={{
+//                   position: "absolute", top: "10px", right: "10px",
+//                   background: "green", color: "white",
+//                   padding: "4px 10px", borderRadius: "12px",
+//                   fontSize: "12px", fontWeight: "600"
+//                 }}>
+//                   In Stock
+//                 </span>
+//                 <img src={`data:image/jpeg;base64,${product.image}`}
+//                   alt={product.productName}
+//                   style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+//               </div>
+
+//               {/* Product Info */}
+//               <div style={{ padding: "15px" }}>
+//                 <p style={{ fontSize: "13px", color: "#6c757d", marginBottom: "5px" }}>
+//                   {product.brand}
+//                 </p>
+//                 <h5 style={{
+//                   fontSize: "16px",
+//                   fontWeight: "600",
+//                   color: "#2c3e50",
+//                   marginBottom: "10px",
+//                   overflow: "hidden",
+//                   textOverflow: "ellipsis",
+//                   whiteSpace: "nowrap"
+//                 }}>
+//                   {product.productName}
+//                 </h5>
+
+//                 <div>
+//                   <span style={{ fontWeight: "bold", color: "#2c3e50", fontSize: "16px" }}>
+//                     Tsh {product.price?.toLocaleString()}
+//                   </span>
+//                   {product.originalPrice && (
+//                     <span style={{ marginLeft: "8px", color: "#6c757d", textDecoration: "line-through", fontSize: "13px" }}>
+//                       {product.originalPrice}
+//                     </span>
+//                   )}
+//                 </div>
+
+//                 <p style={{ marginTop: "6px", fontSize: "13px", color: "#6c757d" }}>
+//                   {product.vendorCompany}
+//                 </p>
+
+//                 <div style={{ marginTop: "12px" }}>
+//                   <button className="btn" style={{
+//                     background: "linear-gradient(135deg, #6a11cb, #2575fc)",
+//                     color: "white",
+//                     border: "none",
+//                     borderRadius: "50%",
+//                     width: "36px",
+//                     height: "36px",
+//                     display: "flex",
+//                     alignItems: "center",
+//                     justifyContent: "center",
+//                     fontSize: "14px"
+//                   }}>
+//                     <i className="fa fa-heart"></i>
+//                   </button>
+//                 </div>
+//               </div>
+//             </div>
+//           ))}
+
+//           {filteredProducts.length === 0 && (
+//             <div style={{
+//               gridColumn: "1 / -1",
+//               textAlign: "center",
+//               padding: "40px",
+//               color: "#78909c"
+//             }}>
+//               <div style={{ fontSize: "60px", marginBottom: "15px" }}>🛍️</div>
+//               <h3 style={{ marginBottom: "10px", color: "#546e7a" }}>No products found</h3>
+//               <p>Try adjusting your search or check back later.</p>
+//             </div>
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default CustAdvertise;
+
+// import React, { useEffect, useState } from 'react'; 
+// import axios from 'axios';
+// import { Link, useLocation } from 'react-router-dom';
+
+// const CustAdvertise = () => {
+//   const [products, setProducts] = useState([]);
+//   const [searchInput, setSearchInput] = useState('');
+//   const [filteredProducts, setFilteredProducts] = useState([]);
+//   const [shelves, setShelves] = useState([]);
+
+//   // Fetch products
+//   const fetchProducts = async (query = '') => {
+//     try {
+//       const response = await axios.get(`http://localhost:8080/api/product/search?query=${query}`);
+//       setProducts(response.data);
+//       setFilteredProducts(response.data);
+//     } catch (error) {
+//       console.error("Error fetching products", error);
+//     }
+//   };
+
+//   // Fetch shelves
+//   const fetchShelves = async () => {
+//     try {
+//       const response = await axios.get('http://localhost:8080/api/shelves/list-shelves');
+//       setShelves(response.data);
+//     } catch (error) {
+//       console.error('Error fetching shelves:', error);
+//     }
+//   };
+
+//   // useEffect to fetch products and shelves periodically
+//   useEffect(() => {
+//     fetchProducts();
+//     fetchShelves();
+
+//     const interval = setInterval(() => {
+//       fetchProducts(searchInput);
+//     }, 5000);
+//     return () => clearInterval(interval);
+//   }, [searchInput]);
+
+//   const handleSearch = (e) => {
+//     const value = e.target.value.toLowerCase();
+//     setSearchInput(value);
+//     fetchProducts(value);
+//   };
+
+//   // Clear session storage on home route
+//   const location = useLocation();
+//   useEffect(() => {
+//     if (location.pathname === '/') {
+//       localStorage.removeItem('role');
+//       localStorage.removeItem('customerId');
+//       localStorage.removeItem('vendorId');
+//     }
+//   }, [location]);
+
+//   return (
+//     <div style={{ backgroundColor: "#f5f7fa", height: "100vh", overflow: "hidden" }}>
+//       {/* Navbar */}
+//       <nav className="navbar navbar-expand-sm navbar-dark"
+//         style={{
+//           background: "linear-gradient(135deg, #6a11cb, #2575fc)",
+//           position: "fixed",
+//           top: 0,
+//           width: "100%",
+//           zIndex: 1000,
+//           boxShadow: "0 4px 12px rgba(0,0,0,0.1)"
+//         }}>
+//         <div className="container-fluid">
+//           <img src='water.jpg' alt="Logo" style={{ height: "50px", width: "60px", borderRadius: "25px" }} />
+//           <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mynavbar">
+//             <span className="navbar-toggler-icon"></span>
+//           </button>
+
+//           <div className="collapse navbar-collapse" id="mynavbar">
+//             <form className="d-flex ms-auto">
+//               <input
+//                 className="form-control me-2"
+//                 type="text"
+//                 placeholder="🔍 Search products..."
+//                 value={searchInput}
+//                 onChange={handleSearch}
+//                 style={{
+//                   borderRadius: "25px",
+//                   width: "280px",
+//                   border: "1px solid #ddd",
+//                   padding: "8px 15px",
+//                   marginLeft:"1290px"
+//                 }}
+//               />
+//               <Link to={'/login'}>
+//                 <button type="button" className="btn"
+//                   style={{
+//                     background: "#fff",
+//                     color: "#6a11cb",
+//                     borderRadius: "25px",
+//                     fontWeight: "600",
+//                     padding: "6px 20px"
+//                   }}>
+//                   Login
+//                 </button>
+//               </Link>
+//             </form>
+//           </div>
+//         </div>
+//       </nav>
+
+//       {/* Announcement Bar (scrolls) */}
+//       <div style={{
+//         position: "fixed",
+//         top: "70px", // right below navbar
+//         left: 0,
+//         right: 0,
+//         background: "linear-gradient(to right, #ff7e5f, #feb47b)",
+//         color: "white",
+//         padding: "10px 0",
+//         overflow: "hidden",
+//         whiteSpace: "nowrap",
+//         textAlign: "center",
+//         fontWeight: "600",
+//         zIndex: 999,
+//         boxShadow: "0 2px 6px rgba(0,0,0,0.1)"
+//       }}>
+//         <div style={{
+//           display: "inline-block",
+//           paddingLeft: "100%",
+//           color:"green",
+//           animation: "scroll-left 15s linear infinite"
+//         }}>
+//           🎉  ZANZIBAR PLUMBING MARKETING SHOP CENTER. 🎉
+//         </div>
+//       </div>
+
+//       {/* Keyframes for announcement scroll */}
+//       <style>
+//         {`
+//           @keyframes scroll-left {
+//             0% { transform: translateX(0); }
+//             100% { transform: translateX(-100%); }
+//           }
+//         `}
+//       </style>
+
+//       {/* Product Section with integrated shelf info */}
+//       <div style={{
+//         position: "absolute",
+//         top: "120px",
+//         left: 0,
+//         right: 0,
+//         bottom: 0,
+//         overflowY: "auto",
+//         padding: "20px 50px"
+//       }}>
+//         {/* Fixed Subtitle */}
+//         <h4 style={{
+//           position: "fixed",
+//           top: "120px",
+//           left: "50%",
+//           transform: "translateX(-50%)",
+//           zIndex: 998,
+//           margin: 0,
+//           padding: "5px 0",
+//           color: "#2c3e50",
+//           backgroundColor: "#f5f7fa"
+//         }}>
+//           Our Products
+//         </h4>
+
+//         {/* Products Grid */}
+//         <div style={{
+//           display: "grid",
+//           gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
+//           gap: "25px"
+//         }}>
+//           {filteredProducts.length > 0 ? filteredProducts.map((product, index) => (
+//             <div key={product.productId}
+//               style={{
+//                 background: "white",
+//                 borderRadius: "16px",
+//                 boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
+//                 overflow: "hidden",
+//                 transition: "transform 0.3s ease, box-shadow 0.3s ease"
+//               }}
+//               onMouseEnter={(e) => {
+//                 e.currentTarget.style.transform = "translateY(-6px)";
+//                 e.currentTarget.style.boxShadow = "0 12px 25px rgba(0,0,0,0.15)";
+//               }}
+//               onMouseLeave={(e) => {
+//                 e.currentTarget.style.transform = "translateY(0)";
+//                 e.currentTarget.style.boxShadow = "0 8px 20px rgba(0,0,0,0.08)";
+//               }}
+//             >
+//               {/* Product Image */}
+//               <div style={{ position: "relative", height: "180px", overflow: "hidden" }}>
+//                 <span style={{
+//                   position: "absolute", top: "10px", right: "10px",
+//                   background: "green", color: "white",
+//                   padding: "4px 10px", borderRadius: "12px",
+//                   fontSize: "12px", fontWeight: "600"
+//                 }}>
+//                   In Stock
+//                 </span>
+//                 <img src={`data:image/jpeg;base64,${product.image}`}
+//                   alt={product.productName}
+//                   style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+//               </div>
+
+//               {/* Product Info */}
+//               <div style={{ padding: "15px" }}>
+//                 <p style={{ fontSize: "13px", color: "#6c757d", marginBottom: "5px" }}>
+//                   {product.brand}
+//                 </p>
+//                 <h5 style={{
+//                   fontSize: "16px",
+//                   fontWeight: "600",
+//                   color: "#2c3e50",
+//                   marginBottom: "10px",
+//                   overflow: "hidden",
+//                   textOverflow: "ellipsis",
+//                   whiteSpace: "nowrap"
+//                 }}>
+//                   {product.productName}
+//                 </h5>
+
+//                 <div>
+//                   <span style={{ fontWeight: "bold", color: "#2c3e50", fontSize: "16px" }}>
+//                     Tsh {product.price?.toLocaleString()}
+//                   </span>
+//                   {product.originalPrice && (
+//                     <span style={{ marginLeft: "8px", color: "#6c757d", textDecoration: "line-through", fontSize: "13px" }}>
+//                       {product.originalPrice}
+//                     </span>
+//                   )}
+//                 </div>
+
+//                 <p style={{ marginTop: "6px", fontSize: "13px", color: "#6c757d" }}>
+//                   {product.vendorCompany}
+//                 </p>
+
+//                 {/* Shelf info inside product card */}
+//                 <div style={{ marginTop: "12px" }}>
+//                   {product.shelf ? (
+//                     <div style={{
+//                       border: "1px solid #dee2e6",
+//                       borderRadius: "8px",
+//                       padding: "8px",
+//                       backgroundColor: "#f8f9fa"
+//                     }}>
+//                       <strong>Shelf:</strong> {product.shelf.shelfName} - {product.shelf.locationDescription}
+//                     </div>
+//                   ) : (
+//                     <div style={{
+//                       border: "1px solid #dee2e6",
+//                       borderRadius: "8px",
+//                       padding: "8px",
+//                       backgroundColor: "#f8f9fa"
+//                     }}>
+//                       No Shelf Assigned
+//                     </div>
+//                   )}
+//                 </div>
+
+//                 {/* Favorite button */}
+//                 <div style={{ marginTop: "12px" }}>
+//                   <button className="btn" style={{
+//                     background: "linear-gradient(135deg, #6a11cb, #2575fc)",
+//                     color: "white",
+//                     border: "none",
+//                     borderRadius: "50%",
+//                     width: "36px",
+//                     height: "36px",
+//                     display: "flex",
+//                     alignItems: "center",
+//                     justifyContent: "center",
+//                     fontSize: "14px"
+//                   }}>
+//                     <i className="fa fa-heart"></i>
+//                   </button>
+//                 </div>
+//               </div>
+//             </div>
+//           )) : (
+//             <div style={{
+//               gridColumn: "1 / -1",
+//               textAlign: "center",
+//               padding: "40px",
+//               color: "#78909c"
+//             }}>
+//               <div style={{ fontSize: "60px", marginBottom: "15px" }}>🛍️</div>
+//               <h3 style={{ marginBottom: "10px", color: "#546e7a" }}>No products found</h3>
+//               <p>Try adjusting your search or check back later.</p>
+//             </div>
+//           )}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default CustAdvertise;
+
 import React, { useEffect, useState } from 'react'; 
 import axios from 'axios';
 import { Link, useLocation } from 'react-router-dom';
@@ -1830,6 +2421,7 @@ const CustAdvertise = () => {
   const [products, setProducts] = useState([]);
   const [searchInput, setSearchInput] = useState('');
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [shelves, setShelves] = useState([]);
 
   // Fetch products
   const fetchProducts = async (query = '') => {
@@ -1842,8 +2434,21 @@ const CustAdvertise = () => {
     }
   };
 
+  // Fetch shelves
+  const fetchShelves = async () => {
+    try {
+      const response = await axios.get('http://localhost:8080/api/shelves/list-shelves');
+      setShelves(response.data);
+    } catch (error) {
+      console.error('Error fetching shelves:', error);
+    }
+  };
+
+  // useEffect to fetch products and shelves periodically
   useEffect(() => {
     fetchProducts();
+    fetchShelves();
+
     const interval = setInterval(() => {
       fetchProducts(searchInput);
     }, 5000);
@@ -1867,7 +2472,8 @@ const CustAdvertise = () => {
   }, [location]);
 
   return (
-    <div style={{ backgroundColor: "#f5f7fa", height: "100vh", overflow: "hidden" }}>
+    <div style={{ backgroundColor: "#f5f7fa", minHeight: "100vh", overflow: "hidden" }}>
+      
       {/* Navbar */}
       <nav className="navbar navbar-expand-sm navbar-dark"
         style={{
@@ -1885,7 +2491,7 @@ const CustAdvertise = () => {
           </button>
 
           <div className="collapse navbar-collapse" id="mynavbar">
-            <form className="d-flex ms-auto">
+            <form className="d-flex ms-auto" style={{ alignItems: "center" }}>
               <input
                 className="form-control me-2"
                 type="text"
@@ -1895,9 +2501,9 @@ const CustAdvertise = () => {
                 style={{
                   borderRadius: "25px",
                   width: "280px",
+                  marginLeft: "1220px",
                   border: "1px solid #ddd",
                   padding: "8px 15px",
-                  marginLeft:"1290px"
                 }}
               />
               <Link to={'/login'}>
@@ -1907,7 +2513,8 @@ const CustAdvertise = () => {
                     color: "#6a11cb",
                     borderRadius: "25px",
                     fontWeight: "600",
-                    padding: "6px 20px"
+                    padding: "6px 20px",
+                    marginLeft: "20px"
                   }}>
                   Login
                 </button>
@@ -1936,7 +2543,6 @@ const CustAdvertise = () => {
         <div style={{
           display: "inline-block",
           paddingLeft: "100%",
-          color:"green",
           animation: "scroll-left 15s linear infinite"
         }}>
           🎉  ZANZIBAR PLUMBING MARKETING SHOP CENTER. 🎉
@@ -1953,66 +2559,49 @@ const CustAdvertise = () => {
         `}
       </style>
 
-      {/* Scrollable Product Section */}
+      {/* Product Section with integrated shelf info */}
       <div style={{
         position: "absolute",
-        top: "120px", // navbar (70px) + announcement (50px)
+        top: "120px",
         left: 0,
         right: 0,
         bottom: 0,
         overflowY: "auto",
         padding: "20px 50px"
       }}>
-        {/* Static Page Title */}
-       {/* Fixed Page Title */}
-{/* <h2 style={{
-  position: "fixed",
-  top: "115px",   // navbar (70px) + announcement (50px)
-  left: "50%",
-  marginTop:"15px",
-  transform: "translateX(-50%)",
-  zIndex: 998,
-  fontSize: "28px",
-  fontWeight: "700",
-  background: "linear-gradient(to right, #f2f1f3ff, #2575fc)",
-  WebkitBackgroundClip: "text",
-  WebkitTextFillColor: "transparent",
-  margin: 0,
-  padding: "10px 0",
-  textAlign: "center"
-}}>
- 
-</h2> */}
+        {/* Fixed Subtitle */}
+        <h4 style={{
+          position: "fixed",
+          top: "120px",
+          left: "50%",
+          transform: "translateX(-50%)",
+          zIndex: 998,
+          margin: 0,
+          padding: "5px 0",
+          color: "#2c3e50",
+          backgroundColor: "#f5f7fa",
+          borderRadius: "8px",
+          boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
+        }}>
+          Our Products
+        </h4>
 
-{/* Fixed Subtitle */}
-<h4 style={{
-  position: "fixed",
-  top: "120px",   // right under the main heading
-  left: "50%",
-  transform: "translateX(-50%)",
-  zIndex: 998,
-  margin: 0,
-  padding: "5px 0",
-  color: "#2c3e50",
-  backgroundColor: "#f5f7fa"
-}}>
-  Our Products
-</h4>
-
-
+        {/* Products Grid */}
         <div style={{
           display: "grid",
           gridTemplateColumns: "repeat(auto-fill, minmax(250px, 1fr))",
-          gap: "25px"
+          gap: "25px",
+          marginTop: "60px" // to avoid overlap with fixed header
         }}>
-          {filteredProducts.map((product) => (
+          {filteredProducts.length > 0 ? filteredProducts.map((product) => (
             <div key={product.productId}
               style={{
                 background: "white",
                 borderRadius: "16px",
                 boxShadow: "0 8px 20px rgba(0,0,0,0.08)",
                 overflow: "hidden",
-                transition: "transform 0.3s ease, box-shadow 0.3s ease"
+                transition: "transform 0.3s ease, box-shadow 0.3s ease",
+                cursor: "pointer"
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = "translateY(-6px)";
@@ -2029,7 +2618,8 @@ const CustAdvertise = () => {
                   position: "absolute", top: "10px", right: "10px",
                   background: "green", color: "white",
                   padding: "4px 10px", borderRadius: "12px",
-                  fontSize: "12px", fontWeight: "600"
+                  fontSize: "12px", fontWeight: "600",
+                  zIndex: 2
                 }}>
                   In Stock
                 </span>
@@ -2055,22 +2645,58 @@ const CustAdvertise = () => {
                   {product.productName}
                 </h5>
 
-                <div>
+                {/* <div style={{ display: "flex", alignItems: "center", marginBottom: "8px" }}>
                   <span style={{ fontWeight: "bold", color: "#2c3e50", fontSize: "16px" }}>
-                    Tsh {product.price?.toLocaleString()}
+                   Sellig Price Tsh {product.price?.toLocaleString()}
                   </span>
                   {product.originalPrice && (
                     <span style={{ marginLeft: "8px", color: "#6c757d", textDecoration: "line-through", fontSize: "13px" }}>
                       {product.originalPrice}
                     </span>
                   )}
-                </div>
+                </div> */}
+                <div style={{ display: "flex", alignItems: "center", marginBottom: "8px" }}>
+  <span style={{ fontWeight: "bold", color: "#2c3e50", fontSize: "16px" }}>
+    Selling Price Tsh {product.sellingPrice?.toLocaleString()}
+  </span>
+  {product.originalPrice && (
+    <span style={{ marginLeft: "8px", color: "#6c757d", textDecoration: "line-through", fontSize: "13px" }}>
+      {product.originalPrice}
+    </span>
+  )}
+</div>
 
                 <p style={{ marginTop: "6px", fontSize: "13px", color: "#6c757d" }}>
                   {product.vendorCompany}
                 </p>
 
+                {/* Shelf info inside product card */}
                 <div style={{ marginTop: "12px" }}>
+                  {product.shelf ? (
+                    <div style={{
+                      border: "1px solid #dee2e6",
+                      borderRadius: "8px",
+                      padding: "8px",
+                      backgroundColor: "#f8f9fa",
+                      fontSize: "14px"
+                    }}>
+                      <strong>Shelf:</strong> {product.shelf.shelfName} - {product.shelf.locationDescription}
+                    </div>
+                  ) : (
+                    <div style={{
+                      border: "1px solid #dee2e6",
+                      borderRadius: "8px",
+                      padding: "8px",
+                      backgroundColor: "#f8f9fa",
+                      fontSize: "14px"
+                    }}>
+                      No Shelf Assigned
+                    </div>
+                  )}
+                </div>
+
+                {/* Favorite button */}
+                <div style={{ marginTop: "12px", display: "flex", justifyContent: "flex-end" }}>
                   <button className="btn" style={{
                     background: "linear-gradient(135deg, #6a11cb, #2575fc)",
                     color: "white",
@@ -2081,16 +2707,19 @@ const CustAdvertise = () => {
                     display: "flex",
                     alignItems: "center",
                     justifyContent: "center",
-                    fontSize: "14px"
-                  }}>
+                    fontSize: "14px",
+                    boxShadow: "0 4px 8px rgba(0,0,0,0.1)",
+                    transition: "transform 0.2s"
+                  }}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = "scale(1.1)"; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = "scale(1)"; }}
+                  >
                     <i className="fa fa-heart"></i>
                   </button>
                 </div>
               </div>
             </div>
-          ))}
-
-          {filteredProducts.length === 0 && (
+          )) : (
             <div style={{
               gridColumn: "1 / -1",
               textAlign: "center",
@@ -2109,4 +2738,3 @@ const CustAdvertise = () => {
 };
 
 export default CustAdvertise;
-

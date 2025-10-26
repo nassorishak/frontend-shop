@@ -30,7 +30,8 @@ const links = {
          { label: 'Add Product', path: '/addProduct', icon: faShoppingCart },
         { label: 'Purchase', path: '/purchase', icon: faMoneyBill },
         { label: 'Manage Customers', path: '/amanage-customers', icon: faCog },
-        // { label: 'ManageSubscription', path: '/manage-subscription', icon: faShoppingCart },
+        // { label: 'AddShelf', path: '/add-shelf', icon: faShoppingCart },  
+        { label: 'Shelf', path: '/shelf', icon: faShoppingCart },          
         { label: 'Manage Vendors', path: '/manage-vendors', icon: faCog },
         // { label: 'Vendor-blocker', path: '/vendor-blocker', icon: faCog },
         { label: 'Logout', path: '/', icon: faSignOutAlt }

@@ -1,14 +1,15 @@
+
 import React, { useState } from 'react';
 
 const RegistrationForm = () => {
   const [formData, setFormData] = useState({
     email: '',
-    password: '', // Password field
+    password: '',
     firstName: '',
     lastName: '',
-    phoneNo: '', // Phone number field
-    custAddress: '', // Customer address field
-    role: 'CUSTOMER' // Default role
+    phoneNo: '',
+    custAddress: '',
+    role: 'CUSTOMER'
   });
 
   const [error, setError] = useState('');
@@ -17,7 +18,7 @@ const RegistrationForm = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
-    setError(''); // Clear error when user types in the form
+    setError('');
   };
 
   const isFormValid = () => {
@@ -26,8 +27,9 @@ const RegistrationForm = () => {
       formData.password &&
       formData.firstName &&
       formData.lastName &&
-      formData.phoneNo && // Include phone number in validation
-      formData.custAddress // Include address in validation
+      formData.phoneNo &&
+      formData.custAddress &&
+      formData.role
     );
   };
 
@@ -39,28 +41,25 @@ const RegistrationForm = () => {
       return;
     }
 
-    setLoading(true); // Indicate loading state
+    setLoading(true);
 
     try {
-      const response = await fetch('http://localhost:8080/api/customer/add/customer', {
+      const response = await fetch('http://localhost:8080/api/users/add/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
           email: formData.email,
-          password: formData.password, // Include password with user data
+          password: formData.password,
           firstName: formData.firstName,
           lastName: formData.lastName,
-          phoneNo: formData.phoneNo, // Include phone number with user data
-          custAddress: formData.custAddress, // Include address with user data
-          role: formData.role // Include selected role
+          role: formData.role
         })
       });
 
       if (response.ok) {
         alert('User registered successfully!');
-        // Optionally, clear the form or redirect
         setFormData({
           email: '',
           password: '',
@@ -77,21 +76,21 @@ const RegistrationForm = () => {
       console.error('Error registering user:', error);
       alert('Failed to register user: ' + error.message);
     } finally {
-      setLoading(false); // Stop loading indicator
+      setLoading(false);
     }
   };
 
   return (
     <div className="register-container">
       <div className="register-form">
-        <h2 style={{color:"green"}}>CUSTOMER REGISTRATION</h2>
+        <h2 style={{ color: 'green', textAlign: 'center' }}>USER REGISTRATION</h2>
         <form onSubmit={handleSubmit}>
           {error && <div className="error">{error}</div>}
+
           <div className="form-row">
             <div className="form-group half-width">
               <input
                 type="email"
-                id="email"
                 name="email"
                 placeholder="Enter your email address"
                 value={formData.email}
@@ -100,11 +99,11 @@ const RegistrationForm = () => {
               />
             </div>
           </div>
+
           <div className="form-row">
             <div className="form-group half-width">
               <input
                 type="password"
-                id="password"
                 name="password"
                 placeholder="Enter your password"
                 value={formData.password}
@@ -113,11 +112,11 @@ const RegistrationForm = () => {
               />
             </div>
           </div>
+
           <div className="form-row">
             <div className="form-group half-width">
               <input
                 type="text"
-                id="firstName"
                 name="firstName"
                 placeholder="Enter your first name"
                 value={formData.firstName}
@@ -128,7 +127,6 @@ const RegistrationForm = () => {
             <div className="form-group half-width">
               <input
                 type="text"
-                id="lastName"
                 name="lastName"
                 placeholder="Enter your last name"
                 value={formData.lastName}
@@ -137,11 +135,36 @@ const RegistrationForm = () => {
               />
             </div>
           </div>
+
+          {/* Role Selection */}
+          <div className="form-row">
+            <div className="form-group half-width">
+              <label style={{ color: 'green', fontWeight: 'bold' }}>Select Role</label>
+              <select
+                name="role"
+                value={formData.role}
+                onChange={handleChange}
+                required
+                style={{
+                  width: '100%',
+                  padding: '10px',
+                  borderRadius: '8px',
+                  border: '1px solid #ccc',
+                  backgroundColor: '#f9f9f9'
+                }}
+              >
+                <option value="CUSTOMER">Customer</option>
+                <option value="VENDOR">Vendor</option>
+                <option value="ADMIN">Admin</option>
+              </select>
+            </div>
+          </div>
+
+          {/* Phone and Address */}
           <div className="form-row">
             <div className="form-group half-width">
               <input
                 type="text"
-                id="phoneNo"
                 name="phoneNo"
                 placeholder="Enter your phone number"
                 value={formData.phoneNo}
@@ -152,7 +175,6 @@ const RegistrationForm = () => {
             <div className="form-group half-width">
               <input
                 type="text"
-                id="custAddress"
                 name="custAddress"
                 placeholder="Enter your address"
                 value={formData.custAddress}
@@ -161,13 +183,22 @@ const RegistrationForm = () => {
               />
             </div>
           </div>
+
           <div className="form-row">
             <div className="form-group half-width">
-              <input 
+              <input
                 type="submit"
                 value={loading ? 'Registering...' : 'Register'}
-                disabled={loading || !isFormValid()} // Disable if loading or invalid
-                style={{ paddingBottom: "35px" }}
+                disabled={loading || !isFormValid()}
+                style={{
+                  backgroundColor: 'green',
+                  color: 'white',
+                  padding: '12px',
+                  border: 'none',
+                  borderRadius: '8px',
+                  width: '100%',
+                  cursor: 'pointer'
+                }}
               />
             </div>
           </div>
@@ -178,3 +209,4 @@ const RegistrationForm = () => {
 };
 
 export default RegistrationForm;
+

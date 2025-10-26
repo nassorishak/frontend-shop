@@ -95,7 +95,7 @@ const ViewOrder = () => {
   return (
     <>
       <Navigation />
-      <div className="main" style={{marginBottom: "150px"}}>
+      <div className="main" style={{marginBottom: "240px"}}>
         <h1 style={{ textAlign: 'center', marginTop: '10px', marginBottom: '40px', backgroundColor: 'gray', width: '1042px', marginLeft: "0px" }}>
           Vendor Manage Order Page
         </h1>
