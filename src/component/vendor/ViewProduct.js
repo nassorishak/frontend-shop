@@ -114,7 +114,7 @@ const ViewProducts = () => {
   return (
     <>
       <Navigation />
-      <div style={{ padding: "20px", fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", minHeight: "100vh", backgroundColor: "#f8f9fa",marginLeft:"250px",width:"85%" }}>
+      <div style={{ padding: "20px", fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", minHeight: "100vh", backgroundColor: "#d8dbddff",marginLeft:"250px",width:"85%"}}>
         <h1 style={{ textAlign: "center", overflowY: "hidden",backgroundColor: "#e2e6e9ff", color: "black", padding: "12px", borderRadius: "12px", marginBottom: "10px",marginTop:"20px" }}>
           PRODUCTS LIST
         </h1>
@@ -162,9 +162,9 @@ const ViewProducts = () => {
         </div>
 
         {/* Products Table */}
-        <div style={{ backgroundColor: "white", borderRadius: "10px", overflow: "hidden", boxShadow: "0 4px 6px rgba(0,0,0,0.05)" }}>
+        <div style={{ backgroundColor: "white", borderRadius: "10px", overflow: "hidden", boxShadow: "0 4px 6px rgba(0,0,0,0.05)",height:"600px" }}>
           <div style={{ maxHeight: "500px", overflowY: "auto" }}>
-            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: "1000px" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: "1000px"}}>
               <thead style={{ backgroundColor: "#f8f9fa", position: "sticky", top: 0, zIndex: 10 }}>
                 <tr>
                   <th style={{ padding: "10px", borderBottom: "2px solid #dee2e6" }}>PID</th>

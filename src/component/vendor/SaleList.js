@@ -5593,7 +5593,7 @@ const SaleList = () => {
       
       // Table headers configuration
       const headers = ['Sale ID', 'Date', 'Product', 'Qty', 'Sell Price', 'Buy Price', 'Total', 'Profit', 'Margin', 'Customer'];
-      const columnWidths = [18, 22, 30, 12, 18, 18, 18, 18, 15, 25];
+      const columnWidths = [15, 18, 20, 20, 25, 25, 25, 25, 30, 25];
       
       // Draw header background
       pdf.setFillColor(59, 89, 152);
@@ -5897,11 +5897,11 @@ const SaleList = () => {
       });
   };
 
-  // 🔹 UI
+  // 🔹 UI4
   return (
     <>
       <Navigation />
-      <div style={{ padding: "20px", marginBottom: "200px", marginTop: "90px" }}>
+      <div style={{ padding: "20px", marginBottom: "240px", marginTop: "10px" }}>
         <div style={{ marginTop: "40px"}}>
           <div
             style={{
@@ -5911,7 +5911,7 @@ const SaleList = () => {
               alignItems: "center",
             }}
           >
-            <h2 style={{ marginTop: "40px", marginLeft: "590px" }}>
+            <h2 style={{ marginTop: "40px", marginLeft: "260px" }}>
               Sales List
             </h2>
             <div style={{ display: "flex", alignItems: "center", gap: "20px" }}>
@@ -6089,7 +6089,7 @@ const SaleList = () => {
                   top: 0,
                   zIndex: 1,
                   background: "#2c3e50",
-                  color: "white",
+                  color: "black",
                 }}
               >
                 <tr>
