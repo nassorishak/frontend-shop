@@ -114,7 +114,7 @@ const ViewProducts = () => {
   return (
     <>
       <Navigation />
-      <div style={{ padding: "20px", fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", minHeight: "100vh", backgroundColor: "#d8dbddff",marginLeft:"250px",width:"85%"}}>
+      <div style={{ padding: "20px", fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", minHeight: "100vh", backgroundColor: "#d8dbddff",marginLeft:"250px",width:"85%",marginTop:"20px" }}>
         <h1 style={{ textAlign: "center", overflowY: "hidden",backgroundColor: "#e2e6e9ff", color: "black", padding: "12px", borderRadius: "12px", marginBottom: "10px",marginTop:"20px" }}>
           PRODUCTS LIST
         </h1>

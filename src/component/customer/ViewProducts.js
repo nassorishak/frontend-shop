@@ -1,385 +1,224 @@
-// import React, { useEffect, useState } from "react";
-// import Navigation from "../navigation/Navigation";
-// import axios from "axios";
-// import { Link } from "react-router-dom";
-
-// const ViewProducts = () => {
-//   const [data, setData] = useState([]);
-//   const [error, setError] = useState("");
-
-//   useEffect(() => {
-//     axios
-//       .get("http://localhost:8080/api/product/get/product")
-//       .then((response) => {
-//         setData(response.data);
-//         setError("");
-//       })
-//       .catch((err) => setError("Failed to fetch products."));
-//   }, []);
-
-//   return (
-//     <div style={{ fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", minHeight: "100vh", backgroundColor: "#f3f5f7ff",width:"1420px" }}>
-//       <Navigation />
-
-//       <div style={{ maxWidth: "1500px", margin: "0 auto", marginLeft: "235px", padding: "20px", backgroundColor:"whitesmoke", }}>
-//         <h2
-//           style={{
-//             textAlign: "center",
-//             marginTop:"50px",
-//             marginBottom: "10px",
-//             color: "#2c3e50",
-//             backgroundColor:"whitesmoke",
-//             borderRadius:"7px",
-//             fontWeight: "600",
-//             fontSize: "28px",
-//             paddingBottom: "10px",
-//             borderBottom: "2px solid #eaeaea",
-//           }}
-//         >
-//           Customer View Products
-//         </h2>
-
-//         {error && (
-//           <div
-//             style={{
-//               color: "#721c24",
-//               backgroundColor: "#f8d7da",
-//               border: "1px solid #f5c6cb",
-//               padding: "12px",
-//               borderRadius: "6px",
-//               marginBottom: "20px",
-//               display: "flex",
-//               justifyContent: "space-between",
-//               alignItems: "center",
-//             }}
-//           >
-//             <span>{error}</span>
-//             <button
-//               onClick={() => setError("")}
-//               style={{
-//                 background: "none",
-//                 border: "none",
-//                 color: "#721c24",
-//                 fontSize: "18px",
-//                 cursor: "pointer",
-//               }}
-//             >
-//               ×
-//             </button>
-//           </div>
-//         )}
-
-//         <div
-//           style={{
-//             backgroundColor: "white",
-//             borderRadius: "10px",
-//             overflow: "hidden",
-//             boxShadow: "0 4px 6px rgba(0,0,0,0.05)",
-//             border: "1px solid #e0e0e0",
-            
-//           }}
-//         >
-//           {/* Scrollable Table Body */}
-//           <div style={{ maxHeight: "600px", overflowY: "auto" }}>
-//             <table style={{ width: "100%", borderCollapse: "collapse", minWidth: "900px" }}>
-//               <thead>
-//                 <tr
-//                   style={{
-//                     backgroundColor: "#f8f9fa",
-//                     position: "sticky",
-//                     top: 0,
-//                     zIndex: 10,
-//                   }}
-//                 >
-//                   <th style={{ padding: "12px", borderBottom: "2px solid #dee2e6", textAlign: "center" }}>ProductId</th>
-//                   <th style={{ padding: "12px", borderBottom: "2px solid #dee2e6", textAlign: "center" }}>Product Code</th>
-//                   <th style={{ padding: "12px", borderBottom: "2px solid #dee2e6", textAlign: "center" }}>Product Image</th>
-//                   <th style={{ padding: "12px", borderBottom: "2px solid #dee2e6", textAlign: "center" }}>Product Name</th>
-//                   <th style={{ padding: "12px", borderBottom: "2px solid #dee2e6", textAlign: "center" }}>Description</th>
-//                   <th style={{ padding: "12px", borderBottom: "2px solid #dee2e6", textAlign: "center" }}>Price</th>
-//                   <th style={{ padding: "12px", borderBottom: "2px solid #dee2e6", textAlign: "center" }}>Category</th>
-//                   <th style={{ padding: "12px", borderBottom: "2px solid #dee2e6", textAlign: "center" }}>Company</th>
-//                   <th style={{ padding: "12px", borderBottom: "2px solid #dee2e6", textAlign: "center" }}>Unit</th>
-//                   <th style={{ padding: "12px", borderBottom: "2px solid #dee2e6", textAlign: "center" }}>Stock Qty</th>
-//                   <th style={{ padding: "12px", borderBottom: "2px solid #dee2e6", textAlign: "center" }}>Action</th>
-//                 </tr>
-//               </thead>
-//               <tbody>
-//                 {data.length > 0 ? (
-//                   data.map((item, index) => (
-//                     <tr key={index} style={{ borderBottom: "1px solid #eaeaea", backgroundColor: index % 2 === 0 ? "#fff" : "#f9f9f9", textAlign: "center" }}>
-//                       <td>{item.productId}</td>
-//                       <td>{item.productCode || "N/A"}</td>
-//                       <td>
-//                         {item.image ? (
-//                           <img src={`data:image/png;base64, ${item.image}`} alt="product" style={{ width: "100px", height: "auto" }} />
-//                         ) : (
-//                           "No Image"
-//                         )}
-//                       </td>
-//                       <td>{item.productName}</td>
-//                       <td>{item.productDescription}</td>
-//                       <td>{item.price}</td>
-//                       <td>{item.category || "N/A"}</td>
-//                       <td>{item.productCompany || "N/A"}</td>
-//                       <td>{item.productUnit || "N/A"}</td>
-//                       <td>{item.stockQuantity != null ? item.stockQuantity : "N/A"}</td>
-//                       <td>
-//                         <Link to={`/makeorder/${item.productId}`}>
-//                           <button
-//                             style={{
-//                               backgroundColor: "green",
-//                               borderRadius: "5px",
-//                               color: "white",
-//                               padding: "5px 10px",
-//                               border: "none",
-//                               cursor: "pointer",
-//                             }}
-//                           >
-//                             Order
-//                           </button>
-//                         </Link>
-//                       </td>
-//                     </tr>
-//                   ))
-//                 ) : (
-//                   <tr>
-//                     <td colSpan="11" style={{ padding: "20px", textAlign: "center" }}>
-//                       No products found
-//                     </td>
-//                   </tr>
-//                 )}
-//               </tbody>
-//             </table>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ViewProducts;
-
-import React, { useEffect, useState } from "react";
-import Navigation from "../navigation/Navigation";
-import axios from "axios";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from 'react';
+import Navigation from '../navigation/Navigation';
+import axios from 'axios';
 
 const ViewProducts = () => {
   const [data, setData] = useState([]);
   const [shelves, setShelves] = useState([]);
-  const [error, setError] = useState("");
+  const [error, setError] = useState(null);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [filter, setFilter] = useState({ 
+    name: '', 
+    category: '', 
+    company: '', 
+    shelfLocation: '',
+    productCode: ''
+  });
 
-  useEffect(() => {
-    // Fetch products
-    axios
-      .get("http://localhost:8080/api/product/get/product")
-      .then((response) => {
-        setData(response.data);
-        setError("");
-      })
-      .catch(() => setError("Failed to fetch products."));
-
-    // Fetch shelves
-    axios
-      .get("http://localhost:8080/api/shelves/list-shelves")
-      .then((response) => {
-        setShelves(response.data);
-      })
-      .catch(() => setError("Failed to fetch shelves."));
-  }, []);
-
-  // Helper to get shelf name from shelfId
-  const getShelfName = (shelfId) => {
-    const shelf = shelves.find((s) => s.shelfId === shelfId);
-    return shelf ? shelf.shelfName : "N/A";
+  // Fetch all products
+  const fetchProducts = () => {
+    axios.get('http://localhost:8080/api/product/get/product')
+      .then((response) => setData(response.data))
+      .catch((err) => setError(err.message));
   };
 
+  // Fetch all shelves
+  const fetchShelves = () => {
+    axios.get('http://localhost:8080/api/shelves/list-shelves')
+      .then((response) => setShelves(response.data))
+      .catch((err) => console.error('Error fetching shelves:', err));
+  };
+
+  useEffect(() => {
+    fetchProducts();
+    fetchShelves();
+  }, []);
+
+  const handleUpdateOpen = (item) => {
+    setSelectedProduct({
+      ...item,
+      shelfId: item.shelf ? item.shelf.id : '', // Extract shelf ID for the dropdown
+      userId: item.user ? item.user.userId : '' // Extract user ID for the dropdown
+    });
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedProduct(null);
+  };
+
+  const handleUpdate = (updatedProduct) => {
+    // Prepare the data for update - handle shelf and user relationships properly
+    const updateData = {
+      ...updatedProduct,
+      shelf: updatedProduct.shelfId ? { id: updatedProduct.shelfId } : null,
+      user: updatedProduct.userId ? { userId: updatedProduct.userId } : null
+    };
+
+    // Remove temporary IDs from the payload
+    delete updateData.shelfId;
+    delete updateData.userId;
+
+    axios.put(`http://localhost:8080/api/product/update/${updatedProduct.productId}`, updateData)
+      .then((res) => {
+        setData(data.map(p => p.productId === updatedProduct.productId ? res.data : p));
+        handleCloseModal();
+      })
+      .catch(() => alert('Failed to update product.'));
+  };
+
+  const handleDeleteConfirmation = (item) => {
+    if (window.confirm(`Are you sure you want to delete ${item.productName}?`)) {
+      axios.delete(`http://localhost:8080/api/product/delete/${item.productId}`)
+        .then(() => setData(data.filter(p => p.productId !== item.productId)))
+        .catch(() => alert('Failed to delete product.'));
+    }
+  };
+
+  const handleImageUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => setSelectedProduct(prev => ({ ...prev, image: reader.result.split(',')[1] }));
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleFilterChange = (e) => {
+    const { name, value } = e.target;
+    setFilter({ ...filter, [name]: value });
+  };
+
+  const clearFilters = () => setFilter({ 
+    name: '', 
+    category: '', 
+    company: '', 
+    shelfLocation: '',
+    productCode: ''
+  });
+
+  // Filtered products - includes all filter fields
+  const filteredProducts = data.filter(p => {
+    const shelfName = p.shelf ? p.shelf.shelfName : '';
+    return (
+      (filter.name === '' || p.productName.toLowerCase().includes(filter.name.toLowerCase())) &&
+      (filter.category === '' || (p.category || '').toLowerCase().includes(filter.category.toLowerCase())) &&
+      (filter.company === '' || (p.productCompany || '').toLowerCase().includes(filter.company.toLowerCase())) &&
+      (filter.shelfLocation === '' || shelfName.toLowerCase().includes(filter.shelfLocation.toLowerCase())) &&
+      (filter.productCode === '' || (p.productCode || '').toLowerCase().includes(filter.productCode.toLowerCase()))
+    );
+  });
+
   return (
-    <div
-      style={{
-        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-        minHeight: "100vh",
-        backgroundColor: "#f3f5f7ff",
-        width: "1420px",
-      }}
-    >
+    <>
       <Navigation />
+      <div style={{ padding: "20px", fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", minHeight: "100vh", backgroundColor: "#d8dbddff",marginLeft:"250px",width:"85%",marginTop:"20px" }}>
+        <h1 style={{ textAlign: "center", overflowY: "hidden",backgroundColor: "#e2e6e9ff", color: "black", padding: "12px", borderRadius: "12px", marginBottom: "10px",marginTop:"20px" }}>
+          PRODUCTS LIST
+        </h1>
 
-      <div
-        style={{
-          maxWidth: "1500px",
-          margin: "0 auto",
-          marginLeft: "235px",
-          padding: "20px",
-          backgroundColor: "whitesmoke",
-        }}
-      >
-        <h2
-          style={{
-            textAlign: "center",
-            marginTop: "50px",
-            marginBottom: "10px",
-            color: "#2c3e50",
-            backgroundColor: "whitesmoke",
-            borderRadius: "7px",
-            fontWeight: "600",
-            fontSize: "28px",
-            paddingBottom: "10px",
-            borderBottom: "2px solid #eaeaea",
-          }}
-        >
-          Customer View Products
-        </h2>
-
-        {error && (
-          <div
-            style={{
-              color: "#721c24",
-              backgroundColor: "#f8d7da",
-              border: "1px solid #f5c6cb",
-              padding: "12px",
-              borderRadius: "6px",
-              marginBottom: "20px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <span>{error}</span>
-            <button
-              onClick={() => setError("")}
-              style={{
-                background: "none",
-                border: "none",
-                color: "#721c24",
-                fontSize: "18px",
-                cursor: "pointer",
-              }}
-            >
-              ×
-            </button>
+        {/* Filter Section */}
+        <div style={{
+          backgroundColor: "white",
+          padding: "15px 20px",
+          borderRadius: "10px",
+          marginBottom: "20px",
+          boxShadow: "0 4px 6px rgba(0,0,0,0.05)",
+          display: "grid",
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+          gap: "15px",
+          alignItems: "end"
+        }}>
+          <div>
+            <label style={{ display: "block", fontWeight: "500", marginBottom: "5px" }}>Product Code</label>
+            <input type="text" name="productCode" value={filter.productCode} onChange={handleFilterChange} placeholder="Search by code"
+              style={{ width: "100%", padding: "8px", borderRadius: "6px", border: "1px solid #ced4da" }} />
           </div>
-        )}
+          <div>
+            <label style={{ display: "block", fontWeight: "500", marginBottom: "5px" }}>Product Name</label>
+            <input type="text" name="name" value={filter.name} onChange={handleFilterChange} placeholder="Search by name"
+              style={{ width: "100%", padding: "8px", borderRadius: "6px", border: "1px solid #ced4da" }} />
+          </div>
+          <div>
+            <label style={{ display: "block", fontWeight: "500", marginBottom: "5px" }}>Category</label>
+            <input type="text" name="category" value={filter.category} onChange={handleFilterChange} placeholder="Search by category"
+              style={{ width: "100%", padding: "8px", borderRadius: "6px", border: "1px solid #ced4da" }} />
+          </div>
+          <div>
+            <label style={{ display: "block", fontWeight: "500", marginBottom: "5px" }}>Company</label>
+            <input type="text" name="company" value={filter.company} onChange={handleFilterChange} placeholder="Search by company"
+              style={{ width: "100%", padding: "8px", borderRadius: "6px", border: "1px solid #ced4da" }} />
+          </div>
+          <div>
+            <label style={{ display: "block", fontWeight: "500", marginBottom: "5px" }}>Shelf Location</label>
+            <input type="text" name="shelfLocation" value={filter.shelfLocation} onChange={handleFilterChange} placeholder="Search by shelf"
+              style={{ width: "100%", padding: "8px", borderRadius: "6px", border: "1px solid #ced4da" }} />
+          </div>
+          <div>
+            <button onClick={clearFilters} style={{ padding: "10px 15px", backgroundColor: "#6c757d", color: "white", border: "none", borderRadius: "6px", cursor: "pointer", width: "100%" }}>Clear Filters</button>
+          </div>
+        </div>
 
-        <div
-          style={{
-            backgroundColor: "white",
-            borderRadius: "10px",
-            overflow: "hidden",
-            boxShadow: "0 4px 6px rgba(0,0,0,0.05)",
-            border: "1px solid #e0e0e0",
-          }}
-        >
-          <div style={{ maxHeight: "600px", overflow: "auto" }}>
-            <table
-              style={{
-                width: "100%",
-                borderCollapse: "collapse",
-                minWidth: "1200px",
-              }}
-            >
-              <thead>
-                <tr
-                  style={{
-                    backgroundColor: "#f8f9fa",
-                    position: "sticky",
-                    top: 0,
-                    zIndex: 10,
-                  }}
-                >
-                  <th style={headerStyle}>PID</th>
-                  <th style={headerStyle}>PCode</th>
-                  <th style={headerStyle}>PImage</th>
-                  <th style={headerStyle}>PName</th>
-                  <th style={headerStyle}>PDescription</th>
-                  <th style={headerStyle}>PPrice</th>
-                  <th style={headerStyle}>PCategory</th>
-                  <th style={headerStyle}>PCompany</th>
-                  <th style={headerStyle}>PUnit</th>
-                  <th style={headerStyle}>NOStock</th>
-                  {/* ✅ Shelf column placed right after NOStock */}
-                  <th style={headerStyle}>Shelf Location</th>
-                  <th style={headerStyle}>Action</th>
+        {/* Products Table */}
+        <div style={{ backgroundColor: "white", borderRadius: "10px", overflow: "hidden", boxShadow: "0 4px 6px rgba(0,0,0,0.05)",height:"600px" }}>
+          <div style={{ maxHeight: "500px", overflowY: "auto" }}>
+            <table style={{ width: "100%", borderCollapse: "collapse", minWidth: "1000px"}}>
+              <thead style={{ backgroundColor: "#f8f9fa", position: "sticky", top: 0, zIndex: 10 }}>
+                <tr>
+                  <th style={{ padding: "10px", borderBottom: "2px solid #dee2e6" }}>PID</th>
+                  <th style={{ padding: "10px", borderBottom: "2px solid #dee2e6" }}>PCode</th>
+                  <th style={{ padding: "10px", borderBottom: "2px solid #dee2e6" }}>PImage</th>
+                  <th style={{ padding: "10px", borderBottom: "2px solid #dee2e6" }}>PName</th>
+                  <th style={{ padding: "10px", borderBottom: "2px solid #dee2e6" }}>PDescription</th>
+                  {/* <th style={{ padding: "10px", borderBottom: "2px solid #dee2e6" }}>Price</th> */}
+                  <th style={{ padding: "10px", borderBottom: "2px solid #dee2e6" }}>Purchase Price</th>
+                  <th style={{ padding: "10px", borderBottom: "2px solid #dee2e6" }}>Selling Price</th>
+                  <th style={{ padding: "10px", borderBottom: "2px solid #dee2e6" }}>PCategory</th>
+                  <th style={{ padding: "10px", borderBottom: "2px solid #dee2e6" }}>PCompany</th>
+                  <th style={{ padding: "10px", borderBottom: "2px solid #dee2e6" }}>PUnit</th>
+                  <th style={{ padding: "10px", borderBottom: "2px solid #dee2e6" }}>Stock Qty</th>
+                  <th style={{ padding: "10px", borderBottom: "2px solid #dee2e6" }}>Shelf Location</th>
+                  {/* Actions column header removed */}
                 </tr>
               </thead>
-
               <tbody>
-                {data.length > 0 ? (
-                  data.map((item, index) => (
-                    <tr
-                      key={index}
-                      style={{
-                        borderBottom: "1px solid #eaeaea",
-                        backgroundColor: index % 2 === 0 ? "#fff" : "#f9f9f9",
-                        textAlign: "center",
-                      }}
-                    >
-                      <td>{item.productId}</td>
-                      <td>{item.productCode || "N/A"}</td>
-                      <td>
-                        {item.image ? (
-                          <img
-                            src={`data:image/png;base64, ${item.image}`}
-                            alt="product"
-                            style={{ width: "100px", height: "auto" }}
-                          />
-                        ) : (
-                          "No Image"
-                        )}
-                      </td>
-                      <td>{item.productName}</td>
-                      <td>{item.productDescription}</td>
-                      <td>{item.price}</td>
-                      <td>{item.category || "N/A"}</td>
-                      <td>{item.productCompany || "N/A"}</td>
-                      <td>{item.productUnit || "N/A"}</td>
-                      <td>
-                        {item.stockQuantity != null ? item.stockQuantity : "N/A"}
-                      </td>
-                      {/* ✅ Shelf displayed after NOStock */}
-                      <td>{getShelfName(item.shelfId)}</td>
-                      <td>
-                        <Link to={`/makeorder/${item.productId}`}>
-                          <button
-                            style={{
-                              backgroundColor: "green",
-                              borderRadius: "5px",
-                              color: "white",
-                              padding: "5px 10px",
-                              border: "none",
-                              cursor: "pointer",
-                            }}
-                          >
-                            Order
-                          </button>
-                        </Link>
-                      </td>
-                    </tr>
-                  ))
-                ) : (
-                  <tr>
-                    <td colSpan="12" style={{ padding: "20px", textAlign: "center" }}>
-                      No products found
+                {filteredProducts.length > 0 ? filteredProducts.map((item, index) => (
+                  <tr key={item.productId} style={{ backgroundColor: index % 2 === 0 ? "#fff" : "#f9f9f9", borderBottom: "1px solid #eaeaea" }}>
+                    <td style={{ padding: "8px" }}>{item.productId}</td>
+                    <td style={{ padding: "8px" }}>{item.productCode || 'N/A'}</td>
+                    <td style={{ padding: "8px" }}>
+                      {item.image ? <img src={`data:image/png;base64,${item.image}`} alt="product" style={{ width: '70px' }} /> : 'No Image'}
                     </td>
+                    <td style={{ padding: "8px" }}>{item.productName}</td>
+                    <td style={{ padding: "8px" }}>{item.productDescription}</td>
+                    {/* <td style={{ padding: "8px" }}>{item.price}</td> */}
+                    <td style={{ padding: "8px" }}>{item.latestPurchasePrice || 'N/A'}</td>
+                    <td style={{ padding: "8px" }}>{item.sellingPrice || 'N/A'}</td>
+                    <td style={{ padding: "8px" }}>{item.category}</td>
+                    <td style={{ padding: "8px" }}>{item.productCompany}</td>
+                    <td style={{ padding: "8px" }}>{item.productUnit || 'N/A'}</td>
+                    <td style={{ padding: "8px" }}>{item.stockQuantity != null ? item.stockQuantity : 'N/A'}</td>
+                    <td style={{ padding: "8px" }}>
+                      {item.shelf ? `${item.shelf.shelfName} - ${item.shelf.locationDescription}` : 'No Shelf Assigned'}
+                    </td>
+                    {/* Actions buttons removed */}
+                  </tr>
+                )) : (
+                  <tr>
+                    <td colSpan="13" style={{ textAlign: "center", padding: "20px" }}>No products found</td>
                   </tr>
                 )}
               </tbody>
             </table>
           </div>
         </div>
-      </div>
-    </div>
-  );
-};
 
-// ✅ Reusable header style
-const headerStyle = {
-  padding: "12px",
-  borderBottom: "2px solid #dee2e6",
-  textAlign: "center",
-  fontWeight: "600",
-  color: "#333",
+        {/* Update Modal - Removed since update functionality is removed */}
+      </div>
+    </>
+  );
 };
 
 export default ViewProducts;

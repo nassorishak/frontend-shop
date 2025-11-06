@@ -39,6 +39,7 @@ import AddStock from './component/vendor/AddStock';
 import Stock from './component/vendor/Stock';
 import AddShelf from './component/Admin/AddShelf';
 import Shelf from './component/Admin/Shelf';
+import OrderList from './component/customer/OrderList';
 
 
 
@@ -83,6 +84,7 @@ function App() {
         <Route path='/customer-dashboard' element={<CustomerDshboard/>}/>
         <Route path='/view-product' element={<ViewProducts/>}/>
         <Route path='/viewOrder' element={<ViewOrder/>}/>
+          <Route path='/orderList' element={<OrderList/>}/>
         <Route path='/make-payment/:orderId' element={<MakePayment/>}/>
         <Route path='/custchange-information' element={<CustChangeInformation/>}/>
         <Route path='/makeorder/:productId' element={<MakeOrder/>}/>

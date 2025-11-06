@@ -3,83 +3,172 @@ import Navigation from '../navigation/Navigation';
 import axios from 'axios';
 
 const CustomerDashboard = () => {
-  const [orders, setOrders] = useState([]);
   const [countOrder, setCountOrder] = useState(0);
   const [acceptedOrder, setAcceptedOrder] = useState(0);
   const [canceledOrder, setCanceledOrder] = useState(0);
   const [totalPayment, setTotalPayment] = useState(0);
+  const [loading, setLoading] = useState(true);
 
-  // Get userId from localStorage
-  const userId = parseInt(localStorage.getItem('customerId'), 10);
+  // Get customerId from localStorage
+  const customerId = parseInt(localStorage.getItem('customerId'), 10);
 
   useEffect(() => {
-    axios.get('http://localhost:8080/api/orders/get/orders')
+    fetchOrders();
+  }, [customerId]);
+
+  const fetchOrders = () => {
+    setLoading(true);
+    axios.get('http://localhost:8080/api/orders/all')
       .then((response) => {
-        const orders = response.data;
-        setOrders(orders);
+        const allOrders = response.data;
+        
+        if (!allOrders || allOrders.length === 0) {
+          setCountOrder(0);
+          setAcceptedOrder(0);
+          setCanceledOrder(0);
+          setTotalPayment(0);
+          setLoading(false);
+          return;
+        }
 
-        // Filter orders based on userId
-        const userOrders = orders.filter(order => order.customer.userId === userId);
+        // Filter orders for this specific customer
+        const userOrders = allOrders.filter(order => {
+          if (order.customer && order.customer.userId === customerId) return true;
+          if (order.customerId === customerId) return true;
+          if (order.user && order.user.userId === customerId) return true;
+          if (order.userId === customerId) return true;
+          return false;
+        });
 
-        // Calculate total orders count
+        // Calculate statistics
         setCountOrder(userOrders.length);
 
-        // Calculate accepted orders count
-        const acceptedOrders = userOrders.filter(order => order.status === "complete");
-        setAcceptedOrder(acceptedOrders.length);
+        // Count completed orders
+        const completedOrders = userOrders.filter(order => {
+          const status = order.status ? order.status.toLowerCase() : '';
+          return status === 'complete' || status === 'completed' || status === 'delivered';
+        });
+        setAcceptedOrder(completedOrders.length);
 
-        // Calculate canceled orders count
-        const canceledOrders = userOrders.filter(order => order.status === "canceled");
+        // Count canceled orders
+        const canceledOrders = userOrders.filter(order => {
+          const status = order.status ? order.status.toLowerCase() : '';
+          return status === 'canceled' || status === 'cancelled' || status === 'rejected';
+        });
         setCanceledOrder(canceledOrders.length);
 
-        // Calculate total payment amount
-        const totalPaymentAmount = userOrders.reduce((total, order) => total + (order.totalAmount || 0), 0);
+        // Calculate total payment
+        const totalPaymentAmount = completedOrders.reduce((total, order) => {
+          return total + (order.totalAmount || order.amount || 0);
+        }, 0);
         setTotalPayment(totalPaymentAmount);
+        
+        setLoading(false);
       })
       .catch((error) => {
         console.error('Error fetching orders:', error);
+        setLoading(false);
       });
-  }, [userId]);
+  };
 
   return (
     <>
       <Navigation />
-      <div className='main' style={{marginBottom:"250px"}}>
-        <h1 style={{ marginTop: "20px" }}>Customer Dashboard</h1>
-        <div className='card-container'>
-          <div
-            className='card'
-            style={{ backgroundColor: '#fce4ec' }} // Light pink background color
-          >
-            <p><i className='fa fa-user'></i></p>
-            <h3>{countOrder}</h3>
-            <p>Order</p>
+      <div style={{ 
+        padding: "20px", 
+        fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif", 
+        minHeight: "100vh", 
+        backgroundColor: "#d8dbddff",
+        marginLeft: "250px",
+        width: "85%",
+        marginTop: "20px"
+      }}>
+        <h1 style={{ 
+          textAlign: "center", 
+          overflowY: "hidden",
+          backgroundColor: "#e2e6e9ff", 
+          color: "black", 
+          padding: "12px", 
+          borderRadius: "12px", 
+          marginBottom: "30px",
+          marginTop: "20px"
+        }}>
+          CUSTOMER DASHBOARD
+        </h1>
+
+        {loading ? (
+          <div style={{ 
+            textAlign: 'center', 
+            padding: '40px',
+            color: '#6c757d'
+          }}>
+            <div style={{ fontSize: '48px', marginBottom: '10px' }}>⏳</div>
+            <h3>Loading orders...</h3>
           </div>
-          <div
-            className='card'
-            style={{ backgroundColor: '#e8f5e9' }} // Light green background color
-          >
-            <p><i className='fa fa-check'></i></p>
-            <h3>{acceptedOrder}</h3>
-            <p>Accepted Orders</p>
+        ) : (
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(250px, 1fr))',
+            gap: '20px',
+            marginBottom: '30px'
+          }}>
+            {/* Total Orders Card */}
+            <div style={{ 
+              backgroundColor: '#fce4ec',
+              padding: '25px',
+              borderRadius: '12px',
+              textAlign: 'center',
+              boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+              borderLeft: '4px solid #e91e63'
+            }}>
+              <div style={{ fontSize: '36px', margin: '0 0 15px 0', color: '#e91e63' }}>📦</div>
+              <h3 style={{ margin: '0 0 10px 0', fontSize: '32px', color: '#333' }}>{countOrder}</h3>
+              <p style={{ margin: 0, fontSize: '16px', fontWeight: '600', color: '#666' }}>Total Orders</p>
+            </div>
+
+            {/* Completed Orders Card */}
+            <div style={{ 
+              backgroundColor: '#e8f5e9',
+              padding: '25px',
+              borderRadius: '12px',
+              textAlign: 'center',
+              boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+              borderLeft: '4px solid #4caf50'
+            }}>
+              <div style={{ fontSize: '36px', margin: '0 0 15px 0', color: '#4caf50' }}>✅</div>
+              <h3 style={{ margin: '0 0 10px 0', fontSize: '32px', color: '#333' }}>{acceptedOrder}</h3>
+              <p style={{ margin: 0, fontSize: '16px', fontWeight: '600', color: '#666' }}>Completed Orders</p>
+            </div>
+
+            {/* Canceled Orders Card */}
+            <div style={{ 
+              backgroundColor: '#fff3e0',
+              padding: '25px',
+              borderRadius: '12px',
+              textAlign: 'center',
+              boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+              borderLeft: '4px solid #ff9800'
+            }}>
+              <div style={{ fontSize: '36px', margin: '0 0 15px 0', color: '#ff9800' }}>❌</div>
+              <h3 style={{ margin: '0 0 10px 0', fontSize: '32px', color: '#333' }}>{canceledOrder}</h3>
+              <p style={{ margin: 0, fontSize: '16px', fontWeight: '600', color: '#666' }}>Canceled Orders</p>
+            </div>
+
+            {/* Total Payment Card */}
+            <div style={{ 
+              backgroundColor: '#e3f2fd',
+              padding: '25px',
+              borderRadius: '12px',
+              textAlign: 'center',
+              boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+              borderLeft: '4px solid #2196f3'
+            }}>
+              <div style={{ fontSize: '36px', margin: '0 0 15px 0', color: '#2196f3' }}>💰</div>
+              <h3 style={{ margin: '0 0 10px 0', fontSize: '32px', color: '#333' }}>Tsh {totalPayment.toLocaleString()}</h3>
+              <p style={{ margin: 0, fontSize: '16px', fontWeight: '600', color: '#666' }}>Total Payment</p>
+            </div>
           </div>
-          <div
-            className='card'
-            style={{ backgroundColor: '#fff3e0' }} // Light orange background color
-          >
-            <p><i className='fa fa-smile-o'></i></p>
-            <h3>{canceledOrder}</h3>
-            <p>Canceled Orders</p>
-          </div>
-          <div
-            className='card'
-            style={{ backgroundColor: '#e3f2fd' }} // Light blue background color
-          >
-            <p><i className='fa fa-coffee'></i></p>
-            <h3>{totalPayment}</h3>
-            <p>Total Payment</p>
-          </div>
-        </div>
+        )}
       </div>
     </>
   );

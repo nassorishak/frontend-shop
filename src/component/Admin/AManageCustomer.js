@@ -385,6 +385,7 @@ import Navigation from '../navigation/Navigation';
 import { Modal, Button, Form, Alert } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Link } from 'react-router-dom';
+import { width } from '@fortawesome/free-solid-svg-icons/fa0';
 
 const ManageCustomer = () => {
   const [users, setUsers] = useState([]);
@@ -671,7 +672,9 @@ const styles = {
   pageContainer: {
     backgroundColor: '#f4f5f7',
     minHeight: '100vh',
-    padding: '30px',
+    padding: '20px',
+    width:"1605px",
+    marginLeft:"250px",
   },
   header: {
     backgroundColor: '#fff',
@@ -681,6 +684,7 @@ const styles = {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
+    
     marginBottom: '20px',
   },
   title: {
@@ -690,10 +694,13 @@ const styles = {
     margin: 0,
   },
   addButton: {
-    backgroundColor: '#007bff',
-    color: 'white',
+    backgroundColor: '#bdc8d3ff',
+    color: 'green',
     border: 'none',
     padding: '8px 16px',
+    marginTop:"17px",
+     marginLeft:"500px",
+    width:"200px",
     borderRadius: '8px',
     fontWeight: '500',
     cursor: 'pointer',
