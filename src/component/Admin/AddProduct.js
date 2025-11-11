@@ -1100,553 +1100,553 @@
 
 // export default AddProduct;
 
-import React, { useState, useEffect } from 'react';
-import Navigation from '../navigation/Navigation';
+// import React, { useState, useEffect } from 'react';
+// import Navigation from '../navigation/Navigation';
 
-const AddProduct = () => {
-  const [formData, setFormData] = useState({
-    productCode: '',
-    productName: '',
-    productDescription: '',
-    price: '', // Added back for API requirement
-    latestPurchasePrice: '',
-    sellingPrice: '',
-    category: '',
-    productCompany: '',
-    productUnit: '',
-    stockQuantity: '',
-  });
-  const [image, setImage] = useState(null);
-  const [error, setError] = useState(null);
-  const [success, setSuccess] = useState(null);
-  const [shelves, setShelves] = useState([]);
-  const [selectedShelf, setSelectedShelf] = useState('');
-  const [loading, setLoading] = useState(false);
+// const AddProduct = () => {
+//   const [formData, setFormData] = useState({
+//     productCode: '',
+//     productName: '',
+//     productDescription: '',
+//     price: '', // Added back for API requirement
+//     latestPurchasePrice: '',
+//     sellingPrice: '',
+//     category: '',
+//     productCompany: '',
+//     productUnit: '',
+//     stockQuantity: '',
+//   });
+//   const [image, setImage] = useState(null);
+//   const [error, setError] = useState(null);
+//   const [success, setSuccess] = useState(null);
+//   const [shelves, setShelves] = useState([]);
+//   const [selectedShelf, setSelectedShelf] = useState('');
+//   const [loading, setLoading] = useState(false);
 
-  const role = localStorage.getItem('role');
-  const userId = localStorage.getItem('userId');
+//   const role = localStorage.getItem('role');
+//   const userId = localStorage.getItem('userId');
 
-  useEffect(() => {
-    const fetchShelves = async () => {
-      try {
-        const response = await fetch('http://localhost:8080/api/shelves/list-shelves');
-        if (!response.ok) throw new Error('Failed to fetch shelves');
-        const data = await response.json();
-        setShelves(data);
-      } catch (err) {
-        setError('Could not load shelves. Please try again later.');
-      }
-    };
-    fetchShelves();
-  }, []);
+//   useEffect(() => {
+//     const fetchShelves = async () => {
+//       try {
+//         const response = await fetch('http://localhost:8080/api/shelves/list-shelves');
+//         if (!response.ok) throw new Error('Failed to fetch shelves');
+//         const data = await response.json();
+//         setShelves(data);
+//       } catch (err) {
+//         setError('Could not load shelves. Please try again later.');
+//       }
+//     };
+//     fetchShelves();
+//   }, []);
 
-  // Auto-set price when selling price changes
-  useEffect(() => {
-    if (formData.sellingPrice) {
-      setFormData(prev => ({
-        ...prev,
-        price: formData.sellingPrice // Set price to match selling price
-      }));
-    }
-  }, [formData.sellingPrice]);
+//   // Auto-set price when selling price changes
+//   useEffect(() => {
+//     if (formData.sellingPrice) {
+//       setFormData(prev => ({
+//         ...prev,
+//         price: formData.sellingPrice // Set price to match selling price
+//       }));
+//     }
+//   }, [formData.sellingPrice]);
 
-  const handleInputChange = (field, value) => {
-    setFormData(prev => ({
-      ...prev,
-      [field]: value
-    }));
-  };
+//   const handleInputChange = (field, value) => {
+//     setFormData(prev => ({
+//       ...prev,
+//       [field]: value
+//     }));
+//   };
 
-  const handleFormSubmit = async (event) => {
-    event.preventDefault();
-    setError(null);
-    setSuccess(null);
-    setLoading(true);
+//   const handleFormSubmit = async (event) => {
+//     event.preventDefault();
+//     setError(null);
+//     setSuccess(null);
+//     setLoading(true);
 
-    if (!selectedShelf) {
-      setError('Please select a shelf.');
-      setLoading(false);
-      return;
-    }
+//     if (!selectedShelf) {
+//       setError('Please select a shelf.');
+//       setLoading(false);
+//       return;
+//     }
 
-    if (!formData.productCode || !formData.productName || !formData.price) {
-      setError('Please fill in all required fields.');
-      setLoading(false);
-      return;
-    }
+//     if (!formData.productCode || !formData.productName || !formData.price) {
+//       setError('Please fill in all required fields.');
+//       setLoading(false);
+//       return;
+//     }
 
-    const shelfId = parseInt(selectedShelf);
-    if (isNaN(shelfId)) {
-      setError('Invalid shelf selection.');
-      setLoading(false);
-      return;
-    }
+//     const shelfId = parseInt(selectedShelf);
+//     if (isNaN(shelfId)) {
+//       setError('Invalid shelf selection.');
+//       setLoading(false);
+//       return;
+//     }
 
-    const formDataToSend = new FormData();
+//     const formDataToSend = new FormData();
     
-    if (userId) {
-      formDataToSend.append('userId', userId);
-    }
+//     if (userId) {
+//       formDataToSend.append('userId', userId);
+//     }
 
-    Object.keys(formData).forEach(key => {
-      const value = formData[key];
-      let finalValue;
+//     Object.keys(formData).forEach(key => {
+//       const value = formData[key];
+//       let finalValue;
       
-      if (value || value === 0) {
-        if (key.includes('Price') || key === 'price') {
-          finalValue = parseFloat(value) || 0;
-        } else if (key === 'stockQuantity') {
-          finalValue = parseInt(value) || 0;
-        } else {
-          finalValue = value;
-        }
-      } else {
-        if (key.includes('Price') || key === 'price') {
-          finalValue = 0;
-        } else if (key === 'stockQuantity') {
-          finalValue = 0;
-        } else {
-          finalValue = '';
-        }
-      }
+//       if (value || value === 0) {
+//         if (key.includes('Price') || key === 'price') {
+//           finalValue = parseFloat(value) || 0;
+//         } else if (key === 'stockQuantity') {
+//           finalValue = parseInt(value) || 0;
+//         } else {
+//           finalValue = value;
+//         }
+//       } else {
+//         if (key.includes('Price') || key === 'price') {
+//           finalValue = 0;
+//         } else if (key === 'stockQuantity') {
+//           finalValue = 0;
+//         } else {
+//           finalValue = '';
+//         }
+//       }
       
-      formDataToSend.append(key, finalValue);
-    });
+//       formDataToSend.append(key, finalValue);
+//     });
 
-    formDataToSend.append('shelfId', shelfId);
-    if (image) formDataToSend.append('image', image);
+//     formDataToSend.append('shelfId', shelfId);
+//     if (image) formDataToSend.append('image', image);
 
-    try {
-      const response = await fetch('http://localhost:8080/api/product/add/product', {
-        method: 'POST',
-        body: formDataToSend,
-      });
+//     try {
+//       const response = await fetch('http://localhost:8080/api/product/add/product', {
+//         method: 'POST',
+//         body: formDataToSend,
+//       });
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        throw new Error(errorText || 'Request failed');
-      }
+//       if (!response.ok) {
+//         const errorText = await response.text();
+//         throw new Error(errorText || 'Request failed');
+//       }
 
-      await response.json();
-      setSuccess('✅ Product added successfully!');
+//       await response.json();
+//       setSuccess('✅ Product added successfully!');
       
-      setFormData({
-        productCode: '', productName: '', productDescription: '', 
-        price: '', // Reset price
-        latestPurchasePrice: '', sellingPrice: '', category: '', productCompany: '',
-        productUnit: '', stockQuantity: '',
-      });
-      setImage(null);
-      setSelectedShelf('');
+//       setFormData({
+//         productCode: '', productName: '', productDescription: '', 
+//         price: '', // Reset price
+//         latestPurchasePrice: '', sellingPrice: '', category: '', productCompany: '',
+//         productUnit: '', stockQuantity: '',
+//       });
+//       setImage(null);
+//       setSelectedShelf('');
       
-    } catch (err) {
-      setError(`Error: ${err.message}`);
-    } finally {
-      setLoading(false);
-    }
-  };
+//     } catch (err) {
+//       setError(`Error: ${err.message}`);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
 
-  const getShelfDisplayName = (shelf) => {
-    if (shelf.shelfName && shelf.locationDescription) {
-      return `${shelf.shelfName} - ${shelf.locationDescription}`;
-    }
-    return shelf.shelfName || shelf.locationDescription || `Shelf ${shelf.id || 'Unknown'}`;
-  };
+//   const getShelfDisplayName = (shelf) => {
+//     if (shelf.shelfName && shelf.locationDescription) {
+//       return `${shelf.shelfName} - ${shelf.locationDescription}`;
+//     }
+//     return shelf.shelfName || shelf.locationDescription || `Shelf ${shelf.id || 'Unknown'}`;
+//   };
 
-  const getShelfId = (shelf) => shelf.id || shelf.shelfId;
+//   const getShelfId = (shelf) => shelf.id || shelf.shelfId;
 
-  const clearForm = () => {
-    setFormData({
-      productCode: '', productName: '', productDescription: '', 
-      price: '', // Reset price
-      latestPurchasePrice: '', sellingPrice: '', category: '', productCompany: '',
-      productUnit: '', stockQuantity: '',
-    });
-    setImage(null);
-    setSelectedShelf('');
-    setError(null);
-    setSuccess(null);
-  };
+//   const clearForm = () => {
+//     setFormData({
+//       productCode: '', productName: '', productDescription: '', 
+//       price: '', // Reset price
+//       latestPurchasePrice: '', sellingPrice: '', category: '', productCompany: '',
+//       productUnit: '', stockQuantity: '',
+//     });
+//     setImage(null);
+//     setSelectedShelf('');
+//     setError(null);
+//     setSuccess(null);
+//   };
 
-  return (
-    <>
-      <Navigation />
-      <div style={styles.container}>
-        <div style={styles.card}>
-          {/* Compact Header */}
-          <div style={styles.header}>
-            <h1 style={styles.title}>➕ Add New Product</h1>
-          </div>
+//   return (
+//     <>
+//       <Navigation />
+//       <div style={styles.container}>
+//         <div style={styles.card}>
+//           {/* Compact Header */}
+//           <div style={styles.header}>
+//             <h1 style={styles.title}>➕ Add New Product</h1>
+//           </div>
 
-          {/* Alerts */}
-          {success && (
-            <div style={styles.successAlert}>
-              <span>✅</span>
-              {success}
-              <button onClick={() => setSuccess(null)} style={styles.closeBtn}>×</button>
-            </div>
-          )}
+//           {/* Alerts */}
+//           {success && (
+//             <div style={styles.successAlert}>
+//               <span>✅</span>
+//               {success}
+//               <button onClick={() => setSuccess(null)} style={styles.closeBtn}>×</button>
+//             </div>
+//           )}
 
-          {error && (
-            <div style={styles.errorAlert}>
-              <span>⚠️</span>
-              {error}
-              <button onClick={() => setError(null)} style={styles.closeBtn}>×</button>
-            </div>
-          )}
+//           {error && (
+//             <div style={styles.errorAlert}>
+//               <span>⚠️</span>
+//               {error}
+//               <button onClick={() => setError(null)} style={styles.closeBtn}>×</button>
+//             </div>
+//           )}
 
-          <form onSubmit={handleFormSubmit} encType="multipart/form-data">
-            {/* Compact 3-Column Grid */}
-            <div style={styles.formGrid}>
-              <FormField label="Product Code *" value={formData.productCode} onChange={(v) => handleInputChange('productCode', v)} required disabled={loading} placeholder="PROD-001" />
-              <FormField label="Product Name *" value={formData.productName} onChange={(v) => handleInputChange('productName', v)} required disabled={loading} placeholder="Product name" />
-              <FormField label="Category" value={formData.category} onChange={(v) => handleInputChange('category', v)} disabled={loading} placeholder="Category" />
+//           <form onSubmit={handleFormSubmit} encType="multipart/form-data">
+//             {/* Compact 3-Column Grid */}
+//             <div style={styles.formGrid}>
+//               <FormField label="Product Code *" value={formData.productCode} onChange={(v) => handleInputChange('productCode', v)} required disabled={loading} placeholder="PROD-001" />
+//               <FormField label="Product Name *" value={formData.productName} onChange={(v) => handleInputChange('productName', v)} required disabled={loading} placeholder="Product name" />
+//               <FormField label="Category" value={formData.category} onChange={(v) => handleInputChange('category', v)} disabled={loading} placeholder="Category" />
               
-              <FormField label="Company *" value={formData.productCompany} onChange={(v) => handleInputChange('productCompany', v)} required disabled={loading} placeholder="Manufacturer" />
-              <FormField label="Unit" value={formData.productUnit} onChange={(v) => handleInputChange('productUnit', v)} disabled={loading} placeholder="piece, kg" />
-              <FormField label="Stock Qty" type="number" value={formData.stockQuantity} onChange={(v) => handleInputChange('stockQuantity', v)} disabled={loading} min="0" placeholder="0" />
+//               <FormField label="Company *" value={formData.productCompany} onChange={(v) => handleInputChange('productCompany', v)} required disabled={loading} placeholder="Manufacturer" />
+//               <FormField label="Unit" value={formData.productUnit} onChange={(v) => handleInputChange('productUnit', v)} disabled={loading} placeholder="piece, kg" />
+//               <FormField label="Stock Qty" type="number" value={formData.stockQuantity} onChange={(v) => handleInputChange('stockQuantity', v)} disabled={loading} min="0" placeholder="0" />
               
-              <FormField label="Purchase Price" type="number" step="0.01" value={formData.latestPurchasePrice} onChange={(v) => handleInputChange('latestPurchasePrice', v)} disabled={loading} min="0" placeholder="0.00" />
-              <FormField label="Selling Price *" type="number" step="0.01" value={formData.sellingPrice} onChange={(v) => handleInputChange('sellingPrice', v)} required disabled={loading} min="0" placeholder="0.00" />
+//               <FormField label="Purchase Price" type="number" step="0.01" value={formData.latestPurchasePrice} onChange={(v) => handleInputChange('latestPurchasePrice', v)} disabled={loading} min="0" placeholder="0.00" />
+//               <FormField label="Selling Price *" type="number" step="0.01" value={formData.sellingPrice} onChange={(v) => handleInputChange('sellingPrice', v)} required disabled={loading} min="0" placeholder="0.00" />
               
-              {/* Hidden Price Field - Auto-filled from Selling Price */}
-              <div style={styles.hiddenField}>
-                <FormField 
-                  label="Price (Auto)" 
-                  type="number" 
-                  step="0.01" 
-                  value={formData.price} 
-                  onChange={(v) => handleInputChange('price', v)} 
-                  required 
-                  disabled={true} 
-                  placeholder="Auto-filled" 
-                />
-                <div style={styles.autoFillNote}>
-                  ℹ️ Auto-filled from Selling Price
-                </div>
-              </div>
-            </div>
+//               {/* Hidden Price Field - Auto-filled from Selling Price */}
+//               <div style={styles.hiddenField}>
+//                 <FormField 
+//                   label="Price (Auto)" 
+//                   type="number" 
+//                   step="0.01" 
+//                   value={formData.price} 
+//                   onChange={(v) => handleInputChange('price', v)} 
+//                   required 
+//                   disabled={true} 
+//                   placeholder="Auto-filled" 
+//                 />
+//                 <div style={styles.autoFillNote}>
+//                   ℹ️ Auto-filled from Selling Price
+//                 </div>
+//               </div>
+//             </div>
 
-            {/* Compact Row for Description and Shelf */}
-            <div style={styles.compactRow}>
-              <div style={styles.compactField}>
-                <label style={styles.label}>Description</label>
-                <textarea
-                  value={formData.productDescription}
-                  onChange={(e) => handleInputChange('productDescription', e.target.value)}
-                  disabled={loading}
-                  placeholder="Product description..."
-                  style={styles.textarea}
-                />
-              </div>
+//             {/* Compact Row for Description and Shelf */}
+//             <div style={styles.compactRow}>
+//               <div style={styles.compactField}>
+//                 <label style={styles.label}>Description</label>
+//                 <textarea
+//                   value={formData.productDescription}
+//                   onChange={(e) => handleInputChange('productDescription', e.target.value)}
+//                   disabled={loading}
+//                   placeholder="Product description..."
+//                   style={styles.textarea}
+//                 />
+//               </div>
               
-              <div style={styles.compactField}>
-                <label style={styles.label}>Shelf Location *</label>
-                <select
-                  value={selectedShelf}
-                  onChange={(e) => setSelectedShelf(e.target.value)}
-                  required
-                  disabled={loading}
-                  style={styles.select}
-                >
-                  <option value="">-- Select Shelf --</option>
-                  {shelves.map((shelf) => (
-                    <option key={getShelfId(shelf)} value={getShelfId(shelf)}>
-                      {getShelfDisplayName(shelf)}
-                    </option>
-                  ))}
-                </select>
-              </div>
-            </div>
+//               <div style={styles.compactField}>
+//                 <label style={styles.label}>Shelf Location *</label>
+//                 <select
+//                   value={selectedShelf}
+//                   onChange={(e) => setSelectedShelf(e.target.value)}
+//                   required
+//                   disabled={loading}
+//                   style={styles.select}
+//                 >
+//                   <option value="">-- Select Shelf --</option>
+//                   {shelves.map((shelf) => (
+//                     <option key={getShelfId(shelf)} value={getShelfId(shelf)}>
+//                       {getShelfDisplayName(shelf)}
+//                     </option>
+//                   ))}
+//                 </select>
+//               </div>
+//             </div>
 
-            {/* Compact Image Upload */}
-            <div style={styles.imageSection}>
-              <label style={styles.label}>Product Image</label>
-              <div style={styles.fileUpload}>
-                <input
-                  type="file"
-                  accept="image/*"
-                  onChange={(e) => setImage(e.target.files[0])}
-                  disabled={loading}
-                  style={styles.fileInput}
-                  id="image-upload"
-                />
-                <label htmlFor="image-upload" style={styles.fileLabel}>
-                  {image ? '📷 Change Image' : '📁 Choose Image'}
-                </label>
-                {image && <span style={styles.fileName}>{image.name}</span>}
-              </div>
-            </div>
+//             {/* Compact Image Upload */}
+//             <div style={styles.imageSection}>
+//               <label style={styles.label}>Product Image</label>
+//               <div style={styles.fileUpload}>
+//                 <input
+//                   type="file"
+//                   accept="image/*"
+//                   onChange={(e) => setImage(e.target.files[0])}
+//                   disabled={loading}
+//                   style={styles.fileInput}
+//                   id="image-upload"
+//                 />
+//                 <label htmlFor="image-upload" style={styles.fileLabel}>
+//                   {image ? '📷 Change Image' : '📁 Choose Image'}
+//                 </label>
+//                 {image && <span style={styles.fileName}>{image.name}</span>}
+//               </div>
+//             </div>
 
-            {/* Compact Action Buttons */}
-            <div style={styles.actionBar}>
-              <button
-                type="button"
-                onClick={clearForm}
-                disabled={loading}
-                style={styles.clearBtn}
-              >
-                🗑️ Clear
-              </button>
-              <button
-                type="submit"
-                disabled={loading}
-                style={{
-                  ...styles.submitBtn,
-                  opacity: loading ? 0.7 : 1,
-                }}
-              >
-                {loading ? '⏳ Adding...' : '➕ Add Product'}
-              </button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </>
-  );
-};
+//             {/* Compact Action Buttons */}
+//             <div style={styles.actionBar}>
+//               <button
+//                 type="button"
+//                 onClick={clearForm}
+//                 disabled={loading}
+//                 style={styles.clearBtn}
+//               >
+//                 🗑️ Clear
+//               </button>
+//               <button
+//                 type="submit"
+//                 disabled={loading}
+//                 style={{
+//                   ...styles.submitBtn,
+//                   opacity: loading ? 0.7 : 1,
+//                 }}
+//               >
+//                 {loading ? '⏳ Adding...' : '➕ Add Product'}
+//               </button>
+//             </div>
+//           </form>
+//         </div>
+//       </div>
+//     </>
+//   );
+// };
 
-const FormField = ({ label, type = 'text', value, onChange, placeholder, required = false, disabled = false, step, min }) => (
-  <div style={styles.fieldGroup}>
-    <label style={styles.label}>
-      {label}
-      {required && <span style={styles.required}>*</span>}
-    </label>
-    <input
-      type={type}
-      value={value}
-      onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder}
-      required={required}
-      disabled={disabled}
-      step={step}
-      min={min}
-      style={{
-        ...styles.input,
-        ...(disabled ? styles.disabledInput : {})
-      }}
-    />
-  </div>
-);
+// const FormField = ({ label, type = 'text', value, onChange, placeholder, required = false, disabled = false, step, min }) => (
+//   <div style={styles.fieldGroup}>
+//     <label style={styles.label}>
+//       {label}
+//       {required && <span style={styles.required}>*</span>}
+//     </label>
+//     <input
+//       type={type}
+//       value={value}
+//       onChange={(e) => onChange(e.target.value)}
+//       placeholder={placeholder}
+//       required={required}
+//       disabled={disabled}
+//       step={step}
+//       min={min}
+//       style={{
+//         ...styles.input,
+//         ...(disabled ? styles.disabledInput : {})
+//       }}
+//     />
+//   </div>
+// );
 
-const styles = {
-  container: {
-    backgroundColor: '#f8f9fa',
-    marginLeft: '150px',
-    padding: '20px',
-    marginTop: '0px',
-     marginBottom: '20px',
-    minHeight: '85vh',
-    fontFamily: "'Inter', 'Segoe UI', sans-serif",
-  },
-  card: {
-    maxWidth: '1250px',
-    margin: '0 auto',
-    backgroundColor: 'white',
-    marginTop: '70px',
-    borderRadius: '12px',
-    boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
-    padding: '30px',
-    height: '730px',
-    minHeight: 'auto',
-  },
-  header: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: '10px',
-    marginBottom: '20px',
-    paddingBottom: '15px',
-    borderBottom: '2px solid #f1f3f4',
-  },
-  title: {
-    color: '#1a365d',
-    fontSize: '24px',
-    fontWeight: '700',
-    margin: 0,
-    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-    WebkitBackgroundClip: 'text',
-    WebkitTextFillColor: 'transparent',
-  },
-  formGrid: {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(3, 1fr)',
-    gap: '15px',
-    marginBottom: '20px',
-  },
-  compactRow: {
-    display: 'grid',
-    gridTemplateColumns: '2fr 1fr',
-    gap: '20px',
-    marginBottom: '20px',
-  },
-  compactField: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-  fieldGroup: {
-    marginBottom: '0',
-  },
-  label: {
-    display: 'block',
-    fontWeight: '600',
-    marginBottom: '6px',
-    color: '#374151',
-    fontSize: '13px',
-    textTransform: 'uppercase',
-    letterSpacing: '0.5px',
-  },
-  required: {
-    color: '#dc3545',
-    marginLeft: '2px',
-  },
-  input: {
-    width: '100%',
-    padding: '10px 12px',
-    borderRadius: '8px',
-    border: '1px solid #d1d5db',
-    fontSize: '14px',
-    outline: 'none',
-    transition: 'all 0.2s ease',
-    backgroundColor: '#fafafa',
-  },
-  disabledInput: {
-    backgroundColor: '#e9ecef',
-    color: '#6c757d',
-    cursor: 'not-allowed',
-  },
-  textarea: {
-    width: '100%',
-    padding: '10px 12px',
-    borderRadius: '8px',
-    border: '1px solid #d1d5db',
-    fontSize: '14px',
-    minHeight: '80px',
-    resize: 'vertical',
-    fontFamily: 'inherit',
-    outline: 'none',
-    transition: 'all 0.2s ease',
-    backgroundColor: '#fafafa',
-  },
-  select: {
-    width: '100%',
-    padding: '10px 12px',
-    borderRadius: '8px',
-    border: '1px solid #d1d5db',
-    fontSize: '14px',
-    outline: 'none',
-    transition: 'all 0.2s ease',
-    backgroundColor: '#fafafa',
-    cursor: 'pointer',
-  },
-  imageSection: {
-    marginBottom: '25px',
-  },
-  fileUpload: {
-    display: 'flex',
-    alignItems: 'center',
-    gap: '12px',
-    flexWrap: 'wrap',
-  },
-  fileInput: {
-    display: 'none',
-  },
-  fileLabel: {
-    backgroundColor: '#6b7280',
-    color: 'white',
-    padding: '8px 16px',
-    borderRadius: '6px',
-    cursor: 'pointer',
-    fontSize: '13px',
-    fontWeight: '500',
-    transition: 'all 0.2s ease',
-    border: 'none',
-  },
-  fileName: {
-    color: '#6b7280',
-    fontSize: '13px',
-    fontStyle: 'italic',
-  },
-  actionBar: {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: '30px',
-    paddingTop: '20px',
-    borderTop: '1px solid #e5e7eb',
-  },
-  clearBtn: {
-    backgroundColor: '#6b7280',
-    color: 'white',
-    padding: '10px 20px',
-    border: 'none',
-    borderRadius: '8px',
-    fontSize: '14px',
-    fontWeight: '600',
-    cursor: 'pointer',
-    transition: 'all 0.2s ease',
-  },
-  submitBtn: {
-    backgroundColor: '#007bff',
-    color: 'white',
-    padding: '12px 30px',
-    border: 'none',
-    borderRadius: '8px',
-    fontSize: '14px',
-    fontWeight: '600',
-    cursor: 'pointer',
-    boxShadow: '0 2px 8px rgba(0,123,255,0.3)',
-    transition: 'all 0.2s ease',
-    minWidth: '140px',
-  },
-  successAlert: {
-    backgroundColor: '#d1fae5',
-    color: '#065f46',
-    padding: '12px 16px',
-    borderRadius: '8px',
-    marginBottom: '20px',
-    border: '1px solid #a7f3d0',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    fontSize: '14px',
-    fontWeight: '500',
-  },
-  errorAlert: {
-    backgroundColor: '#fee2e2',
-    color: '#991b1b',
-    padding: '12px 16px',
-    borderRadius: '8px',
-    marginBottom: '20px',
-    border: '1px solid #fecaca',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    fontSize: '14px',
-    fontWeight: '500',
-  },
-  closeBtn: {
-    background: 'none',
-    border: 'none',
-    fontSize: '18px',
-    cursor: 'pointer',
-    color: 'inherit',
-    padding: '0',
-    width: '20px',
-    height: '20px',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  hiddenField: {
-    position: 'relative',
-  },
-  autoFillNote: {
-    fontSize: '10px',
-    color: '#6c757d',
-    fontStyle: 'italic',
-    marginTop: '2px',
-  },
-};
+// const styles = {
+//   container: {
+//     backgroundColor: '#f8f9fa',
+//     marginLeft: '150px',
+//     padding: '20px',
+//     marginTop: '0px',
+//      marginBottom: '20px',
+//     minHeight: '85vh',
+//     fontFamily: "'Inter', 'Segoe UI', sans-serif",
+//   },
+//   card: {
+//     maxWidth: '1250px',
+//     margin: '0 auto',
+//     backgroundColor: 'white',
+//     marginTop: '70px',
+//     borderRadius: '12px',
+//     boxShadow: '0 2px 12px rgba(0,0,0,0.08)',
+//     padding: '30px',
+//     height: '730px',
+//     minHeight: 'auto',
+//   },
+//   header: {
+//     display: 'flex',
+//     justifyContent: 'space-between',
+//     alignItems: 'center',
+//     marginTop: '10px',
+//     marginBottom: '20px',
+//     paddingBottom: '15px',
+//     borderBottom: '2px solid #f1f3f4',
+//   },
+//   title: {
+//     color: '#1a365d',
+//     fontSize: '24px',
+//     fontWeight: '700',
+//     margin: 0,
+//     background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+//     WebkitBackgroundClip: 'text',
+//     WebkitTextFillColor: 'transparent',
+//   },
+//   formGrid: {
+//     display: 'grid',
+//     gridTemplateColumns: 'repeat(3, 1fr)',
+//     gap: '15px',
+//     marginBottom: '20px',
+//   },
+//   compactRow: {
+//     display: 'grid',
+//     gridTemplateColumns: '2fr 1fr',
+//     gap: '20px',
+//     marginBottom: '20px',
+//   },
+//   compactField: {
+//     display: 'flex',
+//     flexDirection: 'column',
+//   },
+//   fieldGroup: {
+//     marginBottom: '0',
+//   },
+//   label: {
+//     display: 'block',
+//     fontWeight: '600',
+//     marginBottom: '6px',
+//     color: '#374151',
+//     fontSize: '13px',
+//     textTransform: 'uppercase',
+//     letterSpacing: '0.5px',
+//   },
+//   required: {
+//     color: '#dc3545',
+//     marginLeft: '2px',
+//   },
+//   input: {
+//     width: '100%',
+//     padding: '10px 12px',
+//     borderRadius: '8px',
+//     border: '1px solid #d1d5db',
+//     fontSize: '14px',
+//     outline: 'none',
+//     transition: 'all 0.2s ease',
+//     backgroundColor: '#fafafa',
+//   },
+//   disabledInput: {
+//     backgroundColor: '#e9ecef',
+//     color: '#6c757d',
+//     cursor: 'not-allowed',
+//   },
+//   textarea: {
+//     width: '100%',
+//     padding: '10px 12px',
+//     borderRadius: '8px',
+//     border: '1px solid #d1d5db',
+//     fontSize: '14px',
+//     minHeight: '80px',
+//     resize: 'vertical',
+//     fontFamily: 'inherit',
+//     outline: 'none',
+//     transition: 'all 0.2s ease',
+//     backgroundColor: '#fafafa',
+//   },
+//   select: {
+//     width: '100%',
+//     padding: '10px 12px',
+//     borderRadius: '8px',
+//     border: '1px solid #d1d5db',
+//     fontSize: '14px',
+//     outline: 'none',
+//     transition: 'all 0.2s ease',
+//     backgroundColor: '#fafafa',
+//     cursor: 'pointer',
+//   },
+//   imageSection: {
+//     marginBottom: '25px',
+//   },
+//   fileUpload: {
+//     display: 'flex',
+//     alignItems: 'center',
+//     gap: '12px',
+//     flexWrap: 'wrap',
+//   },
+//   fileInput: {
+//     display: 'none',
+//   },
+//   fileLabel: {
+//     backgroundColor: '#6b7280',
+//     color: 'white',
+//     padding: '8px 16px',
+//     borderRadius: '6px',
+//     cursor: 'pointer',
+//     fontSize: '13px',
+//     fontWeight: '500',
+//     transition: 'all 0.2s ease',
+//     border: 'none',
+//   },
+//   fileName: {
+//     color: '#6b7280',
+//     fontSize: '13px',
+//     fontStyle: 'italic',
+//   },
+//   actionBar: {
+//     display: 'flex',
+//     justifyContent: 'space-between',
+//     alignItems: 'center',
+//     marginTop: '30px',
+//     paddingTop: '20px',
+//     borderTop: '1px solid #e5e7eb',
+//   },
+//   clearBtn: {
+//     backgroundColor: '#6b7280',
+//     color: 'white',
+//     padding: '10px 20px',
+//     border: 'none',
+//     borderRadius: '8px',
+//     fontSize: '14px',
+//     fontWeight: '600',
+//     cursor: 'pointer',
+//     transition: 'all 0.2s ease',
+//   },
+//   submitBtn: {
+//     backgroundColor: '#007bff',
+//     color: 'white',
+//     padding: '12px 30px',
+//     border: 'none',
+//     borderRadius: '8px',
+//     fontSize: '14px',
+//     fontWeight: '600',
+//     cursor: 'pointer',
+//     boxShadow: '0 2px 8px rgba(0,123,255,0.3)',
+//     transition: 'all 0.2s ease',
+//     minWidth: '140px',
+//   },
+//   successAlert: {
+//     backgroundColor: '#d1fae5',
+//     color: '#065f46',
+//     padding: '12px 16px',
+//     borderRadius: '8px',
+//     marginBottom: '20px',
+//     border: '1px solid #a7f3d0',
+//     display: 'flex',
+//     alignItems: 'center',
+//     justifyContent: 'space-between',
+//     fontSize: '14px',
+//     fontWeight: '500',
+//   },
+//   errorAlert: {
+//     backgroundColor: '#fee2e2',
+//     color: '#991b1b',
+//     padding: '12px 16px',
+//     borderRadius: '8px',
+//     marginBottom: '20px',
+//     border: '1px solid #fecaca',
+//     display: 'flex',
+//     alignItems: 'center',
+//     justifyContent: 'space-between',
+//     fontSize: '14px',
+//     fontWeight: '500',
+//   },
+//   closeBtn: {
+//     background: 'none',
+//     border: 'none',
+//     fontSize: '18px',
+//     cursor: 'pointer',
+//     color: 'inherit',
+//     padding: '0',
+//     width: '20px',
+//     height: '20px',
+//     display: 'flex',
+//     alignItems: 'center',
+//     justifyContent: 'center',
+//   },
+//   hiddenField: {
+//     position: 'relative',
+//   },
+//   autoFillNote: {
+//     fontSize: '10px',
+//     color: '#6c757d',
+//     fontStyle: 'italic',
+//     marginTop: '2px',
+//   },
+// };
 
-export default AddProduct;
+// export default AddProduct;

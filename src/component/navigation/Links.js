@@ -8,7 +8,8 @@ const links = {
         { label: 'Manage Order', path: '/manage-Order', icon: faChartBar },
         { label: 'Payment Record', path: '/payment-Record', icon: faMoneyBill }, 
          { label: 'Stock', path: '/stock', icon: faMoneyBill },   
-        { label: 'Sales', path: '/sale', icon: faCog },       
+        { label: 'Sales', path: '/sale', icon: faCog },     
+           { label: 'AddSale', path: '/add-sale', icon: faCog },      
         { label: 'Logout', path: '/', icon: faSignOutAlt  }
 
     ],
@@ -27,7 +28,7 @@ const links = {
     ADMIN: [
         { label: 'Dashboard', path: '/admin-dashboard', icon: faChartBar },
         { label: 'ViewOrders', path: '/manage-orders', icon: faChartBar },
-        { label: 'AddPurchase', path: '/add-puchase', icon: faMoneyBill },
+        // { label: 'AddPurchase', path: '/add-purchase', icon: faMoneyBill },
          { label: 'Add Product', path: '/addProduct', icon: faShoppingCart },
         { label: 'Purchase', path: '/purchase', icon: faMoneyBill },
         { label: 'Manage Customers', path: '/amanage-customers', icon: faCog },

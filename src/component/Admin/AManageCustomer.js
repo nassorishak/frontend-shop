@@ -419,7 +419,7 @@ const ManageCustomer = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:8080/api/customer/get/customer');
+      const response = await axios.get('http://localhost:8080/api/customer/get/all');
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);

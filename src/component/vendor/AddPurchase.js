@@ -429,6 +429,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navigation from "../navigation/Navigation";
 
+
 const AddPurchase = () => {
   const [products, setProducts] = useState([]);
   const [formData, setFormData] = useState({
@@ -555,6 +556,7 @@ const AddPurchase = () => {
         minHeight: "100vh",
         width: "100vw",
         display: "flex",
+
         flexDirection: "column",
         fontFamily: "Arial, sans-serif",
         backgroundColor: "#f0f2f5",
@@ -570,6 +572,7 @@ const AddPurchase = () => {
           justifyContent: "flex-start",
           alignItems: "center",
           padding: "20px",
+          marginLeft:"60px",
           marginTop: "60px",
         }}
       >

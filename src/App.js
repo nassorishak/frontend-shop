@@ -100,7 +100,7 @@ function App() {
         {/* Admin */}
         <Route path='/admin-dashboard' element = {<AdminDashboard/>}/>
         <Route path='/addProduct' element={<AddProduct/>} />
-        <Route path='/add-puchase' element = {<AddPurchase/>}/>
+        <Route path='/add-purchase' element = {<AddPurchase/>}/>
         <Route path='/purchase' element = {<Purchase/>}/>
         <Route path='/add-shelf' element = {<AddShelf/>}/>
         <Route path='/manage-orders' element = {<AManageOrder/>}/>
