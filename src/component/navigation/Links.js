@@ -28,7 +28,7 @@ const links = {
     ADMIN: [
         { label: 'Dashboard', path: '/admin-dashboard', icon: faChartBar },
         { label: 'ViewOrders', path: '/manage-orders', icon: faChartBar },
-        // { label: 'AddPurchase', path: '/add-purchase', icon: faMoneyBill },
+        { label: 'AddPurchase', path: '/add-purchase', icon: faMoneyBill },
          { label: 'Add Product', path: '/addProduct', icon: faShoppingCart },
         { label: 'Purchase', path: '/purchase', icon: faMoneyBill },
         { label: 'Manage Customers', path: '/amanage-customers', icon: faCog },

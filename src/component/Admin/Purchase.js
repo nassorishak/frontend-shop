@@ -5339,7 +5339,7 @@ const Purchase = () => {
     padding: '25px',
     width:"1700px",
     borderRadius: '15px',
-    marginLeft: "205px",
+    marginLeft: "210px",
     boxShadow: '0 6px 15px rgba(0,0,0,0.1)',
     maxHeight: '450px',
     overflowY: 'auto',
@@ -5576,7 +5576,7 @@ const Purchase = () => {
 
             {/* Add Purchase Button */}
             <div>
-              <Link to="/add-purchase">
+              {/* <Link to="/add-purchase">
                 <button style={{ 
                   width: "160px", 
                   backgroundColor: "#28a745", 
@@ -5592,7 +5592,7 @@ const Purchase = () => {
                 }}>
                   ➕ Add Purchase
                 </button>
-              </Link>
+              </Link> */}
             </div>
           </div>
 
