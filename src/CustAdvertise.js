@@ -2501,12 +2501,12 @@ const CustAdvertise = () => {
                 style={{
                   borderRadius: "25px",
                   width: "280px",
-                  marginLeft: "1220px",
+                  marginLeft: "720px",
                   border: "1px solid #ddd",
                   padding: "8px 15px",
                 }}
               />
-              <Link to={'/login'}>
+              {/* <Link to={'/login'}>
                 <button type="button" className="btn"
                   style={{
                     background: "#fff",
@@ -2518,7 +2518,7 @@ const CustAdvertise = () => {
                   }}>
                   Login
                 </button>
-              </Link>
+              </Link> */}
             </form>
           </div>
         </div>
@@ -2584,6 +2584,19 @@ const CustAdvertise = () => {
           boxShadow: "0 2px 4px rgba(0,0,0,0.1)"
         }}>
           Our Products
+          <Link to={'/login'}>
+                <button type="button" className="btn"
+                  style={{
+                    background: "#fff",
+                    color: "#6a11cb",
+                    borderRadius: "25px",
+                    fontWeight: "600",
+                    padding: "6px 20px",
+                    marginLeft: "150px"
+                  }}>
+                  Login
+                </button>
+              </Link>
         </h4>
 
         {/* Products Grid */}
