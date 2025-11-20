@@ -456,56 +456,111 @@ const RegistrationForm = () => {
     );
   };
 
-  // Handle form submit
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+   const handleSubmit = async (e) => {
+  e.preventDefault();
 
-    if (!isFormValid()) {
-      setError('Please fill out all fields correctly.');
-      return;
-    }
+  if (!isFormValid()) {
+    setError('Please fill out all fields correctly.');
+    return;
+  }
 
-    setLoading(true);
+  setLoading(true);
 
-    try {
-      // const response = await fetch('http://localhost:8080/api/users/add/users', {
-       const response = await fetch('http://localhost:8080/api/users/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          email: formData.email,
-          password: formData.password,
-          name: formData.name,    // <-- send name
-          role: formData.role,
-          custAddress: formData.custAddress,
-          phone: formData.phone
-        })
+  try {
+    // Use relative URL - the proxy will handle it
+    const response = await fetch('/api/users/register', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: formData.email,
+        password: formData.password,
+        name: formData.name,
+        role: formData.role,
+        custAddress: formData.custAddress,
+        phone: formData.phone
+      })
+    });
+
+    if (response.ok) {
+      const message = await response.text();
+      alert('User registered successfully!');
+      setFormData({
+        email: '',
+        password: '',
+        name: '',
+        phone: '',
+        custAddress: '',
+        role: 'CUSTOMER'
       });
-
-      if (response.ok) {
-        alert('User registered successfully!');
-        // Reset form
-        setFormData({
-          email: '',
-          password: '',
-          name: '',
-          phone: '',
-          custAddress: '',
-          role: 'CUSTOMER'
-        });
-      } else {
-        const err = await response.text();
-        throw new Error(err || 'Registration failed, please try again.');
-      }
-    } catch (error) {
-      console.error('Error registering user:', error);
-      alert('Failed to register user: ' + error.message);
-    } finally {
-      setLoading(false);
+    } else {
+      const errorText = await response.text();
+      throw new Error(errorText || 'Registration failed');
     }
-  };
+  } catch (error) {
+    console.error('Registration error:', error);
+    
+    if (error.message.includes('Failed to fetch')) {
+      alert('Cannot connect to server. Please ensure:\n1. Spring Boot backend is running on localhost:8080\n2. Restart React development server after backend starts');
+    } else {
+      alert('Failed to register user: ' + error.message);
+    }
+  } finally {
+    setLoading(false);
+  }
+};
+
+  // // Handle form submit
+  // const handleSubmit = async (e) => {
+  //   e.preventDefault();
+
+  //   if (!isFormValid()) {
+  //     setError('Please fill out all fields correctly.');
+  //     return;
+  //   }
+
+  //   setLoading(true);
+
+  //   try {
+  //     // const response = await fetch('http://localhost:8080/api/users/add/users', {
+  //      const response = await fetch('http://localhost:8080/api/users/register', {
+  //       method: 'POST',
+  //       headers: {
+  //         'Content-Type': 'application/json'
+  //       },
+  //       body: JSON.stringify({
+  //         email: formData.email,
+  //         password: formData.password,
+  //         name: formData.name,    // <-- send name
+  //         role: formData.role,
+  //         custAddress: formData.custAddress,
+  //         phone: formData.phone
+  //       })
+  //     });
+
+  //     if (response.ok) {
+  //       alert('User registered successfully!');
+  //       // Reset form
+  //       setFormData({
+  //         email: '',
+  //         password: '',
+  //         name: '',
+  //         phone: '',
+  //         custAddress: '',
+  //         role: 'CUSTOMER'
+  //       });
+  //     } else {
+  //       const err = await response.text();
+  //       throw new Error(err || 'Registration failed, please try again.');
+  //     }
+  //   } catch (error) {
+  //     console.error('Error registering user:', error);
+  //     alert('Failed to register user: ' + error.message);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
 
   return (
     <div className="register-container">
@@ -586,7 +641,7 @@ const RegistrationForm = () => {
               padding: '12px',
               border: 'none',
               borderRadius: '8px',
-              width: '100%',
+              width: '20%',
               cursor: 'pointer',
               marginBottom: '10px'
             }}
@@ -595,7 +650,7 @@ const RegistrationForm = () => {
           </button>
 
           <Link to={'/manage-vendors'}>
-            <button type="button" style={{ width: "90px", backgroundColor: "green", color: "white", borderRadius: "5px", marginTop: "10px" }}>
+            <button type="button" style={{width: '20%', backgroundColor: "green",marginLeft:"350px", color: "white", borderRadius: "5px", marginTop: "10px",height:"50px" }}>
               Back
             </button>
           </Link>

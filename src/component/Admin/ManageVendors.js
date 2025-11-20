@@ -332,8 +332,7 @@ const ManageVendors = () => {
   const [formData, setFormData] = useState({
     userId: '',
     email: '',
-    firstName: '',
-    lastName: '',
+    name: '',
     password: '',
     confirmPassword: '',
     role: 'VENDOR',
@@ -388,8 +387,7 @@ const ManageVendors = () => {
     setFormData({
       userId: user.userId || '',
       email: user.email || '',
-      firstName: user.firstName || '',
-      lastName: user.lastName || '',
+      firstName: user.name || '',
       password: user.password || '',
       confirmPassword: '',
       role: user.role || 'VENDOR',
@@ -412,8 +410,7 @@ const ManageVendors = () => {
     e.preventDefault();
     const {
       email,
-      firstName,
-      lastName,
+      name,
       password,
       confirmPassword,
       vendorType,
@@ -429,8 +426,7 @@ const ManageVendors = () => {
     try {
       await axios.put(`http://localhost:8080/api/users/update/${formData.userId}`, {
         email,
-        firstName,
-        lastName,
+        name,
         password,
         role: formData.role,
         vendorType,
@@ -445,6 +441,7 @@ const ManageVendors = () => {
     }
   };
 
+  
   return (
     <>
       <Navigation />
@@ -469,8 +466,7 @@ const ManageVendors = () => {
           <table style={styles.table}>
             <thead style={styles.thead}>
               <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
+                <th>Name</th>
                 <th>Email</th>
                 <th>Vendor Type</th>
                 <th>Address</th>
@@ -482,8 +478,7 @@ const ManageVendors = () => {
             <tbody>
               {users.map((user) => (
                 <tr key={user.userId} style={styles.row}>
-                  <td>{user.firstName}</td>
-                  <td>{user.lastName}</td>
+                  <td>{user.name}</td>
                   <td>{user.email}</td>
                   <td>{user.vendorType || 'N/A'}</td>
                   <td>{user.address || 'N/A'}</td>
@@ -519,8 +514,8 @@ const ManageVendors = () => {
             <Form onSubmit={handleUpdateSubmit}>
               {[
                 { label: 'Email', name: 'email', type: 'email' },
-                { label: 'First Name', name: 'firstName', type: 'text' },
-                { label: 'Last Name', name: 'lastName', type: 'text' },
+                { label: 'name', name: 'name', type: 'text' },
+
                 { label: 'Password', name: 'password', type: 'password' },
                 { label: 'Confirm Password', name: 'confirmPassword', type: 'password' },
                 { label: 'Vendor Type', name: 'vendorType', type: 'text' },

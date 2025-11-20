@@ -16,12 +16,22 @@ const ViewProducts = () => {
     productCode: ''
   });
 
-  // Fetch all products
-  const fetchProducts = () => {
-    axios.get('http://localhost:8080/api/product/get/product')
-      .then((response) => setData(response.data))
-      .catch((err) => setError(err.message));
-  };
+  // // Fetch all products
+  // const fetchProducts = () => {
+  //   axios.get('http://localhost:8080/api/product/get/product')
+  //     .then((response) => setData(response.data))
+  //     .catch((err) => setError(err.message));
+  // };
+  const fetchProducts = async () => {
+  try {
+    const response = await axios.get('http://localhost:8080/api/product/get/product');
+    setData(response.data);
+    setError(null);
+  } catch (err) {
+    setError('Failed to fetch products: ' + (err.response?.data?.message || err.message));
+    console.error('Error fetching products:', err);
+  }
+};
 
   // Fetch all shelves
   const fetchShelves = () => {

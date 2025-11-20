@@ -10522,20 +10522,35 @@ const SaleList = () => {
     return response.json();
   };
 
-  const fetchAllSales = () => {
-    setLoading(true);
-    setError(null);
-    fetch("http://localhost:8080/api/sales/all-sales")
-      .then(handleResponse)
-      .then((data) => {
-        setSales(data);
-        setLoading(false);
-      })
-      .catch((err) => {
-        setError(err.message);
-        setLoading(false);
-      });
-  };
+//   const fetchAllSales = () => {
+//     setLoading(true);
+//     setError(null);
+//     fetch("http://localhost:8080api/sales/all-sales")
+//       .then(handleResponse)
+//       .then((data) => {
+//         setSales(data);
+//         setLoading(false);
+//       })
+//       .catch((err) => {
+//         setError(err.message);
+//         setLoading(false);
+//       });
+//   };
+
+const fetchAllSales = () => {
+  setLoading(true);
+  setError(null);
+  fetch("/api/sales/all-sales") // Added missing slash
+    .then(handleResponse)
+    .then((data) => {
+      setSales(data);
+      setLoading(false);
+    })
+    .catch((err) => {
+      setError(err.message);
+      setLoading(false);
+    });
+};
 
   const fetchStocks = () => {
     axios
@@ -10635,37 +10650,67 @@ const SaleList = () => {
   };
 
   // 🔹 UPDATED: Precompute sale data with prices from products table
-  const saleData = useMemo(() => {
-    return sales.map((sale) => {
-      // Use selling price from products table, fallback to sale.unitPrice
-      const productSellingPrice = getSellingPriceFromProduct(sale.product);
-      const sellingPrice = productSellingPrice > 0 ? productSellingPrice : parseFloat(sale.unitPrice) || 0;
+//   const saleData = useMemo(() => {
+//     return sales.map((sale) => {
+//       // Use selling price from products table, fallback to sale.unitPrice
+//       const productSellingPrice = getSellingPriceFromProduct(sale.product);
+//       const sellingPrice = productSellingPrice > 0 ? productSellingPrice : parseFloat(sale.unitPrice) || 0;
       
-      // Use buying price from products table, fallback to purchase history
-      const productBuyingPrice = getBuyingPriceFromProduct(sale.product);
-      const purchasePrice = productBuyingPrice > 0 ? productBuyingPrice : getActualPurchasePrice(sale);
+//       // Use buying price from products table, fallback to purchase history
+//       const productBuyingPrice = getBuyingPriceFromProduct(sale.product);
+//       const purchasePrice = productBuyingPrice > 0 ? productBuyingPrice : getActualPurchasePrice(sale);
       
-      const quantity = parseFloat(sale.quantity) || 0;
+//       const quantity = parseFloat(sale.quantity) || 0;
 
-      const totalPrice = sellingPrice * quantity;
-      const profit = (sellingPrice - purchasePrice) * quantity;
-      const cogs = purchasePrice * quantity;
-      const margin =
-        purchasePrice > 0
-          ? ((sellingPrice - purchasePrice) / purchasePrice) * 100
-          : 0;
+//       const totalPrice = sellingPrice * quantity;
+//       const profit = (sellingPrice - purchasePrice) * quantity;
+//       const cogs = purchasePrice * quantity;
+//       const margin =
+//         purchasePrice > 0
+//           ? ((sellingPrice - purchasePrice) / purchasePrice) * 100
+//           : 0;
 
-      return {
-        ...sale,
-        sellingPrice: parseFloat(sellingPrice.toFixed(2)),
-        purchasePrice: parseFloat(purchasePrice.toFixed(2)),
-        profit: parseFloat(profit.toFixed(2)),
-        totalPrice: parseFloat(totalPrice.toFixed(2)),
-        cogs: parseFloat(cogs.toFixed(2)),
-        margin: parseFloat(Math.max(0, margin).toFixed(1)),
-      };
-    });
-  }, [sales, purchases, stocks, products]);
+//       return {
+//         ...sale,
+//         sellingPrice: parseFloat(sellingPrice.toFixed(2)),
+//         purchasePrice: parseFloat(purchasePrice.toFixed(2)),
+//         profit: parseFloat(profit.toFixed(2)),
+//         totalPrice: parseFloat(totalPrice.toFixed(2)),
+//         cogs: parseFloat(cogs.toFixed(2)),
+//         margin: parseFloat(Math.max(0, margin).toFixed(1)),
+//       };
+//     });
+//   }, [sales, purchases, stocks, products]);
+
+// In the saleData computation in SaleList, ensure you're using the unitPrice from sale
+const saleData = useMemo(() => {
+  return sales.map((sale) => {
+    // Use the actual selling price from sale.unitPrice (manually entered)
+    const sellingPrice = parseFloat(sale.unitPrice) || 0;
+    
+    // Rest of your calculation logic remains the same...
+    const purchasePrice = getActualPurchasePrice(sale);
+    const quantity = parseFloat(sale.quantity) || 0;
+
+    const totalPrice = sellingPrice * quantity;
+    const profit = (sellingPrice - purchasePrice) * quantity;
+    const cogs = purchasePrice * quantity;
+    const margin =
+      purchasePrice > 0
+        ? ((sellingPrice - purchasePrice) / purchasePrice) * 100
+        : 0;
+
+    return {
+      ...sale,
+      sellingPrice: parseFloat(sellingPrice.toFixed(2)),
+      purchasePrice: parseFloat(purchasePrice.toFixed(2)),
+      profit: parseFloat(profit.toFixed(2)),
+      totalPrice: parseFloat(totalPrice.toFixed(2)),
+      cogs: parseFloat(cogs.toFixed(2)),
+      margin: parseFloat(Math.max(0, margin).toFixed(1)),
+    };
+  });
+}, [sales, purchases, stocks, products]);
 
   // 🔹 Totals (computed once per change)
   const totalRevenue = useMemo(
@@ -11341,9 +11386,9 @@ const SaleList = () => {
                   <th style={{ padding: "15px 10px", minWidth: "120px", fontSize: "13px" }}>Selling Date</th>
                   <th style={{ padding: "15px 10px", minWidth: "180px", fontSize: "13px" }}>Product Name</th>
                   <th style={{ padding: "15px 10px", minWidth: "90px", fontSize: "13px" }}>Qty Sold</th>
-                  <th style={{ padding: "15px 10px", minWidth: "140px", fontSize: "13px" }}>Selling Price/unit</th>
+                  <th style={{ padding: "15px 10px", minWidth: "140px", fontSize: "13px" }}>Actual Selling Price/unit</th>
                   <th style={{ padding: "15px 10px", minWidth: "140px", fontSize: "13px" }}>Buying Price/unit</th>
-                  <th style={{ padding: "15px 10px", minWidth: "140px", fontSize: "13px" }}>Total Selling Price</th>
+                  <th style={{ padding: "15px 10px", minWidth: "140px", fontSize: "13px" }}>Total Actual Selling Price</th>
                   <th style={{ padding: "15px 10px", minWidth: "120px", fontSize: "13px" }}>Profit</th>
                   <th style={{ padding: "15px 10px", minWidth: "90px", fontSize: "13px" }}>Margin</th>
                   <th style={{ padding: "15px 10px", minWidth: "140px", fontSize: "13px" }}>Customer</th>
@@ -11420,7 +11465,7 @@ const SaleList = () => {
                       >
                         {sale.margin.toFixed(1)}%
                       </td>
-                      <td style={{ padding: "12px 10px" }}>{sale.customerName || "Walk-in"}</td>
+                      <td style={{ padding: "12px 10px" }}>{sale.customerName || "Customer Name"}</td>
                       <td style={{ padding: "12px 10px" }}>{getStockStatus(sale.product)}</td>
                       <td style={{ padding: "12px 10px", textAlign: "center" }}>
                         {getCurrentStockQuantity(sale.product)}

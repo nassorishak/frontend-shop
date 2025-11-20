@@ -353,21 +353,35 @@ const Shelf = () => {
     locationDescription: "",
   });
 
-  const API_BASE_URL = "http://localhost:8080/api/shelves";
+  // const API_BASE_URL = "http://localhost:8080/api/shelves";
 
-  // 🔹 Fetch shelves
-  const fetchShelves = async () => {
-    try {
-      const response = await fetch(`${API_BASE_URL}/list-shelves`);
-      const data = await response.json();
-      setShelves(data);
-    } catch (error) {
-      console.error("Error fetching shelves:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  // // 🔹 Fetch shelves
+  // const fetchShelves = async () => {
+  //   try {
+  //     const response = await fetch(`${API_BASE_URL}/list-shelves`);
+  //     const data = await response.json();
+  //     setShelves(data);
+  //   } catch (error) {
+  //     console.error("Error fetching shelves:", error);
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+// ✅ Correct - use relative URLs
+const API_BASE_URL = "/api/shelves";
 
+// 🔹 Fetch shelves
+const fetchShelves = async () => {
+  try {
+    const response = await fetch(`${API_BASE_URL}/list-shelves`);
+    const data = await response.json();
+    setShelves(data);
+  } catch (error) {
+    console.error("Error fetching shelves:", error);
+  } finally {
+    setLoading(false);
+  }
+};
   useEffect(() => {
     fetchShelves();
   }, []);

@@ -21,7 +21,7 @@ const Shelf = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/api/shelves/add/shelves", {
+      const response = await fetch("api/shelves/add/shelves", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -447,7 +447,7 @@ const AddPurchase = () => {
   // ✅ Fetch products
   useEffect(() => {
     axios
-      .get("http://localhost:8080/api/product/get/product")
+      .get("api/product/get/product")
       .then((res) => setProducts(res.data))
       .catch((err) => console.error("Error fetching products:", err));
   }, []);
@@ -507,7 +507,7 @@ const AddPurchase = () => {
 
     try {
       await axios.post(
-        "http://localhost:8080/api/purchases/add-purchase",
+        "api/purchases/add-purchase",
         purchasePayload
       );
       setMessage("✅ Purchase added successfully!");

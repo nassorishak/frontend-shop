@@ -2426,7 +2426,7 @@ const CustAdvertise = () => {
   // Fetch products
   const fetchProducts = async (query = '') => {
     try {
-      const response = await axios.get(`http://localhost:8080/api/product/search?query=${query}`);
+      const response = await axios.get(`/api/product/search?query=${query}`);
       setProducts(response.data);
       setFilteredProducts(response.data);
     } catch (error) {

@@ -560,7 +560,7 @@ const AddStock = () => {
 
   // Fetch products
   useEffect(() => {
-    fetch('http://localhost:8080/api/product/get/product')
+    fetch('/api/product/get/product')
       .then((res) => {
         if (!res.ok) throw new Error('Failed to fetch products');
         return res.json();
@@ -1019,7 +1019,7 @@ const AddStock = () => {
 
           {/* Profit (readonly) */}
           <div style={{ gridColumn: '1 / span 2' }}>
-            <label style={labelStyle}>Estimated Profit:</label>
+            <label style={labelStyle}>Profit:</label>
             <input
               type="number"
               value={profit.toFixed(2)}

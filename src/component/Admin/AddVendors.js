@@ -396,9 +396,11 @@ const AddVendors = () => {
       alignItems: "center",
     },
     image: {
-      width: "90px",
+      width: "100px",
       height: "90px",
-      borderRadius: "15px",
+      borderRadius: "75px",
+      backgroundColor:"blwck",
+    
       marginBottom: "15px",
     },
     title: {
@@ -460,7 +462,7 @@ const AddVendors = () => {
       <Navigation />
       <div style={styles.container}>
         <div style={styles.formBox}>
-          <img src="image1a.jpg" alt="Vendor" style={styles.image} />
+          <img src="pipe.jpg" alt="Vendor" style={styles.image} />
           <h2 style={styles.title}>Vendor Registration</h2>
 
           <form onSubmit={handleSubmit} style={{ width: "100%" }}>

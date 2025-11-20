@@ -34,7 +34,7 @@ const links = {
         { label: 'Manage Customers', path: '/amanage-customers', icon: faCog },
         // { label: 'AddShelf', path: '/add-shelf', icon: faShoppingCart },  
         { label: 'Shelf', path: '/shelf', icon: faShoppingCart },          
-        { label: 'Manage Vendors', path: '/manage-vendors', icon: faCog },
+        // { label: 'Manage Vendors', path: '/manage-vendors', icon: faCog },
         // { label: 'Vendor-blocker', path: '/vendor-blocker', icon: faCog },
         { label: 'Logout', path: '/', icon: faSignOutAlt }
     ]

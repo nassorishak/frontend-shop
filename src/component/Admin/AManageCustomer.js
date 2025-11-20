@@ -396,12 +396,12 @@ const ManageCustomer = () => {
   const [formData, setFormData] = useState({
     userId: '',
     email: '',
-    firstName: '',
-    lastName: '',
+    name: '',
     password: '',
     role: '',
     custAddress: '',
-    phoneNo: ''
+    phone: '',
+    role: ''
   });
   const [loading, setLoading] = useState(false);
 
@@ -419,7 +419,7 @@ const ManageCustomer = () => {
   const fetchUsers = async () => {
     try {
       setLoading(true);
-      const response = await axios.get('http://localhost:8080/api/customer/get/all');
+      const response = await axios.get('/api/users/get/users');
       setUsers(response.data);
     } catch (error) {
       console.error('Error fetching users:', error);
@@ -447,12 +447,12 @@ const ManageCustomer = () => {
     setFormData({
       userId: user.userId,
       email: user.email,
-      firstName: user.firstName,
-      lastName: user.lastName,
+      name: user.name,
       password: user.password,
       role: user.role,
       custAddress: user.custAddress,
-      phoneNo: user.phoneNo
+      phone: user.phone,
+      role: user.role
     });
   };
 
@@ -513,11 +513,11 @@ const ManageCustomer = () => {
             <table className="table table-striped table-hover" style={styles.table}>
               <thead style={styles.tableHeader}>
                 <tr>
-                  <th>First Name</th>
-                  <th>Last Name</th>
+                  <th>FullName</th>
                   <th>Email</th>
                   <th>Customer Address</th>
-                  <th>Phone Number</th>
+                  <th>Phone</th>
+                  <th>Role</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -525,11 +525,11 @@ const ManageCustomer = () => {
                 {users.length > 0 ? (
                   users.map((user) => (
                     <tr key={user.userId}>
-                      <td>{user.firstName}</td>
-                      <td>{user.lastName}</td>
+                      <td>{user.name}</td>
                       <td>{user.email}</td>
                       <td>{user.custAddress}</td>
-                      <td>{user.phoneNo}</td>
+                      <td>{user.phone}</td>
+                        <td>{user.role}</td>
                       <td style={styles.actionCell}>
                         <Button
                           variant="outline-primary"
@@ -572,11 +572,11 @@ const ManageCustomer = () => {
               <div className="row">
                 <div className="col-md-6">
                   <Form.Group className="mb-3">
-                    <Form.Label>First Name *</Form.Label>
+                    <Form.Label>Name *</Form.Label>
                     <Form.Control
                       type="text"
-                      name="firstName"
-                      value={formData.firstName}
+                      name="name"
+                      value={formData.name}
                       onChange={handleInputChange}
                       required
                     />
@@ -584,11 +584,11 @@ const ManageCustomer = () => {
                 </div>
                 <div className="col-md-6">
                   <Form.Group className="mb-3">
-                    <Form.Label>Last Name *</Form.Label>
+                    <Form.Label>Role *</Form.Label>
                     <Form.Control
                       type="text"
-                      name="lastName"
-                      value={formData.lastName}
+                      name="role"
+                      value={formData.role}
                       onChange={handleInputChange}
                       required
                     />
@@ -673,7 +673,7 @@ const styles = {
     backgroundColor: '#f4f5f7',
     minHeight: '100vh',
     padding: '20px',
-    width:"1605px",
+    width:"1580px",
     marginLeft:"250px",
   },
   header: {
